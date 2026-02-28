@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { SpeedData } from '../../types/speed-data';
-	import { Radio, TrendingUp, Zap } from 'lucide-svelte';
+	import { Radio, TrendingUp, Zap, Activity, Waves } from 'lucide-svelte';
 	import Card from '../ui/card.svelte';
 	import CardHeader from '../ui/card-header.svelte';
 	import CardTitle from '../ui/card-title.svelte';
@@ -41,64 +41,110 @@
 	});
 
 	function rankClass(index: number) {
-		if (index === 0) return 'bg-yellow-500 text-white';
-		if (index === 1) return 'bg-gray-400 text-white';
-		if (index === 2) return 'bg-amber-600 text-white';
+		if (index === 0)
+			return 'bg-gradient-to-br from-yellow-400 to-yellow-600 text-white shadow-lg shadow-yellow-500/30';
+		if (index === 1)
+			return 'bg-gradient-to-br from-gray-300 to-gray-500 text-white shadow-lg shadow-gray-400/30';
+		if (index === 2)
+			return 'bg-gradient-to-br from-amber-600 to-amber-800 text-white shadow-lg shadow-amber-600/30';
 		return 'bg-muted text-muted-foreground';
+	}
+
+	function rankBadge(index: number) {
+		if (index === 0) return '🏆';
+		if (index === 1) return '🥈';
+		if (index === 2) return '🥉';
+		return `#${index + 1}`;
 	}
 </script>
 
-<Card>
-	<CardHeader>
-		<CardTitle class="flex items-center gap-2">
-			<Radio class="text-primary h-5 w-5" />
-			Top capteurs actifs
+<Card class="overflow-hidden border-border/50 bg-gradient-to-b from-card to-card/50">
+	<CardHeader class="pb-4">
+		<CardTitle class="flex items-center gap-2 text-lg">
+			<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+				<Radio class="h-4 w-4 text-primary" />
+			</div>
+			Top-capteurs actifs
 		</CardTitle>
-		<CardDescription>Les 5 capteurs les plus actifs avec leurs statistiques</CardDescription>
+		<CardDescription class="mt-1"
+			>Les 5 capteurs les plus actifs avec leurs statistiques</CardDescription
+		>
 	</CardHeader>
 	<CardContent>
 		{#if data.length === 0}
-			<div class="text-muted-foreground flex h-[300px] items-center justify-center">
-				Aucune donnée disponible
+			<div
+				class="flex h-[300px] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"
+			>
+				<div class="flex h-14 w-14 items-center justify-center rounded-full bg-muted">
+					<Waves class="h-7 w-7 text-muted-foreground/50" />
+				</div>
+				<p class="text-sm font-medium text-muted-foreground">Aucune donnée disponible</p>
 			</div>
 		{:else}
-			<div class="space-y-4">
+			<div class="space-y-3">
 				{#each topSensors as sensor, index}
-					<div class="bg-card hover:bg-accent/50 rounded-lg border p-4 transition-colors">
-						<div class="mb-3 flex items-start justify-between">
-							<div class="flex items-center gap-3">
-								<div class="flex h-10 w-10 items-center justify-center rounded-full font-bold {rankClass(index)}">
-									#{index + 1}
-								</div>
-								<div>
-									<div class="flex items-center gap-2 text-lg font-semibold">
-										{sensor.name}
-										<Zap class="h-4 w-4 text-yellow-500" />
+					<div
+						class="group relative overflow-hidden rounded-xl border border-border/50 bg-gradient-to-br from-muted/30 to-muted/10 p-4 transition-all hover:scale-[1.01] hover:border-primary/30 hover:shadow-md"
+					>
+						<div
+							class="absolute -top-4 -right-4 h-20 w-20 rounded-full bg-primary/5 blur-2xl transition-all duration-500 group-hover:bg-primary/10"
+						></div>
+						<div class="relative z-10">
+							<div class="mb-3 flex items-start justify-between">
+								<div class="flex items-center gap-3">
+									<div
+										class="flex h-10 w-10 items-center justify-center rounded-xl font-bold {rankClass(
+											index
+										)}"
+									>
+										{rankBadge(index)}
 									</div>
-									<div class="text-muted-foreground text-sm">
-										{sensor.count} passages enregistrés
+									<div>
+										<div class="flex items-center gap-2 text-base font-semibold">
+											{sensor.name}
+											{#if index === 0}
+												<Zap class="h-4 w-4 text-yellow-500" />
+											{/if}
+										</div>
+										<div class="text-xs text-muted-foreground">
+											{sensor.count} passages enregistrés
+										</div>
 									</div>
 								</div>
+								<span
+									class="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-semibold text-emerald-500"
+								>
+									Actif
+								</span>
 							</div>
-							<span class="bg-primary/10 rounded-full border px-2.5 py-0.5 text-xs font-semibold">
-								Actif
-							</span>
-						</div>
-						<div class="grid grid-cols-3 gap-3">
-							<div class="rounded border border-blue-500/20 bg-blue-500/10 p-2">
-								<div class="text-muted-foreground mb-1 text-xs">Moyenne</div>
-								<div class="text-sm font-bold text-blue-500">{sensor.avgSpeed} km/h</div>
-							</div>
-							<div class="rounded border border-green-500/20 bg-green-500/10 p-2">
-								<div class="text-muted-foreground mb-1 flex items-center gap-1 text-xs">
-									<TrendingUp class="h-3 w-3" />
-									Max
+							<div class="grid grid-cols-3 gap-2">
+								<div
+									class="rounded-lg border border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-transparent p-2.5 transition-all hover:border-blue-500/40"
+								>
+									<div class="mb-1 flex items-center gap-1 text-xs text-muted-foreground">
+										<Activity class="h-3 w-3" />
+										Moyenne
+									</div>
+									<div class="text-sm font-bold text-blue-500">{sensor.avgSpeed} km/h</div>
 								</div>
-								<div class="text-sm font-bold text-green-500">{sensor.maxSpeed} km/h</div>
-							</div>
-							<div class="rounded border border-orange-500/20 bg-orange-500/10 p-2">
-								<div class="text-muted-foreground mb-1 text-xs">Min</div>
-								<div class="text-sm font-bold text-orange-500">{sensor.minSpeed} km/h</div>
+								<div
+									class="rounded-lg border border-green-500/20 bg-gradient-to-br from-green-500/10 to-transparent p-2.5 transition-all hover:border-green-500/40"
+								>
+									<div class="mb-1 flex items-center gap-1 text-xs text-muted-foreground">
+										<TrendingUp class="h-3 w-3" />
+										Max
+									</div>
+									<div class="text-sm font-bold text-green-500">{sensor.maxSpeed} km/h</div>
+								</div>
+								<div
+									class="rounded-lg border border-orange-500/20 bg-gradient-to-br from-orange-500/10 to-transparent p-2.5 transition-all hover:border-orange-500/40"
+								>
+									<div class="mb-1 flex items-center gap-1 text-xs text-muted-foreground">
+										<TrendingUp class="h-3 w-3 rotate-180" />
+										Min
+									</div>
+									<div class="text-sm font-bold text-orange-500">{sensor.minSpeed} km/h</div>
+								</div>
 							</div>
 						</div>
 					</div>
