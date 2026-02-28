@@ -1,8 +1,7 @@
-import { writable, derived } from 'svelte/store';
+import { writable, derived, get } from 'svelte/store';
 import type { SpeedData } from '../types/speed-data';
 import { mockSpeedData, generateRealtimeData } from '../mock-data';
-import { settings, systemSettings, filterSettings } from './settings';
-import { Lane } from '../types/speed-data';
+import { settings } from './settings';
 
 const MOCK_SENSORS = [
 	'Sector 1 Entry',
@@ -15,115 +14,31 @@ const MOCK_SENSORS = [
 	'Pit Entry'
 ];
 
-export const speedData = writable<SpeedData[]>([]);
-export const isConnected = writable(false);
-export const isLoading = writable(true);
+export const speedData = writable<SpeedData[]>(mockSpeedData);
+export const isConnected = writable(true);
+export const isLoading = writable(false);
 
 let intervalId: ReturnType<typeof setInterval> | null = null;
-let lastId = 0;
-
-function getApiUrl(): string {
-	let url = 'http://192.168.1.100:8080';
-	if (typeof window !== 'undefined') {
-		try {
-			const stored = localStorage.getItem('speedstream-settings');
-			if (stored) {
-				const parsed = JSON.parse(stored);
-				if (parsed.apiUrl) {
-					url = parsed.apiUrl;
-				}
-			}
-		} catch (e) {
-			console.error('Error reading API URL:', e);
-		}
-	}
-	return url;
-}
+let lastId = mockSpeedData.length;
 
 const isSimulation = true;
 
-async function fetchInitialData(
-	dateRangeMode: string,
-	customStartDate: string | null,
-	customEndDate: string | null,
-	maxDataPoints: number
-): Promise<SpeedData[]> {
-	if (isSimulation) {
-		let data = [...mockSpeedData];
-
-		if (dateRangeMode === 'custom' && customStartDate && customEndDate) {
-			const startDate = new Date(customStartDate);
-			const endDate = new Date(customEndDate);
-			data = data.filter((item) => {
-				const itemDate = new Date(item.created_at);
-				return itemDate >= startDate && itemDate <= endDate;
-			});
-		} else if (dateRangeMode === 'today') {
-			const today = new Date();
-			today.setHours(0, 0, 0, 0);
-			const tomorrow = new Date(today);
-			tomorrow.setDate(tomorrow.getDate() + 1);
-			data = data.filter((item) => {
-				const itemDate = new Date(item.created_at);
-				return itemDate >= today && itemDate < tomorrow;
-			});
-		}
-
-		return data;
-	}
-
-	const apiUrl = getApiUrl();
-
-	try {
-		let url = `${apiUrl}/api/speeds?limit=${maxDataPoints}`;
-
-		if (dateRangeMode === 'today') {
-			url = `${apiUrl}/api/speeds/today?limit=${maxDataPoints}`;
-		} else if (dateRangeMode === 'custom' && customStartDate && customEndDate) {
-			url = `${apiUrl}/api/speeds/range?start_date=${customStartDate}&end_date=${customEndDate}`;
-		}
-
-		const response = await fetch(url);
-		if (!response.ok) throw new Error('Failed to fetch');
-		const rawData = await response.json();
-		return rawData.map((d: any) => ({
-			...d,
-			lane: d.lane === 0 ? Lane.Left : Lane.Right
-		}));
-	} catch (e) {
-		console.error('Error fetching data:', e);
-		return [];
-	}
-}
-
 export function initRealtimeData() {
-	let currentSettings: any;
-	let currentSystem: any;
-	let currentFilter: any;
+	const currentSettings = get(settings);
+	const dateRangeMode = currentSettings?.dateRangeMode || 'realtime';
+	const maxDataPoints = currentSettings?.maxDataPoints || 120;
+	const updateInterval = currentSettings?.updateInterval || 3000;
 
-	settings.subscribe((s) => (currentSettings = s));
-	systemSettings.subscribe((s) => (currentSystem = s));
-	filterSettings.subscribe((f) => (currentFilter = f));
-
-	const dateRangeMode = currentFilter?.dateRangeMode || 'realtime';
-	const customStartDate = currentFilter?.customStartDate || null;
-	const customEndDate = currentFilter?.customEndDate || null;
-	const maxDataPoints = currentSystem?.maxDataPoints || 120;
-	const updateInterval = currentSystem?.updateInterval || 3000;
-
-	isLoading.set(true);
-
-	fetchInitialData(dateRangeMode, customStartDate, customEndDate, maxDataPoints).then((data) => {
-		speedData.set(data);
-		isConnected.set(true);
-		isLoading.set(false);
-		lastId = data.length;
-	});
+	// Set initial data
+	speedData.set(mockSpeedData);
+	isConnected.set(true);
+	isLoading.set(false);
 
 	if (intervalId) {
 		clearInterval(intervalId);
 	}
 
+	// Start realtime updates
 	if (dateRangeMode === 'realtime' && isSimulation) {
 		intervalId = setInterval(() => {
 			lastId++;
@@ -147,17 +62,17 @@ export function initRealtimeData() {
 	};
 }
 
-export const filteredData = derived([speedData, filterSettings], ([$speedData, $filter]) => {
+export const filteredData = derived([speedData, settings], ([$speedData, $settings]) => {
 	return $speedData.filter((data) => {
 		const sensorMatch =
-			$filter.selectedSensors.length === 0 ||
-			$filter.selectedSensors.includes(data.sensor_name || '');
+			$settings.selectedSensors.length === 0 ||
+			$settings.selectedSensors.includes(data.sensor_name || '');
 
-		const laneMatch = $filter.selectedLanes.includes(data.lane);
+		const laneMatch = $settings.selectedLanes.includes(data.lane);
 
 		const speedMatch =
-			!$filter.enableAlerts ||
-			(data.speed >= $filter.speedThresholdMin && data.speed <= $filter.speedThresholdMax);
+			!$settings.enableAlerts ||
+			(data.speed >= $settings.speedThresholdMin && data.speed <= $settings.speedThresholdMax);
 
 		return sensorMatch && laneMatch && speedMatch;
 	});

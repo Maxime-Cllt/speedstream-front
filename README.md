@@ -3,7 +3,7 @@
 </div>
 
 <div align="center">
- <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React" />
+ <img src="https://img.shields.io/badge/Svelte-FF3E00?style=for-the-badge&logo=svelte&logoColor=white" alt="Svelte" />
   <img src="https://img.shields.io/badge/Bun-FBF0DF?style=for-the-badge&logo=bun&logoColor=black" alt="Bun" />
   <img src="https://img.shields.io/badge/Version-0.1.0-6366f1?style=for-the-badge&logo=python&logoColor=white" alt="Version" />
 </div>
@@ -49,6 +49,7 @@ racing activities.
 The application supports **three modes**:
 
 #### 🎮 SIMULATION Mode (Default)
+
 Perfect for UI development and testing without any API. Generates realistic mock data:
 
 ```env
@@ -58,6 +59,7 @@ NEXT_PUBLIC_APP_MODE=SIMULATION
 **Use case**: Frontend development, UI testing, demos without backend
 
 #### 🔧 DEV Mode
+
 Connects to your local development API server:
 
 ```env
@@ -68,6 +70,7 @@ NEXT_PUBLIC_API_URL=http://192.168.1.100:3000
 **Use case**: Testing with real API during development
 
 #### 🚀 PROD Mode
+
 Connects to production API server:
 
 ```env
@@ -84,16 +87,19 @@ NEXT_PUBLIC_API_URL=http://your-production-server.com:3000
 > **Important**: If using DEV or PROD mode, `localhost` won't work on some systems. Use your local IP address instead.
 
 **Quick method** - Run the provided script:
+
 ```bash
 ./scripts/get-local-ip.sh
 ```
 
 **Manual methods:**
+
 - **macOS**: `ifconfig | grep "inet " | grep -v 127.0.0.1`
 - **Linux**: `hostname -I`
 - **Windows**: `ipconfig` (look for IPv4 Address)
 
 Then update `.env.local`:
+
 ```bash
 cp .env.example .env.local
 # Edit NEXT_PUBLIC_API_URL with your IP address
@@ -155,4 +161,4 @@ Contributions are welcome! To contribute:
 - **Create a Feature Branch**:
   ```bash
   git checkout -b feature/your-feature-name
-    ```
+  ```
