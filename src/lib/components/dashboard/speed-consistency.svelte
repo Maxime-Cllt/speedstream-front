@@ -156,7 +156,7 @@
 			Consistance des vitesses
 		</CardTitle>
 		<CardDescription class="mt-1"
-			>Analyse de la variabilité et distribution des vitesses</CardDescription
+			>Coefficient de variation, écart-type et distribution des vitesses</CardDescription
 		>
 	</CardHeader>
 	<CardContent>

@@ -138,9 +138,9 @@
 			<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
 				<Activity class="h-4 w-4 text-primary" />
 			</div>
-			Heatmap d'activité
+			Carte d'activité
 		</CardTitle>
-		<CardDescription class="mt-1">Densité de passages par-capteur et par heure</CardDescription>
+		<CardDescription class="mt-1">Intensité des passages par capteur et par heure de la journée</CardDescription>
 	</CardHeader>
 	<CardContent>
 		{#if data.length === 0}

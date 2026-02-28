@@ -109,7 +109,7 @@
 			</div>
 			Répartition par voie
 		</CardTitle>
-		<CardDescription class="mt-1">Distribution des passages entre les deux voies</CardDescription>
+		<CardDescription class="mt-1">Taux de passage entre voie gauche et voie droite</CardDescription>
 	</CardHeader>
 	<CardContent>
 		{#if data.length === 0}

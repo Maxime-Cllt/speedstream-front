@@ -128,11 +128,11 @@
 	<CardHeader class="pb-4">
 		<CardTitle class="flex items-center gap-2 text-lg">
 			<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-				<Radio class="h-4 w-4 text-primary" />
+				<Gauge class="h-4 w-4 text-primary" />
 			</div>
-			Vitesse moyenne par-capteur
+			Vitesse moyenne par capteur
 		</CardTitle>
-		<CardDescription class="mt-1">Comparaison des performances sur chaque secteur</CardDescription>
+		<CardDescription class="mt-1">Vitesses moyennes comparées entre les capteurs actifs</CardDescription>
 	</CardHeader>
 	<CardContent>
 		{#if data.length === 0}

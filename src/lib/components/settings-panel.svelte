@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { settings } from '../stores/settings';
+	import { isConnected, connectionError } from '../stores/data';
 	import { Lane } from '../types/speed-data';
 	import type { DateRangeMode } from '../types/settings';
 	import Button from './ui/button.svelte';
@@ -12,7 +13,9 @@
 	import SheetHeader from './ui/sheet-header.svelte';
 	import SheetTitle from './ui/sheet-title.svelte';
 	import SheetDescription from './ui/sheet-description.svelte';
-	import { Settings, RotateCcw } from 'lucide-svelte';
+	import { Settings, RotateCcw, Wifi, WifiOff, Eye, EyeOff } from 'lucide-svelte';
+
+	let showToken = $state(false);
 
 	interface Props {
 		availableSensors: string[];
@@ -85,6 +88,101 @@
 		</SheetHeader>
 
 		<div class="mt-6 space-y-6">
+			<!-- Source de données -->
+			<div class="space-y-3">
+				<h3 class="text-sm font-semibold">Source des données</h3>
+				<div class="grid grid-cols-2 gap-2">
+					<button
+						onclick={() => settings.update((s) => ({ ...s, dataMode: 'simulation' }))}
+						class="rounded-md px-3 py-2 text-sm font-medium transition-colors {$settings.dataMode ===
+						'simulation'
+							? 'bg-primary text-primary-foreground'
+							: 'bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground'}"
+					>
+						Simulation
+					</button>
+					<button
+						onclick={() => settings.update((s) => ({ ...s, dataMode: 'api' }))}
+						class="rounded-md px-3 py-2 text-sm font-medium transition-colors {$settings.dataMode ===
+						'api'
+							? 'bg-primary text-primary-foreground'
+							: 'bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground'}"
+					>
+						API Live
+					</button>
+				</div>
+			</div>
+
+			<!-- Configuration API (visible si mode api) -->
+			{#if $settings.dataMode === 'api'}
+				<div class="space-y-4 border-t pt-4">
+					<div class="flex items-center justify-between">
+						<h3 class="text-sm font-semibold">Configuration API</h3>
+						<div class="flex items-center gap-1.5 text-xs">
+							{#if $connectionError}
+								<WifiOff class="h-3.5 w-3.5 text-destructive" />
+								<span class="text-destructive">Erreur</span>
+							{:else if $isConnected}
+								<Wifi class="h-3.5 w-3.5 text-green-500" />
+								<span class="text-green-500">Connecté</span>
+							{:else}
+								<div class="h-2 w-2 animate-pulse rounded-full bg-yellow-500"></div>
+								<span class="text-muted-foreground">En attente...</span>
+							{/if}
+						</div>
+					</div>
+
+					<div class="space-y-1">
+						<Label class="text-xs">URL de l'API</Label>
+						<input
+							type="url"
+							class="bg-background h-8 w-full rounded border px-2 text-sm"
+							placeholder="http://localhost:8080"
+							value={$settings.apiUrl}
+							oninput={(e) =>
+								settings.update((s) => ({
+									...s,
+									apiUrl: (e.target as HTMLInputElement).value
+								}))}
+						/>
+					</div>
+
+					<div class="space-y-1">
+						<Label class="text-xs">Token d'authentification</Label>
+						<div class="relative">
+							<input
+								type={showToken ? 'text' : 'password'}
+								class="bg-background h-8 w-full rounded border px-2 pr-8 text-sm"
+								placeholder="Bearer token..."
+								value={$settings.apiToken}
+								oninput={(e) =>
+									settings.update((s) => ({
+										...s,
+										apiToken: (e.target as HTMLInputElement).value
+									}))}
+							/>
+							<button
+								type="button"
+								onclick={() => (showToken = !showToken)}
+								class="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+							>
+								{#if showToken}
+									<EyeOff class="h-3.5 w-3.5" />
+								{:else}
+									<Eye class="h-3.5 w-3.5" />
+								{/if}
+							</button>
+						</div>
+					</div>
+
+					{#if $connectionError}
+						<p class="rounded-md bg-destructive/10 px-3 py-2 text-xs text-destructive">
+							{$connectionError}
+						</p>
+					{/if}
+				</div>
+			{/if}
+
 			<!-- Date Range Mode -->
 			<div class="space-y-4 border-t pt-4">
 				<h3 class="text-sm font-semibold">Période de données</h3>

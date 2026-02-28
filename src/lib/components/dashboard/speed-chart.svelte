@@ -258,6 +258,10 @@
 						<Activity class="h-4 w-4 text-primary" />
 					</div>
 					{title}
+					<span class="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-500">
+						<span class="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500"></span>
+						En direct
+					</span>
 				</CardTitle>
 				{#if description}
 					<CardDescription class="mt-1">{description}</CardDescription>
@@ -286,7 +290,7 @@
 	<CardContent>
 		{#if data.length === 0}
 			<div
-				class="flex h-[320px] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"
+				class="flex h-80 flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"
 			>
 				<div class="flex h-14 w-14 items-center justify-center rounded-full bg-muted">
 					<Waves class="h-7 w-7 text-muted-foreground/50" />

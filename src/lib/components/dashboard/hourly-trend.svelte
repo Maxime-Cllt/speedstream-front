@@ -172,11 +172,11 @@
 	<CardHeader class="pb-4">
 		<CardTitle class="flex items-center gap-2 text-lg">
 			<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-				<Clock class="h-4 w-4 text-primary" />
+				<TrendingUp class="h-4 w-4 text-primary" />
 			</div>
 			Tendance horaire
 		</CardTitle>
-		<CardDescription class="mt-1">Vitesse moyenne et volume d'activité par heure</CardDescription>
+		<CardDescription class="mt-1">Évolution de la vitesse et du volume de trafic heure par heure</CardDescription>
 	</CardHeader>
 	<CardContent>
 		{#if data.length === 0}

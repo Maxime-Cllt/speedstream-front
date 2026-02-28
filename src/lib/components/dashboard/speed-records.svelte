@@ -152,27 +152,28 @@
 	}
 </script>
 
-<Card>
-	<CardHeader>
+<Card class="overflow-hidden border-border/50 bg-gradient-to-b from-card to-card/50">
+	<CardHeader class="pb-4">
 		<div class="flex items-center justify-between">
 			<div>
-				<CardTitle class="flex items-center gap-2">
-					<Trophy class="h-5 w-5 text-yellow-500" />
-					Enregistrements de vitesse
+				<CardTitle class="flex items-center gap-2 text-lg">
+					<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-yellow-500/10">
+						<Trophy class="h-4 w-4 text-yellow-500" />
+					</div>
+					Historique des mesures
 				</CardTitle>
-				<CardDescription>
-					{filteredAndSortedData.length} enregistrement{filteredAndSortedData.length > 1 ? 's' : ''} trouvé{filteredAndSortedData.length >
-					1
-						? 's'
-						: ''}
+				<CardDescription class="mt-1">
+					<span class="font-medium text-foreground">{filteredAndSortedData.length}</span>
+					enregistrement{filteredAndSortedData.length > 1 ? 's' : ''} trouvé{filteredAndSortedData.length > 1 ? 's' : ''}
+					sur <span class="font-medium text-foreground">{data.length}</span> au total
 				</CardDescription>
 			</div>
 			{#if hasActiveFilters}
 				<button
-					class="flex items-center gap-1 rounded-md border px-3 py-1.5 text-sm hover:bg-accent"
+					class="flex items-center gap-1.5 rounded-lg border border-border/50 bg-muted/50 px-3 py-1.5 text-sm transition-colors hover:bg-accent"
 					onclick={clearFilters}
 				>
-					<X class="h-4 w-4" />
+					<X class="h-3.5 w-3.5" />
 					Effacer les filtres
 				</button>
 			{/if}

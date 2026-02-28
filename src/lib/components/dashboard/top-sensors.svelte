@@ -62,12 +62,12 @@
 	<CardHeader class="pb-4">
 		<CardTitle class="flex items-center gap-2 text-lg">
 			<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-				<Radio class="h-4 w-4 text-primary" />
+				<TrendingUp class="h-4 w-4 text-primary" />
 			</div>
-			Top-capteurs actifs
+			Top 5 capteurs
 		</CardTitle>
 		<CardDescription class="mt-1"
-			>Les 5 capteurs les plus actifs avec leurs statistiques</CardDescription
+			>Capteurs les plus actifs — passages et vitesses</CardDescription
 		>
 	</CardHeader>
 	<CardContent>

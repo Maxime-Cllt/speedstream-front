@@ -133,9 +133,9 @@
 			<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
 				<ArrowLeftRight class="h-4 w-4 text-primary" />
 			</div>
-			Comparaison des corridors
+			Performance par corridor
 		</CardTitle>
-		<CardDescription class="mt-1">Performance comparative entre les deux voies</CardDescription>
+		<CardDescription class="mt-1">Vitesse, max, min et volume comparés entre voie gauche et voie droite</CardDescription>
 	</CardHeader>
 	<CardContent>
 		{#if data.length === 0}

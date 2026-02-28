@@ -243,12 +243,12 @@
 	<CardHeader class="pb-4">
 		<CardTitle class="flex items-center gap-2 text-lg">
 			<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-				<Clock class="h-4 w-4 text-primary" />
+				<Sun class="h-4 w-4 text-primary" />
 			</div>
 			Analyse par période
 		</CardTitle>
 		<CardDescription class="mt-1"
-			>Vitesses et activité selon les périodes de la journée</CardDescription
+			>Performance par période — matin, après-midi, soirée et nuit</CardDescription
 		>
 	</CardHeader>
 	<CardContent>

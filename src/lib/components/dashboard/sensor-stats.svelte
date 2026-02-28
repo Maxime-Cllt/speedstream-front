@@ -126,11 +126,11 @@
 	<CardHeader class="pb-4">
 		<CardTitle class="flex items-center gap-2 text-lg">
 			<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-				<Radio class="h-4 w-4 text-primary" />
+				<Activity class="h-4 w-4 text-primary" />
 			</div>
-			Statistiques par-capteur
+			Statistiques par capteur
 		</CardTitle>
-		<CardDescription class="mt-1">Vitesse moyenne par point de mesure</CardDescription>
+		<CardDescription class="mt-1">Volume de détections et vitesse moyenne par point de mesure</CardDescription>
 	</CardHeader>
 	<CardContent>
 		{#if data.length === 0}
