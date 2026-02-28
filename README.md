@@ -53,7 +53,7 @@ The application supports **three modes**:
 Perfect for UI development and testing without any API. Generates realistic mock data:
 
 ```env
-NEXT_PUBLIC_APP_MODE=SIMULATION
+APP_MODE=SIMULATION
 ```
 
 **Use case**: Frontend development, UI testing, demos without backend
@@ -63,8 +63,8 @@ NEXT_PUBLIC_APP_MODE=SIMULATION
 Connects to your local development API server:
 
 ```env
-NEXT_PUBLIC_APP_MODE=DEV
-NEXT_PUBLIC_API_URL=http://192.168.1.100:3000
+APP_MODE=DEV
+API_URL=http://192.168.1.100:3000
 ```
 
 **Use case**: Testing with real API during development
@@ -74,40 +74,15 @@ NEXT_PUBLIC_API_URL=http://192.168.1.100:3000
 Connects to production API server:
 
 ```env
-NEXT_PUBLIC_APP_MODE=PROD
-NEXT_PUBLIC_API_URL=http://your-production-server.com:3000
+APP_MODE=PROD
+API_URL=http://your-production-server.com:3000
 ```
 
 **Use case**: Production deployment with live data
 
 ---
 
-### 2. Find Your Local IP Address
-
-> **Important**: If using DEV or PROD mode, `localhost` won't work on some systems. Use your local IP address instead.
-
-**Quick method** - Run the provided script:
-
-```bash
-./scripts/get-local-ip.sh
-```
-
-**Manual methods:**
-
-- **macOS**: `ifconfig | grep "inet " | grep -v 127.0.0.1`
-- **Linux**: `hostname -I`
-- **Windows**: `ipconfig` (look for IPv4 Address)
-
-Then update `.env.local`:
-
-```bash
-cp .env.example .env.local
-# Edit NEXT_PUBLIC_API_URL with your IP address
-```
-
----
-
-### 3. Install Dependencies
+### 2. Install Dependencies
 
 ```bash
 bun install
