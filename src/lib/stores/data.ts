@@ -2,63 +2,108 @@ import { writable, derived, get } from 'svelte/store';
 import type { SpeedData } from '../types/speed-data';
 import { mockSpeedData, generateRealtimeData } from '../mock-data';
 import { settings } from './settings';
-
-const MOCK_SENSORS = [
-	'Sector 1 Entry',
-	'Sector 1 Exit',
-	'Sector 2 Entry',
-	'Sector 2 Exit',
-	'Sector 3 Entry',
-	'Sector 3 Exit',
-	'Finish Line',
-	'Pit Entry'
-];
+import {
+	fetchRecentSpeeds,
+	fetchTodaySpeeds,
+	fetchSpeedsByRange,
+	createSSEConnection
+} from '../services/api';
 
 export const speedData = writable<SpeedData[]>(mockSpeedData);
-export const isConnected = writable(true);
+export const isConnected = writable(false);
 export const isLoading = writable(false);
+export const connectionError = writable<string | null>(null);
 
-let intervalId: ReturnType<typeof setInterval> | null = null;
-let lastId = mockSpeedData.length;
+export function initRealtimeData(): () => void {
+	const $settings = get(settings);
+	const {
+		dataMode,
+		apiUrl,
+		apiToken,
+		maxDataPoints,
+		updateInterval,
+		dateRangeMode,
+		customStartDate,
+		customEndDate
+	} = $settings;
 
-const isSimulation = true;
+	// Reset state
+	isLoading.set(true);
+	isConnected.set(false);
+	connectionError.set(null);
+	speedData.set([]);
 
-export function initRealtimeData() {
-	const currentSettings = get(settings);
-	const dateRangeMode = currentSettings?.dateRangeMode || 'realtime';
-	const maxDataPoints = currentSettings?.maxDataPoints || 120;
-	const updateInterval = currentSettings?.updateInterval || 3000;
+	// --- Simulation mode ---
+	if (dataMode === 'simulation') {
+		speedData.set(mockSpeedData);
+		isConnected.set(true);
+		isLoading.set(false);
 
-	// Set initial data
-	speedData.set(mockSpeedData);
-	isConnected.set(true);
-	isLoading.set(false);
-
-	if (intervalId) {
-		clearInterval(intervalId);
-	}
-
-	// Start realtime updates
-	if (dateRangeMode === 'realtime' && isSimulation) {
-		intervalId = setInterval(() => {
+		let lastId = mockSpeedData.length;
+		const intervalId = setInterval(() => {
 			lastId++;
-			const newDataPoint = generateRealtimeData(lastId);
-
+			const newPoint = generateRealtimeData(lastId);
 			speedData.update((data) => {
-				const newData = [...data, newDataPoint];
-				if (newData.length > maxDataPoints) {
-					return newData.slice(-maxDataPoints);
-				}
-				return newData;
+				const next = [...data, newPoint];
+				return next.length > maxDataPoints ? next.slice(-maxDataPoints) : next;
 			});
 		}, updateInterval);
+
+		return () => clearInterval(intervalId);
 	}
 
-	return () => {
-		if (intervalId) {
-			clearInterval(intervalId);
-			intervalId = null;
+	// --- API mode ---
+	let sseCleanup: (() => void) | null = null;
+	let cancelled = false;
+
+	async function start() {
+		try {
+			let data: SpeedData[];
+
+			if (dateRangeMode === 'today') {
+				data = await fetchTodaySpeeds(apiUrl, apiToken, 500);
+			} else if (dateRangeMode === 'custom' && customStartDate && customEndDate) {
+				data = await fetchSpeedsByRange(apiUrl, apiToken, customStartDate, customEndDate);
+			} else {
+				// realtime: 100 dernières
+				data = await fetchRecentSpeeds(apiUrl, apiToken, 100);
+			}
+
+			if (cancelled) return;
+
+			speedData.set(data);
+			isLoading.set(false);
+
+			// SSE uniquement en mode realtime
+			if (dateRangeMode === 'realtime') {
+				sseCleanup = createSSEConnection(
+					apiUrl,
+					apiToken,
+					(newPoint) => {
+						speedData.update((current) => {
+							const next = [...current, newPoint];
+							return next.length > maxDataPoints ? next.slice(-maxDataPoints) : next;
+						});
+					},
+					() => isConnected.set(true),
+					() => isConnected.set(false)
+				);
+			}
+		} catch (err) {
+			if (cancelled) return;
+			const msg = (err as Error).message;
+			console.error('[API] Erreur:', msg);
+			isLoading.set(false);
+			isConnected.set(false);
+			connectionError.set(msg);
 		}
+	}
+
+	start();
+
+	return () => {
+		cancelled = true;
+		sseCleanup?.();
 	};
 }
 
@@ -87,24 +132,16 @@ export const availableSensors = derived(speedData, ($speedData) => {
 
 export const stats = derived(filteredData, ($filteredData) => {
 	if ($filteredData.length === 0) {
-		return {
-			avgSpeed: 0,
-			maxSpeed: 0,
-			minSpeed: 0,
-			totalReadings: 0
-		};
+		return { avgSpeed: 0, maxSpeed: 0, minSpeed: 0, totalReadings: 0 };
 	}
 
 	const speeds = $filteredData.map((d) => d.speed);
 	const avgSpeed = speeds.reduce((a, b) => a + b, 0) / speeds.length;
-	const maxSpeed = Math.max(...speeds);
-	const minSpeed = Math.min(...speeds);
-	const totalReadings = $filteredData.length;
 
 	return {
 		avgSpeed: Math.round(avgSpeed * 10) / 10,
-		maxSpeed: Math.round(maxSpeed * 10) / 10,
-		minSpeed: Math.round(minSpeed * 10) / 10,
-		totalReadings
+		maxSpeed: Math.round(Math.max(...speeds) * 10) / 10,
+		minSpeed: Math.round(Math.min(...speeds) * 10) / 10,
+		totalReadings: $filteredData.length
 	};
 });

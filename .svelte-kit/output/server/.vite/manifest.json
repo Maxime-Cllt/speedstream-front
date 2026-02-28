@@ -51,6 +51,14 @@
       "_index2.js"
     ]
   },
+  "_settings.js": {
+    "file": "chunks/settings.js",
+    "name": "settings",
+    "imports": [
+      "_index2.js",
+      "_index.js"
+    ]
+  },
   "_shared.js": {
     "file": "chunks/shared.js",
     "name": "shared",
@@ -101,16 +109,24 @@
       "_internal.js"
     ]
   },
+  "src/routes/+layout.server.ts": {
+    "file": "entries/pages/_layout.server.ts.js",
+    "name": "entries/pages/_layout.server.ts",
+    "src": "src/routes/+layout.server.ts",
+    "isEntry": true
+  },
   "src/routes/+layout.svelte": {
     "file": "entries/pages/_layout.svelte.js",
     "name": "entries/pages/_layout.svelte",
     "src": "src/routes/+layout.svelte",
     "isEntry": true,
     "imports": [
-      "_index2.js"
+      "_index2.js",
+      "_index.js",
+      "_settings.js"
     ],
     "css": [
-      "_app/immutable/assets/_layout.CsTMRlXs.css"
+      "_app/immutable/assets/_layout.CQUCmYJK.css"
     ]
   },
   "src/routes/+page.svelte": {
@@ -120,6 +136,7 @@
     "isEntry": true,
     "imports": [
       "_index2.js",
+      "_settings.js",
       "_index.js"
     ]
   }

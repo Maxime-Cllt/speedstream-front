@@ -8,6 +8,7 @@
 		availableSensors,
 		isConnected,
 		isLoading,
+		connectionError,
 		initRealtimeData
 	} from '$lib/stores/data';
 	import StatCard from '$lib/components/dashboard/stat-card.svelte';
@@ -28,14 +29,32 @@
 	let hasNewRecord = $state(false);
 	let previousMaxSpeed = $state(0);
 	let cleanup: (() => void) | undefined;
+	let _firstEffect = true;
 
 	onMount(() => {
-		settings.init();
+		// settings déjà initialisés par +layout.svelte (exécution synchrone)
 		cleanup = initRealtimeData();
 	});
 
 	onDestroy(() => {
 		if (cleanup) cleanup();
+	});
+
+	// Réinitialise la connexion quand le mode ou la config API change
+	$effect(() => {
+		void $settings.dataMode;
+		void $settings.apiUrl;
+		void $settings.apiToken;
+		void $settings.dateRangeMode;
+		void $settings.updateInterval;
+		void $settings.maxDataPoints;
+
+		if (_firstEffect) {
+			_firstEffect = false;
+			return;
+		}
+		if (cleanup) cleanup();
+		cleanup = initRealtimeData();
 	});
 
 	$effect(() => {
@@ -47,7 +66,7 @@
 		previousMaxSpeed = maxSpeed;
 	});
 
-	const isSimulation = true;
+	const isSimulation = $derived($settings.dataMode === 'simulation');
 </script>
 
 <div class="flex min-h-screen flex-col">
@@ -68,13 +87,25 @@
 								? 'border-transparent bg-primary text-primary-foreground'
 								: 'border-transparent bg-secondary text-secondary-foreground'}"
 						>
-							{isSimulation ? '🎮 SIMULATION' : '🔧 DEV'}
+							{isSimulation ? 'SIMULATION' : 'API LIVE'}
 						</span>
 						<div
-							class="h-2 w-2 rounded-full {$isConnected ? 'animate-pulse bg-green-500' : 'bg-yellow-500'}"
+							class="h-2 w-2 rounded-full {$connectionError
+								? 'bg-destructive'
+								: $isConnected
+									? 'animate-pulse bg-green-500'
+									: 'bg-yellow-500'}"
 						></div>
 						<span class="text-muted-foreground text-sm">
-							{isSimulation ? 'Données simulées' : $isConnected ? 'SSE connecté' : 'SSE en connexion...'}
+							{#if isSimulation}
+								Données simulées
+							{:else if $connectionError}
+								Erreur de connexion
+							{:else if $isConnected}
+								SSE connecté
+							{:else}
+								Connexion en cours...
+							{/if}
 						</span>
 					</div>
 					<SettingsPanel availableSensors={$availableSensors} />

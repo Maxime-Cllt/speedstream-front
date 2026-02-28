@@ -1,6 +1,7 @@
 import { Lane } from './speed-data';
 
 export type DateRangeMode = 'realtime' | 'today' | 'custom';
+export type DataMode = 'simulation' | 'api';
 
 export interface AppSettings {
 	selectedSensors: string[];
@@ -13,7 +14,9 @@ export interface AppSettings {
 	updateInterval: number;
 	maxDataPoints: number;
 
+	dataMode: DataMode;
 	apiUrl: string;
+	apiToken: string;
 
 	showLaneDistribution: boolean;
 	showSensorStats: boolean;
@@ -42,7 +45,9 @@ export const defaultSettings: AppSettings = {
 	customEndDate: null,
 	updateInterval: 3000,
 	maxDataPoints: 120,
-	apiUrl: 'http://192.168.1.100:8080',
+	dataMode: 'simulation',
+	apiUrl: 'http://localhost:8080',
+	apiToken: '',
 	showLaneDistribution: true,
 	showSensorStats: true,
 	showSpeedChart: true,

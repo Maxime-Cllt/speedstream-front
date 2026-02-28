@@ -1,86 +1,12 @@
-import { a7 as ssr_context, a8 as sanitize_props, a9 as rest_props, aa as fallback, ab as attributes, ac as clsx, ad as ensure_array_like, ae as element, af as slot, ag as bind_props, ah as spread_props, ai as attr_class, e as escape_html, aj as stringify, ak as attr_style, a6 as derived$1, a as attr, al as store_get, am as unsubscribe_stores } from "../../chunks/index2.js";
+import { ac as ssr_context, s as sanitize_props, a as spread_props, b as slot, c as attr_class, ad as clsx, ab as derived$1, d as stringify, e as escape_html, ae as attr_style, f as attr, af as ensure_array_like, ag as attributes, ah as bind_props, ai as store_get, aj as unsubscribe_stores } from "../../chunks/index2.js";
 import "clsx";
+import { I as Icon, L as Lane, s as settings, Z as Zap, d as displaySettings } from "../../chunks/settings.js";
 import { d as derived, w as writable } from "../../chunks/index.js";
 import "echarts";
 import { format } from "date-fns";
 function onDestroy(fn) {
   /** @type {SSRContext} */
   ssr_context.r.on_destroy(fn);
-}
-const defaultAttributes = {
-  xmlns: "http://www.w3.org/2000/svg",
-  width: 24,
-  height: 24,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  "stroke-width": 2,
-  "stroke-linecap": "round",
-  "stroke-linejoin": "round"
-};
-const hasA11yProp = (props) => {
-  for (const prop in props) {
-    if (prop.startsWith("aria-") || prop === "role" || prop === "title") {
-      return true;
-    }
-  }
-  return false;
-};
-const mergeClasses = (...classes) => classes.filter((className, index, array) => {
-  return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
-}).join(" ").trim();
-function Icon($$renderer, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const $$restProps = rest_props($$sanitized_props, [
-    "name",
-    "color",
-    "size",
-    "strokeWidth",
-    "absoluteStrokeWidth",
-    "iconNode"
-  ]);
-  $$renderer.component(($$renderer2) => {
-    let name = fallback($$props["name"], void 0);
-    let color = fallback($$props["color"], "currentColor");
-    let size = fallback($$props["size"], 24);
-    let strokeWidth = fallback($$props["strokeWidth"], 2);
-    let absoluteStrokeWidth = fallback($$props["absoluteStrokeWidth"], false);
-    let iconNode = fallback($$props["iconNode"], () => [], true);
-    $$renderer2.push(`<svg${attributes(
-      {
-        ...defaultAttributes,
-        ...!hasA11yProp($$restProps) ? { "aria-hidden": "true" } : void 0,
-        ...$$restProps,
-        width: size,
-        height: size,
-        stroke: color,
-        "stroke-width": absoluteStrokeWidth ? Number(strokeWidth) * 24 / Number(size) : strokeWidth,
-        class: clsx(mergeClasses("lucide-icon", "lucide", name ? `lucide-${name}` : "", $$sanitized_props.class))
-      },
-      void 0,
-      void 0,
-      void 0,
-      3
-    )}><!--[-->`);
-    const each_array = ensure_array_like(iconNode);
-    for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
-      let [tag, attrs] = each_array[$$index];
-      element($$renderer2, tag, () => {
-        $$renderer2.push(`${attributes({ ...attrs }, void 0, void 0, void 0, 3)}`);
-      });
-    }
-    $$renderer2.push(`<!--]--><!--[-->`);
-    slot($$renderer2, $$props, "default", {});
-    $$renderer2.push(`<!--]--></svg>`);
-    bind_props($$props, {
-      name,
-      color,
-      size,
-      strokeWidth,
-      absoluteStrokeWidth,
-      iconNode
-    });
-  });
 }
 function Activity($$renderer, $$props) {
   const $$sanitized_props = sanitize_props($$props);
@@ -183,6 +109,39 @@ function Arrow_up_down($$renderer, $$props) {
     }
   ]));
 }
+function Chart_column($$renderer, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    ["path", { "d": "M3 3v16a2 2 0 0 0 2 2h16" }],
+    ["path", { "d": "M18 17V9" }],
+    ["path", { "d": "M13 17V5" }],
+    ["path", { "d": "M8 17v-3" }]
+  ];
+  Icon($$renderer, spread_props([
+    { name: "chart-column" },
+    $$sanitized_props,
+    {
+      /**
+       * @component @name ChartColumn
+       * @description Lucide SVG icon component, renders SVG Element with children.
+       *
+       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8cGF0aCBkPSJNMyAzdjE2YTIgMiAwIDAgMCAyIDJoMTYiIC8+CiAgPHBhdGggZD0iTTE4IDE3VjkiIC8+CiAgPHBhdGggZD0iTTEzIDE3VjUiIC8+CiAgPHBhdGggZD0iTTggMTd2LTMiIC8+Cjwvc3ZnPgo=) - https://lucide.dev/icons/chart-column
+       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+       *
+       * @param {Object} props - Lucide icons props and any valid SVG attribute
+       * @returns {FunctionalComponent} Svelte component
+       *
+       */
+      iconNode,
+      children: ($$renderer2) => {
+        $$renderer2.push(`<!--[-->`);
+        slot($$renderer2, $$props, "default", {});
+        $$renderer2.push(`<!--]-->`);
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
 function Clock($$renderer, $$props) {
   const $$sanitized_props = sanitize_props($$props);
   const iconNode = [
@@ -198,6 +157,42 @@ function Clock($$renderer, $$props) {
        * @description Lucide SVG icon component, renders SVG Element with children.
        *
        * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgLz4KICA8cGF0aCBkPSJNMTIgNnY2bDQgMiIgLz4KPC9zdmc+Cg==) - https://lucide.dev/icons/clock
+       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+       *
+       * @param {Object} props - Lucide icons props and any valid SVG attribute
+       * @returns {FunctionalComponent} Svelte component
+       *
+       */
+      iconNode,
+      children: ($$renderer2) => {
+        $$renderer2.push(`<!--[-->`);
+        slot($$renderer2, $$props, "default", {});
+        $$renderer2.push(`<!--]-->`);
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Eye($$renderer, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "path",
+      {
+        "d": "M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"
+      }
+    ],
+    ["circle", { "cx": "12", "cy": "12", "r": "3" }]
+  ];
+  Icon($$renderer, spread_props([
+    { name: "eye" },
+    $$sanitized_props,
+    {
+      /**
+       * @component @name Eye
+       * @description Lucide SVG icon component, renders SVG Element with children.
+       *
+       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8cGF0aCBkPSJNMi4wNjIgMTIuMzQ4YTEgMSAwIDAgMSAwLS42OTYgMTAuNzUgMTAuNzUgMCAwIDEgMTkuODc2IDAgMSAxIDAgMCAxIDAgLjY5NiAxMC43NSAxMC43NSAwIDAgMS0xOS44NzYgMCIgLz4KICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIzIiAvPgo8L3N2Zz4K) - https://lucide.dev/icons/eye
        * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
        *
        * @param {Object} props - Lucide icons props and any valid SVG attribute
@@ -264,6 +259,102 @@ function Grip_vertical($$renderer, $$props) {
        * @description Lucide SVG icon component, renders SVG Element with children.
        *
        * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8Y2lyY2xlIGN4PSI5IiBjeT0iMTIiIHI9IjEiIC8+CiAgPGNpcmNsZSBjeD0iOSIgY3k9IjUiIHI9IjEiIC8+CiAgPGNpcmNsZSBjeD0iOSIgY3k9IjE5IiByPSIxIiAvPgogIDxjaXJjbGUgY3g9IjE1IiBjeT0iMTIiIHI9IjEiIC8+CiAgPGNpcmNsZSBjeD0iMTUiIGN5PSI1IiByPSIxIiAvPgogIDxjaXJjbGUgY3g9IjE1IiBjeT0iMTkiIHI9IjEiIC8+Cjwvc3ZnPgo=) - https://lucide.dev/icons/grip-vertical
+       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+       *
+       * @param {Object} props - Lucide icons props and any valid SVG attribute
+       * @returns {FunctionalComponent} Svelte component
+       *
+       */
+      iconNode,
+      children: ($$renderer2) => {
+        $$renderer2.push(`<!--[-->`);
+        slot($$renderer2, $$props, "default", {});
+        $$renderer2.push(`<!--]-->`);
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Hash($$renderer, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    ["line", { "x1": "4", "x2": "20", "y1": "9", "y2": "9" }],
+    ["line", { "x1": "4", "x2": "20", "y1": "15", "y2": "15" }],
+    ["line", { "x1": "10", "x2": "8", "y1": "3", "y2": "21" }],
+    ["line", { "x1": "16", "x2": "14", "y1": "3", "y2": "21" }]
+  ];
+  Icon($$renderer, spread_props([
+    { name: "hash" },
+    $$sanitized_props,
+    {
+      /**
+       * @component @name Hash
+       * @description Lucide SVG icon component, renders SVG Element with children.
+       *
+       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8bGluZSB4MT0iNCIgeDI9IjIwIiB5MT0iOSIgeTI9IjkiIC8+CiAgPGxpbmUgeDE9IjQiIHgyPSIyMCIgeTE9IjE1IiB5Mj0iMTUiIC8+CiAgPGxpbmUgeDE9IjEwIiB4Mj0iOCIgeTE9IjMiIHkyPSIyMSIgLz4KICA8bGluZSB4MT0iMTYiIHgyPSIxNCIgeTE9IjMiIHkyPSIyMSIgLz4KPC9zdmc+Cg==) - https://lucide.dev/icons/hash
+       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+       *
+       * @param {Object} props - Lucide icons props and any valid SVG attribute
+       * @returns {FunctionalComponent} Svelte component
+       *
+       */
+      iconNode,
+      children: ($$renderer2) => {
+        $$renderer2.push(`<!--[-->`);
+        slot($$renderer2, $$props, "default", {});
+        $$renderer2.push(`<!--]-->`);
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Minus($$renderer, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [["path", { "d": "M5 12h14" }]];
+  Icon($$renderer, spread_props([
+    { name: "minus" },
+    $$sanitized_props,
+    {
+      /**
+       * @component @name Minus
+       * @description Lucide SVG icon component, renders SVG Element with children.
+       *
+       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8cGF0aCBkPSJNNSAxMmgxNCIgLz4KPC9zdmc+Cg==) - https://lucide.dev/icons/minus
+       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+       *
+       * @param {Object} props - Lucide icons props and any valid SVG attribute
+       * @returns {FunctionalComponent} Svelte component
+       *
+       */
+      iconNode,
+      children: ($$renderer2) => {
+        $$renderer2.push(`<!--[-->`);
+        slot($$renderer2, $$props, "default", {});
+        $$renderer2.push(`<!--]-->`);
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Moon($$renderer, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "path",
+      {
+        "d": "M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
+      }
+    ]
+  ];
+  Icon($$renderer, spread_props([
+    { name: "moon" },
+    $$sanitized_props,
+    {
+      /**
+       * @component @name Moon
+       * @description Lucide SVG icon component, renders SVG Element with children.
+       *
+       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8cGF0aCBkPSJNMjAuOTg1IDEyLjQ4NmE5IDkgMCAxIDEtOS40NzMtOS40NzJjLjQwNS0uMDIyLjYxNy40Ni40MDIuODAzYTYgNiAwIDAgMCA4LjI2OCA4LjI2OGMuMzQ0LS4yMTUuODI1LS4wMDQuODAzLjQwMSIgLz4KPC9zdmc+Cg==) - https://lucide.dev/icons/moon
        * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
        *
        * @param {Object} props - Lucide icons props and any valid SVG attribute
@@ -348,6 +439,41 @@ function Rotate_ccw($$renderer, $$props) {
     }
   ]));
 }
+function Route($$renderer, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    ["circle", { "cx": "6", "cy": "19", "r": "3" }],
+    [
+      "path",
+      { "d": "M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" }
+    ],
+    ["circle", { "cx": "18", "cy": "5", "r": "3" }]
+  ];
+  Icon($$renderer, spread_props([
+    { name: "route" },
+    $$sanitized_props,
+    {
+      /**
+       * @component @name Route
+       * @description Lucide SVG icon component, renders SVG Element with children.
+       *
+       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8Y2lyY2xlIGN4PSI2IiBjeT0iMTkiIHI9IjMiIC8+CiAgPHBhdGggZD0iTTkgMTloOC41YTMuNSAzLjUgMCAwIDAgMC03aC0xMWEzLjUgMy41IDAgMCAxIDAtN0gxNSIgLz4KICA8Y2lyY2xlIGN4PSIxOCIgY3k9IjUiIHI9IjMiIC8+Cjwvc3ZnPgo=) - https://lucide.dev/icons/route
+       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+       *
+       * @param {Object} props - Lucide icons props and any valid SVG attribute
+       * @returns {FunctionalComponent} Svelte component
+       *
+       */
+      iconNode,
+      children: ($$renderer2) => {
+        $$renderer2.push(`<!--[-->`);
+        slot($$renderer2, $$props, "default", {});
+        $$renderer2.push(`<!--]-->`);
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
 function Search($$renderer, $$props) {
   const $$sanitized_props = sanitize_props($$props);
   const iconNode = [
@@ -415,6 +541,153 @@ function Settings($$renderer, $$props) {
     }
   ]));
 }
+function Sigma($$renderer, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "path",
+      {
+        "d": "M18 7V5a1 1 0 0 0-1-1H6.5a.5.5 0 0 0-.4.8l4.5 6a2 2 0 0 1 0 2.4l-4.5 6a.5.5 0 0 0 .4.8H17a1 1 0 0 0 1-1v-2"
+      }
+    ]
+  ];
+  Icon($$renderer, spread_props([
+    { name: "sigma" },
+    $$sanitized_props,
+    {
+      /**
+       * @component @name Sigma
+       * @description Lucide SVG icon component, renders SVG Element with children.
+       *
+       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8cGF0aCBkPSJNMTggN1Y1YTEgMSAwIDAgMC0xLTFINi41YS41LjUgMCAwIDAtLjQuOGw0LjUgNmEyIDIgMCAwIDEgMCAyLjRsLTQuNSA2YS41LjUgMCAwIDAgLjQuOEgxN2ExIDEgMCAwIDAgMS0xdi0yIiAvPgo8L3N2Zz4K) - https://lucide.dev/icons/sigma
+       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+       *
+       * @param {Object} props - Lucide icons props and any valid SVG attribute
+       * @returns {FunctionalComponent} Svelte component
+       *
+       */
+      iconNode,
+      children: ($$renderer2) => {
+        $$renderer2.push(`<!--[-->`);
+        slot($$renderer2, $$props, "default", {});
+        $$renderer2.push(`<!--]-->`);
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Sun($$renderer, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    ["circle", { "cx": "12", "cy": "12", "r": "4" }],
+    ["path", { "d": "M12 2v2" }],
+    ["path", { "d": "M12 20v2" }],
+    ["path", { "d": "m4.93 4.93 1.41 1.41" }],
+    ["path", { "d": "m17.66 17.66 1.41 1.41" }],
+    ["path", { "d": "M2 12h2" }],
+    ["path", { "d": "M20 12h2" }],
+    ["path", { "d": "m6.34 17.66-1.41 1.41" }],
+    ["path", { "d": "m19.07 4.93-1.41 1.41" }]
+  ];
+  Icon($$renderer, spread_props([
+    { name: "sun" },
+    $$sanitized_props,
+    {
+      /**
+       * @component @name Sun
+       * @description Lucide SVG icon component, renders SVG Element with children.
+       *
+       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI0IiAvPgogIDxwYXRoIGQ9Ik0xMiAydjIiIC8+CiAgPHBhdGggZD0iTTEyIDIwdjIiIC8+CiAgPHBhdGggZD0ibTQuOTMgNC45MyAxLjQxIDEuNDEiIC8+CiAgPHBhdGggZD0ibTE3LjY2IDE3LjY2IDEuNDEgMS40MSIgLz4KICA8cGF0aCBkPSJNMiAxMmgyIiAvPgogIDxwYXRoIGQ9Ik0yMCAxMmgyIiAvPgogIDxwYXRoIGQ9Im02LjM0IDE3LjY2LTEuNDEgMS40MSIgLz4KICA8cGF0aCBkPSJtMTkuMDcgNC45My0xLjQxIDEuNDEiIC8+Cjwvc3ZnPgo=) - https://lucide.dev/icons/sun
+       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+       *
+       * @param {Object} props - Lucide icons props and any valid SVG attribute
+       * @returns {FunctionalComponent} Svelte component
+       *
+       */
+      iconNode,
+      children: ($$renderer2) => {
+        $$renderer2.push(`<!--[-->`);
+        slot($$renderer2, $$props, "default", {});
+        $$renderer2.push(`<!--]-->`);
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Sunrise($$renderer, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    ["path", { "d": "M12 2v8" }],
+    ["path", { "d": "m4.93 10.93 1.41 1.41" }],
+    ["path", { "d": "M2 18h2" }],
+    ["path", { "d": "M20 18h2" }],
+    ["path", { "d": "m19.07 10.93-1.41 1.41" }],
+    ["path", { "d": "M22 22H2" }],
+    ["path", { "d": "m8 6 4-4 4 4" }],
+    ["path", { "d": "M16 18a4 4 0 0 0-8 0" }]
+  ];
+  Icon($$renderer, spread_props([
+    { name: "sunrise" },
+    $$sanitized_props,
+    {
+      /**
+       * @component @name Sunrise
+       * @description Lucide SVG icon component, renders SVG Element with children.
+       *
+       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8cGF0aCBkPSJNMTIgMnY4IiAvPgogIDxwYXRoIGQ9Im00LjkzIDEwLjkzIDEuNDEgMS40MSIgLz4KICA8cGF0aCBkPSJNMiAxOGgyIiAvPgogIDxwYXRoIGQ9Ik0yMCAxOGgyIiAvPgogIDxwYXRoIGQ9Im0xOS4wNyAxMC45My0xLjQxIDEuNDEiIC8+CiAgPHBhdGggZD0iTTIyIDIySDIiIC8+CiAgPHBhdGggZD0ibTggNiA0LTQgNCA0IiAvPgogIDxwYXRoIGQ9Ik0xNiAxOGE0IDQgMCAwIDAtOCAwIiAvPgo8L3N2Zz4K) - https://lucide.dev/icons/sunrise
+       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+       *
+       * @param {Object} props - Lucide icons props and any valid SVG attribute
+       * @returns {FunctionalComponent} Svelte component
+       *
+       */
+      iconNode,
+      children: ($$renderer2) => {
+        $$renderer2.push(`<!--[-->`);
+        slot($$renderer2, $$props, "default", {});
+        $$renderer2.push(`<!--]-->`);
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Sunset($$renderer, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    ["path", { "d": "M12 10V2" }],
+    ["path", { "d": "m4.93 10.93 1.41 1.41" }],
+    ["path", { "d": "M2 18h2" }],
+    ["path", { "d": "M20 18h2" }],
+    ["path", { "d": "m19.07 10.93-1.41 1.41" }],
+    ["path", { "d": "M22 22H2" }],
+    ["path", { "d": "m16 6-4 4-4-4" }],
+    ["path", { "d": "M16 18a4 4 0 0 0-8 0" }]
+  ];
+  Icon($$renderer, spread_props([
+    { name: "sunset" },
+    $$sanitized_props,
+    {
+      /**
+       * @component @name Sunset
+       * @description Lucide SVG icon component, renders SVG Element with children.
+       *
+       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8cGF0aCBkPSJNMTIgMTBWMiIgLz4KICA8cGF0aCBkPSJtNC45MyAxMC45MyAxLjQxIDEuNDEiIC8+CiAgPHBhdGggZD0iTTIgMThoMiIgLz4KICA8cGF0aCBkPSJNMjAgMThoMiIgLz4KICA8cGF0aCBkPSJtMTkuMDcgMTAuOTMtMS40MSAxLjQxIiAvPgogIDxwYXRoIGQ9Ik0yMiAyMkgyIiAvPgogIDxwYXRoIGQ9Im0xNiA2LTQgNC00LTQiIC8+CiAgPHBhdGggZD0iTTE2IDE4YTQgNCAwIDAgMC04IDAiIC8+Cjwvc3ZnPgo=) - https://lucide.dev/icons/sunset
+       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+       *
+       * @param {Object} props - Lucide icons props and any valid SVG attribute
+       * @returns {FunctionalComponent} Svelte component
+       *
+       */
+      iconNode,
+      children: ($$renderer2) => {
+        $$renderer2.push(`<!--[-->`);
+        slot($$renderer2, $$props, "default", {});
+        $$renderer2.push(`<!--]-->`);
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
 function Target($$renderer, $$props) {
   const $$sanitized_props = sanitize_props($$props);
   const iconNode = [
@@ -431,6 +704,37 @@ function Target($$renderer, $$props) {
        * @description Lucide SVG icon component, renders SVG Element with children.
        *
        * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgLz4KICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI2IiAvPgogIDxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjIiIC8+Cjwvc3ZnPgo=) - https://lucide.dev/icons/target
+       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+       *
+       * @param {Object} props - Lucide icons props and any valid SVG attribute
+       * @returns {FunctionalComponent} Svelte component
+       *
+       */
+      iconNode,
+      children: ($$renderer2) => {
+        $$renderer2.push(`<!--[-->`);
+        slot($$renderer2, $$props, "default", {});
+        $$renderer2.push(`<!--]-->`);
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Trending_down($$renderer, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    ["path", { "d": "M16 17h6v-6" }],
+    ["path", { "d": "m22 17-8.5-8.5-5 5L2 7" }]
+  ];
+  Icon($$renderer, spread_props([
+    { name: "trending-down" },
+    $$sanitized_props,
+    {
+      /**
+       * @component @name TrendingDown
+       * @description Lucide SVG icon component, renders SVG Element with children.
+       *
+       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8cGF0aCBkPSJNMTYgMTdoNnYtNiIgLz4KICA8cGF0aCBkPSJtMjIgMTctOC41LTguNS01IDVMMiA3IiAvPgo8L3N2Zz4K) - https://lucide.dev/icons/trending-down
        * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
        *
        * @param {Object} props - Lucide icons props and any valid SVG attribute
@@ -526,6 +830,122 @@ function Trophy($$renderer, $$props) {
     }
   ]));
 }
+function Waves($$renderer, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    [
+      "path",
+      {
+        "d": "M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"
+      }
+    ],
+    [
+      "path",
+      {
+        "d": "M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"
+      }
+    ],
+    [
+      "path",
+      {
+        "d": "M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"
+      }
+    ]
+  ];
+  Icon($$renderer, spread_props([
+    { name: "waves" },
+    $$sanitized_props,
+    {
+      /**
+       * @component @name Waves
+       * @description Lucide SVG icon component, renders SVG Element with children.
+       *
+       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8cGF0aCBkPSJNMiA2Yy42LjUgMS4yIDEgMi41IDFDNyA3IDcgNSA5LjUgNWMyLjYgMCAyLjQgMiA1IDIgMi41IDAgMi41LTIgNS0yIDEuMyAwIDEuOS41IDIuNSAxIiAvPgogIDxwYXRoIGQ9Ik0yIDEyYy42LjUgMS4yIDEgMi41IDEgMi41IDAgMi41LTIgNS0yIDIuNiAwIDIuNCAyIDUgMiAyLjUgMCAyLjUtMiA1LTIgMS4zIDAgMS45LjUgMi41IDEiIC8+CiAgPHBhdGggZD0iTTIgMThjLjYuNSAxLjIgMSAyLjUgMSAyLjUgMCAyLjUtMiA1LTIgMi42IDAgMi40IDIgNSAyIDIuNSAwIDIuNS0yIDUtMiAxLjMgMCAxLjkuNSAyLjUgMSIgLz4KPC9zdmc+Cg==) - https://lucide.dev/icons/waves
+       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+       *
+       * @param {Object} props - Lucide icons props and any valid SVG attribute
+       * @returns {FunctionalComponent} Svelte component
+       *
+       */
+      iconNode,
+      children: ($$renderer2) => {
+        $$renderer2.push(`<!--[-->`);
+        slot($$renderer2, $$props, "default", {});
+        $$renderer2.push(`<!--]-->`);
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Wifi_off($$renderer, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    ["path", { "d": "M12 20h.01" }],
+    ["path", { "d": "M8.5 16.429a5 5 0 0 1 7 0" }],
+    ["path", { "d": "M5 12.859a10 10 0 0 1 5.17-2.69" }],
+    ["path", { "d": "M19 12.859a10 10 0 0 0-2.007-1.523" }],
+    ["path", { "d": "M2 8.82a15 15 0 0 1 4.177-2.643" }],
+    ["path", { "d": "M22 8.82a15 15 0 0 0-11.288-3.764" }],
+    ["path", { "d": "m2 2 20 20" }]
+  ];
+  Icon($$renderer, spread_props([
+    { name: "wifi-off" },
+    $$sanitized_props,
+    {
+      /**
+       * @component @name WifiOff
+       * @description Lucide SVG icon component, renders SVG Element with children.
+       *
+       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8cGF0aCBkPSJNMTIgMjBoLjAxIiAvPgogIDxwYXRoIGQ9Ik04LjUgMTYuNDI5YTUgNSAwIDAgMSA3IDAiIC8+CiAgPHBhdGggZD0iTTUgMTIuODU5YTEwIDEwIDAgMCAxIDUuMTctMi42OSIgLz4KICA8cGF0aCBkPSJNMTkgMTIuODU5YTEwIDEwIDAgMCAwLTIuMDA3LTEuNTIzIiAvPgogIDxwYXRoIGQ9Ik0yIDguODJhMTUgMTUgMCAwIDEgNC4xNzctMi42NDMiIC8+CiAgPHBhdGggZD0iTTIyIDguODJhMTUgMTUgMCAwIDAtMTEuMjg4LTMuNzY0IiAvPgogIDxwYXRoIGQ9Im0yIDIgMjAgMjAiIC8+Cjwvc3ZnPgo=) - https://lucide.dev/icons/wifi-off
+       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+       *
+       * @param {Object} props - Lucide icons props and any valid SVG attribute
+       * @returns {FunctionalComponent} Svelte component
+       *
+       */
+      iconNode,
+      children: ($$renderer2) => {
+        $$renderer2.push(`<!--[-->`);
+        slot($$renderer2, $$props, "default", {});
+        $$renderer2.push(`<!--]-->`);
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
+function Wifi($$renderer, $$props) {
+  const $$sanitized_props = sanitize_props($$props);
+  const iconNode = [
+    ["path", { "d": "M12 20h.01" }],
+    ["path", { "d": "M2 8.82a15 15 0 0 1 20 0" }],
+    ["path", { "d": "M5 12.859a10 10 0 0 1 14 0" }],
+    ["path", { "d": "M8.5 16.429a5 5 0 0 1 7 0" }]
+  ];
+  Icon($$renderer, spread_props([
+    { name: "wifi" },
+    $$sanitized_props,
+    {
+      /**
+       * @component @name Wifi
+       * @description Lucide SVG icon component, renders SVG Element with children.
+       *
+       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8cGF0aCBkPSJNMTIgMjBoLjAxIiAvPgogIDxwYXRoIGQ9Ik0yIDguODJhMTUgMTUgMCAwIDEgMjAgMCIgLz4KICA8cGF0aCBkPSJNNSAxMi44NTlhMTAgMTAgMCAwIDEgMTQgMCIgLz4KICA8cGF0aCBkPSJNOC41IDE2LjQyOWE1IDUgMCAwIDEgNyAwIiAvPgo8L3N2Zz4K) - https://lucide.dev/icons/wifi
+       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
+       *
+       * @param {Object} props - Lucide icons props and any valid SVG attribute
+       * @returns {FunctionalComponent} Svelte component
+       *
+       */
+      iconNode,
+      children: ($$renderer2) => {
+        $$renderer2.push(`<!--[-->`);
+        slot($$renderer2, $$props, "default", {});
+        $$renderer2.push(`<!--]-->`);
+      },
+      $$slots: { default: true }
+    }
+  ]));
+}
 function X($$renderer, $$props) {
   const $$sanitized_props = sanitize_props($$props);
   const iconNode = [
@@ -557,145 +977,6 @@ function X($$renderer, $$props) {
     }
   ]));
 }
-function Zap($$renderer, $$props) {
-  const $$sanitized_props = sanitize_props($$props);
-  const iconNode = [
-    [
-      "path",
-      {
-        "d": "M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"
-      }
-    ]
-  ];
-  Icon($$renderer, spread_props([
-    { name: "zap" },
-    $$sanitized_props,
-    {
-      /**
-       * @component @name Zap
-       * @description Lucide SVG icon component, renders SVG Element with children.
-       *
-       * @preview ![img](data:image/svg+xml;base64,PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogIHdpZHRoPSIyNCIKICBoZWlnaHQ9IjI0IgogIHZpZXdCb3g9IjAgMCAyNCAyNCIKICBmaWxsPSJub25lIgogIHN0cm9rZT0iIzAwMCIgc3R5bGU9ImJhY2tncm91bmQtY29sb3I6ICNmZmY7IGJvcmRlci1yYWRpdXM6IDJweCIKICBzdHJva2Utd2lkdGg9IjIiCiAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIgogIHN0cm9rZS1saW5lam9pbj0icm91bmQiCj4KICA8cGF0aCBkPSJNNCAxNGExIDEgMCAwIDEtLjc4LTEuNjNsOS45LTEwLjJhLjUuNSAwIDAgMSAuODYuNDZsLTEuOTIgNi4wMkExIDEgMCAwIDAgMTMgMTBoN2ExIDEgMCAwIDEgLjc4IDEuNjNsLTkuOSAxMC4yYS41LjUgMCAwIDEtLjg2LS40NmwxLjkyLTYuMDJBMSAxIDAgMCAwIDExIDE0eiIgLz4KPC9zdmc+Cg==) - https://lucide.dev/icons/zap
-       * @see https://lucide.dev/guide/packages/lucide-svelte - Documentation
-       *
-       * @param {Object} props - Lucide icons props and any valid SVG attribute
-       * @returns {FunctionalComponent} Svelte component
-       *
-       */
-      iconNode,
-      children: ($$renderer2) => {
-        $$renderer2.push(`<!--[-->`);
-        slot($$renderer2, $$props, "default", {});
-        $$renderer2.push(`<!--]-->`);
-      },
-      $$slots: { default: true }
-    }
-  ]));
-}
-var Lane = /* @__PURE__ */ ((Lane2) => {
-  Lane2["Left"] = "Left";
-  Lane2["Right"] = "Right";
-  return Lane2;
-})(Lane || {});
-const defaultSettings = {
-  selectedSensors: [],
-  selectedLanes: [Lane.Left, Lane.Right],
-  dateRangeMode: "realtime",
-  customStartDate: null,
-  customEndDate: null,
-  updateInterval: 3e3,
-  maxDataPoints: 120,
-  apiUrl: "http://192.168.1.100:8080",
-  showLaneDistribution: true,
-  showSensorStats: true,
-  showSpeedChart: true,
-  showHourlyTrend: true,
-  showSpeedRecords: true,
-  showSpeedDistribution: true,
-  showAverageSpeedBySensor: true,
-  showActivityHeatmap: true,
-  showLanePerformance: true,
-  showSpeedConsistency: true,
-  showTopSensors: true,
-  showTimePeriodAnalysis: true,
-  speedThresholdMin: 80,
-  speedThresholdMax: 350,
-  enableAlerts: false
-};
-const STORAGE_KEY = "speedstream-settings";
-function loadSettings() {
-  if (typeof window !== "undefined") {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try {
-        return { ...defaultSettings, ...JSON.parse(stored) };
-      } catch (e) {
-        console.error("Error loading settings:", e);
-      }
-    }
-  }
-  return defaultSettings;
-}
-function createSettingsStore() {
-  const { subscribe, set, update } = writable(defaultSettings);
-  return {
-    subscribe,
-    set: (value) => {
-      if (typeof window !== "undefined") {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
-      }
-      set(value);
-    },
-    update: (fn) => {
-      update((current) => {
-        const newValue = fn(current);
-        if (typeof window !== "undefined") {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(newValue));
-        }
-        return newValue;
-      });
-    },
-    reset: () => {
-      if (typeof window !== "undefined") {
-        localStorage.removeItem(STORAGE_KEY);
-      }
-      set(defaultSettings);
-    },
-    init: () => {
-      set(loadSettings());
-    }
-  };
-}
-const settings = createSettingsStore();
-const displaySettings = derived(settings, ($settings) => ({
-  showLaneDistribution: $settings.showLaneDistribution,
-  showSensorStats: $settings.showSensorStats,
-  showSpeedChart: $settings.showSpeedChart,
-  showHourlyTrend: $settings.showHourlyTrend,
-  showSpeedRecords: $settings.showSpeedRecords,
-  showSpeedDistribution: $settings.showSpeedDistribution,
-  showAverageSpeedBySensor: $settings.showAverageSpeedBySensor,
-  showActivityHeatmap: $settings.showActivityHeatmap,
-  showLanePerformance: $settings.showLanePerformance,
-  showSpeedConsistency: $settings.showSpeedConsistency,
-  showTopSensors: $settings.showTopSensors,
-  showTimePeriodAnalysis: $settings.showTimePeriodAnalysis
-}));
-derived(settings, ($settings) => ({
-  selectedSensors: $settings.selectedSensors,
-  selectedLanes: $settings.selectedLanes,
-  dateRangeMode: $settings.dateRangeMode,
-  customStartDate: $settings.customStartDate,
-  customEndDate: $settings.customEndDate,
-  speedThresholdMin: $settings.speedThresholdMin,
-  speedThresholdMax: $settings.speedThresholdMax,
-  enableAlerts: $settings.enableAlerts
-}));
-derived(settings, ($settings) => ({
-  updateInterval: $settings.updateInterval,
-  maxDataPoints: $settings.maxDataPoints,
-  apiUrl: $settings.apiUrl
-}));
 const sensors = [
   "Sector 1 Entry",
   "Sector 1 Exit",
@@ -727,9 +1008,9 @@ function generateSpeedData(count) {
 }
 const mockSpeedData = generateSpeedData(120);
 const speedData = writable(mockSpeedData);
-const isConnected = writable(true);
+const isConnected = writable(false);
 const isLoading = writable(false);
-mockSpeedData.length;
+const connectionError = writable(null);
 const filteredData = derived([speedData, settings], ([$speedData, $settings]) => {
   return $speedData.filter((data) => {
     const sensorMatch = $settings.selectedSensors.length === 0 || $settings.selectedSensors.includes(data.sensor_name || "");
@@ -744,23 +1025,15 @@ const availableSensors = derived(speedData, ($speedData) => {
 });
 const stats = derived(filteredData, ($filteredData) => {
   if ($filteredData.length === 0) {
-    return {
-      avgSpeed: 0,
-      maxSpeed: 0,
-      minSpeed: 0,
-      totalReadings: 0
-    };
+    return { avgSpeed: 0, maxSpeed: 0, minSpeed: 0, totalReadings: 0 };
   }
   const speeds = $filteredData.map((d) => d.speed);
   const avgSpeed = speeds.reduce((a, b) => a + b, 0) / speeds.length;
-  const maxSpeed = Math.max(...speeds);
-  const minSpeed = Math.min(...speeds);
-  const totalReadings = $filteredData.length;
   return {
     avgSpeed: Math.round(avgSpeed * 10) / 10,
-    maxSpeed: Math.round(maxSpeed * 10) / 10,
-    minSpeed: Math.round(minSpeed * 10) / 10,
-    totalReadings
+    maxSpeed: Math.round(Math.max(...speeds) * 10) / 10,
+    minSpeed: Math.round(Math.min(...speeds) * 10) / 10,
+    totalReadings: $filteredData.length
   };
 });
 function Card($$renderer, $$props) {
@@ -788,64 +1061,107 @@ function Card_content($$renderer, $$props) {
   $$renderer.push(`<!----></div>`);
 }
 function Stat_card($$renderer, $$props) {
-  let {
-    class: className = "",
-    title,
-    value,
-    subtitle,
-    icon: Icon2,
-    isNewRecord = false
-  } = $$props;
-  Card($$renderer, {
-    class: className + " border-l-primary relative overflow-hidden border-l-4 transition-all duration-300 " + (isNewRecord ? "animate-new-record border-yellow-500 shadow-xl shadow-yellow-500/50" : ""),
-    children: ($$renderer2) => {
-      if (isNewRecord) {
-        $$renderer2.push("<!--[-->");
-        $$renderer2.push(`<div class="pointer-events-none absolute inset-0 animate-pulse bg-gradient-to-br from-yellow-500/20 via-orange-500/20 to-red-500/20"></div> <div class="absolute top-2 right-2 animate-bounce">`);
-        Trophy($$renderer2, { class: "h-6 w-6 text-yellow-500 drop-shadow-lg" });
-        $$renderer2.push(`<!----></div>`);
-      } else {
-        $$renderer2.push("<!--[!-->");
-      }
-      $$renderer2.push(`<!--]--> `);
-      Card_header($$renderer2, {
-        class: `flex flex-row items-center justify-between space-y-0 pb-2 ${stringify(isNewRecord ? "relative z-10" : "")}`,
-        children: ($$renderer3) => {
-          Card_title($$renderer3, {
-            class: `text-sm font-medium ${stringify(isNewRecord ? "font-bold text-yellow-600 dark:text-yellow-400" : "")}`,
-            children: ($$renderer4) => {
-              $$renderer4.push(`<!---->${escape_html(title)}`);
-            }
-          });
-          $$renderer3.push(`<!----> `);
-          if (Icon2) {
-            $$renderer3.push("<!--[-->");
-            Icon2($$renderer3, {
-              class: `text-muted-foreground h-4 w-4 transition-all ${stringify(isNewRecord ? "scale-125 text-yellow-500" : "")}`
+  $$renderer.component(($$renderer2) => {
+    let {
+      class: className = "",
+      title,
+      value,
+      subtitle,
+      icon: Icon2,
+      isNewRecord = false,
+      trend,
+      trendValue
+    } = $$props;
+    let cardClasses = derived$1(() => [
+      "group relative overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl",
+      isNewRecord ? "border border-amber-500/50 bg-gradient-to-br from-amber-500/10 via-card to-card shadow-lg shadow-amber-500/10 hover:shadow-amber-500/20" : "border-border/50 bg-gradient-to-br from-card via-card to-muted/20 shadow-sm hover:border-primary/30",
+      className
+    ].filter(Boolean).join(" "));
+    let titleClasses = derived$1(() => isNewRecord ? "text-amber-600 dark:text-amber-400 font-semibold" : "text-muted-foreground font-medium");
+    let valueClasses = derived$1(() => isNewRecord ? "text-amber-600 dark:text-amber-400" : "text-foreground");
+    let iconBgClasses = derived$1(() => isNewRecord ? "bg-gradient-to-br from-amber-400 to-amber-600 shadow-lg shadow-amber-500/30" : "bg-gradient-to-br from-primary/80 to-primary/40 shadow-md shadow-primary/20");
+    let iconClasses = derived$1(() => isNewRecord ? "h-5 w-5 text-white" : "h-4 w-4 text-primary-foreground");
+    const TrendIcon = derived$1(() => trend === "up" ? Trending_up : trend === "down" ? Trending_down : Minus);
+    const trendColor = derived$1(() => trend === "up" ? "text-emerald-500" : trend === "down" ? "text-rose-500" : "text-muted-foreground");
+    Card($$renderer2, {
+      class: cardClasses(),
+      children: ($$renderer3) => {
+        if (isNewRecord) {
+          $$renderer3.push("<!--[-->");
+          $$renderer3.push(`<div class="absolute -top-6 -right-6 h-24 w-24 rounded-full bg-amber-500/20 blur-3xl transition-all duration-500 group-hover:bg-amber-500/40"></div> <div class="absolute -bottom-4 -left-4 h-16 w-16 rounded-full bg-amber-400/10 blur-2xl transition-all duration-500 group-hover:bg-amber-400/30"></div>`);
+        } else {
+          $$renderer3.push("<!--[!-->");
+          $$renderer3.push(`<div class="absolute -top-4 -right-4 h-20 w-20 rounded-full bg-primary/5 blur-2xl transition-all duration-500 group-hover:bg-primary/10"></div>`);
+        }
+        $$renderer3.push(`<!--]--> `);
+        Card_header($$renderer3, {
+          class: "relative z-10 flex flex-row items-center justify-between space-y-0 pb-3",
+          children: ($$renderer4) => {
+            Card_title($$renderer4, {
+              class: `text-sm tracking-wide ${stringify(titleClasses())}`,
+              children: ($$renderer5) => {
+                $$renderer5.push(`<!---->${escape_html(title)}`);
+              }
             });
-            $$renderer3.push("<!--]-->");
-          } else {
-            $$renderer3.push("<!--[!-->");
-            $$renderer3.push("<!--]-->");
+            $$renderer4.push(`<!----> <div${attr_class(`flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 ${stringify(iconBgClasses())}`)}>`);
+            if (isNewRecord) {
+              $$renderer4.push("<!--[-->");
+              Trophy($$renderer4, { class: iconClasses() });
+            } else {
+              $$renderer4.push("<!--[!-->");
+              if (Icon2) {
+                $$renderer4.push("<!--[-->");
+                Icon2($$renderer4, { class: iconClasses() });
+                $$renderer4.push("<!--]-->");
+              } else {
+                $$renderer4.push("<!--[!-->");
+                $$renderer4.push("<!--]-->");
+              }
+            }
+            $$renderer4.push(`<!--]--></div>`);
           }
-        }
-      });
-      $$renderer2.push(`<!----> `);
-      Card_content($$renderer2, {
-        class: isNewRecord ? "relative z-10" : "",
-        children: ($$renderer3) => {
-          $$renderer3.push(`<div${attr_class(`text-2xl font-bold transition-all ${stringify(isNewRecord ? "scale-110 text-yellow-600 dark:text-yellow-400" : "")}`)}>${escape_html(value)}</div> `);
-          if (subtitle) {
-            $$renderer3.push("<!--[-->");
-            $$renderer3.push(`<p${attr_class(`text-muted-foreground text-xs ${stringify(isNewRecord ? "font-semibold text-yellow-700 dark:text-yellow-300" : "")}`)}>${escape_html(isNewRecord ? "🎉 Nouveau record!" : subtitle)}</p>`);
-          } else {
-            $$renderer3.push("<!--[!-->");
+        });
+        $$renderer3.push(`<!----> `);
+        Card_content($$renderer3, {
+          class: "relative z-10 pt-0",
+          children: ($$renderer4) => {
+            $$renderer4.push(`<div class="flex items-end justify-between"><div><div${attr_class(`text-4xl font-extrabold tracking-tight transition-colors ${stringify(valueClasses())}`)}>${escape_html(value)}</div></div> `);
+            if (isNewRecord) {
+              $$renderer4.push("<!--[-->");
+              $$renderer4.push(`<span class="mb-1 inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-[10px] font-bold tracking-wider text-amber-700 uppercase shadow-sm dark:bg-amber-500/20 dark:text-amber-400">`);
+              Trophy($$renderer4, { class: "mr-1 h-3 w-3" });
+              $$renderer4.push(`<!----> Record</span>`);
+            } else if (trend && trendValue) {
+              $$renderer4.push("<!--[1-->");
+              $$renderer4.push(`<div${attr_class(`flex items-center gap-1 rounded-full bg-muted/50 px-2 py-1 text-xs font-medium ${stringify(trendColor())}`)}>`);
+              if (TrendIcon()) {
+                $$renderer4.push("<!--[-->");
+                TrendIcon()($$renderer4, { class: "h-3.5 w-3.5" });
+                $$renderer4.push("<!--]-->");
+              } else {
+                $$renderer4.push("<!--[!-->");
+                $$renderer4.push("<!--]-->");
+              }
+              $$renderer4.push(` <span>${escape_html(trendValue)}</span></div>`);
+            } else {
+              $$renderer4.push("<!--[!-->");
+            }
+            $$renderer4.push(`<!--]--></div> `);
+            if (subtitle && !isNewRecord) {
+              $$renderer4.push("<!--[-->");
+              $$renderer4.push(`<p class="mt-2 text-xs text-muted-foreground/80">${escape_html(subtitle)}</p>`);
+            } else if (isNewRecord) {
+              $$renderer4.push("<!--[1-->");
+              $$renderer4.push(`<p class="mt-2 text-sm font-medium text-amber-600/90 dark:text-amber-400/90">${escape_html(subtitle ? subtitle : "Nouveau record battu !")}</p>`);
+            } else {
+              $$renderer4.push("<!--[!-->");
+            }
+            $$renderer4.push(`<!--]-->`);
           }
-          $$renderer3.push(`<!--]-->`);
-        }
-      });
-      $$renderer2.push(`<!---->`);
-    }
+        });
+        $$renderer3.push(`<!---->`);
+      }
+    });
   });
 }
 function Card_description($$renderer, $$props) {
@@ -879,50 +1195,103 @@ function Speed_chart($$renderer, $$props) {
       const timestamps = allTimestamps.map((ts) => format(new Date(ts), "HH:mm"));
       return { leftSpeeds, rightSpeeds, timestamps };
     });
+    let minSpeed = derived$1(() => Math.min(...data.map((d) => d.speed).filter((s) => s !== null && !isNaN(s))));
+    let maxSpeed = derived$1(() => Math.max(...data.map((d) => d.speed).filter((s) => s !== null && !isNaN(s))));
     let option = derived$1(() => ({
       tooltip: {
         trigger: "axis",
-        axisPointer: { type: "cross" },
-        backgroundColor: "rgba(0, 0, 0, 0.8)",
-        borderColor: "#333",
-        textStyle: { color: "#fff" }
+        axisPointer: {
+          type: "line",
+          lineStyle: { color: "rgba(255, 255, 255, 0.3)", width: 1, type: "dashed" }
+        },
+        backgroundColor: "rgba(15, 23, 42, 0.95)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
+        textStyle: {
+          color: "#f1f5f9",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 12
+        },
+        padding: [12, 16],
+        cornerRadius: 8,
+        extraCssText: "box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);"
       },
       legend: {
-        data: ["Voie gauche", "Voie droite"],
-        textStyle: { color: "#999" },
-        top: "0%"
+        data: [
+          {
+            name: "Voie gauche",
+            icon: "roundRect",
+            itemWidth: 12,
+            itemHeight: 4
+          },
+          {
+            name: "Voie droite",
+            icon: "roundRect",
+            itemWidth: 12,
+            itemHeight: 4
+          }
+        ],
+        textStyle: { color: "#94a3b8", fontFamily: "system-ui, sans-serif" },
+        top: 8,
+        itemGap: 24
       },
       grid: {
-        left: "3%",
-        right: "4%",
-        bottom: "3%",
-        top: "12%",
+        left: "2%",
+        right: "2%",
+        bottom: "2%",
+        top: "18%",
         containLabel: true
       },
       xAxis: {
         type: "category",
         boundaryGap: false,
         data: processedData().timestamps,
-        axisLine: { lineStyle: { color: "#999" } }
+        axisLine: { lineStyle: { color: "rgba(148, 163, 184, 0.2)" } },
+        axisTick: { show: false },
+        axisLabel: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11,
+          interval: Math.floor(processedData().timestamps.length / 8)
+        }
       },
       yAxis: {
         type: "value",
-        name: "Vitesse (km/h)",
-        nameTextStyle: { color: "#999" },
-        axisLine: { lineStyle: { color: "#999" } },
-        splitLine: { lineStyle: { color: "#333", opacity: 0.3 } }
+        name: "km/h",
+        nameTextStyle: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11,
+          padding: [0, 30, 0, 0]
+        },
+        axisLine: { show: false },
+        axisTick: { show: false },
+        axisLabel: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11
+        },
+        splitLine: {
+          lineStyle: { color: "rgba(148, 163, 184, 0.1)", type: "dashed" }
+        }
       },
       series: [
         {
           name: "Voie gauche",
           type: "line",
-          smooth: true,
+          smooth: 0.35,
           symbol: "circle",
-          symbolSize: 5,
+          symbolSize: 6,
+          showSymbol: false,
           sampling: "lttb",
-          connectNulls: false,
-          itemStyle: { color: "#3b82f6" },
-          lineStyle: { width: 2 },
+          connectNulls: true,
+          triggerLineEvent: true,
+          itemStyle: { color: "#0ea5e9" },
+          lineStyle: {
+            width: 3,
+            shadowColor: "rgba(14, 165, 233, 0.5)",
+            shadowBlur: 8,
+            shadowOffsetY: 4
+          },
           areaStyle: {
             color: {
               type: "linear",
@@ -931,23 +1300,35 @@ function Speed_chart($$renderer, $$props) {
               x2: 0,
               y2: 1,
               colorStops: [
-                { offset: 0, color: "rgba(59, 130, 246, 0.3)" },
-                { offset: 1, color: "rgba(59, 130, 246, 0.05)" }
+                { offset: 0, color: "rgba(14, 165, 233, 0.25)" },
+                { offset: 0.5, color: "rgba(14, 165, 233, 0.08)" },
+                { offset: 1, color: "rgba(14, 165, 233, 0.02)" }
               ]
             }
+          },
+          emphasis: {
+            focus: "series",
+            itemStyle: { borderColor: "#fff", borderWidth: 2 }
           },
           data: processedData().leftSpeeds
         },
         {
           name: "Voie droite",
           type: "line",
-          smooth: true,
+          smooth: 0.35,
           symbol: "circle",
-          symbolSize: 5,
+          symbolSize: 6,
+          showSymbol: false,
           sampling: "lttb",
-          connectNulls: false,
+          connectNulls: true,
+          triggerLineEvent: true,
           itemStyle: { color: "#f97316" },
-          lineStyle: { width: 2 },
+          lineStyle: {
+            width: 3,
+            shadowColor: "rgba(249, 115, 22, 0.5)",
+            shadowBlur: 8,
+            shadowOffsetY: 4
+          },
           areaStyle: {
             color: {
               type: "linear",
@@ -956,28 +1337,43 @@ function Speed_chart($$renderer, $$props) {
               x2: 0,
               y2: 1,
               colorStops: [
-                { offset: 0, color: "rgba(249, 115, 22, 0.3)" },
-                { offset: 1, color: "rgba(249, 115, 22, 0.05)" }
+                { offset: 0, color: "rgba(249, 115, 22, 0.25)" },
+                { offset: 0.5, color: "rgba(249, 115, 22, 0.08)" },
+                { offset: 1, color: "rgba(249, 115, 22, 0.02)" }
               ]
             }
           },
+          emphasis: {
+            focus: "series",
+            itemStyle: { borderColor: "#fff", borderWidth: 2 }
+          },
           data: processedData().rightSpeeds
         }
-      ]
+      ],
+      animation: true,
+      animationDuration: 800,
+      animationEasing: "cubicOut"
     }));
     Card($$renderer2, {
+      class: "overflow-hidden border-border/50 bg-linear-to-b from-card to-card/50",
       children: ($$renderer3) => {
         Card_header($$renderer3, {
+          class: "pb-4",
           children: ($$renderer4) => {
+            $$renderer4.push(`<div class="flex items-center justify-between"><div>`);
             Card_title($$renderer4, {
+              class: "flex items-center gap-2 text-lg",
               children: ($$renderer5) => {
-                $$renderer5.push(`<!---->${escape_html(title)}`);
+                $$renderer5.push(`<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">`);
+                Activity($$renderer5, { class: "h-4 w-4 text-primary" });
+                $$renderer5.push(`<!----></div> ${escape_html(title)}`);
               }
             });
             $$renderer4.push(`<!----> `);
             if (description) {
               $$renderer4.push("<!--[-->");
               Card_description($$renderer4, {
+                class: "mt-1",
                 children: ($$renderer5) => {
                   $$renderer5.push(`<!---->${escape_html(description)}`);
                 }
@@ -985,7 +1381,14 @@ function Speed_chart($$renderer, $$props) {
             } else {
               $$renderer4.push("<!--[!-->");
             }
-            $$renderer4.push(`<!--]-->`);
+            $$renderer4.push(`<!--]--></div> `);
+            if (data.length > 0) {
+              $$renderer4.push("<!--[-->");
+              $$renderer4.push(`<div class="flex items-center gap-3 rounded-xl bg-muted/50 p-2 pr-3"><div class="flex items-center gap-1.5"><div class="h-2 w-2 rounded-full bg-sky-500"></div> <span class="text-xs font-medium text-muted-foreground">Min: <span class="text-foreground">${escape_html(minSpeed().toFixed(1))}</span></span></div> <div class="h-4 w-px bg-border"></div> <div class="flex items-center gap-1.5"><div class="h-2 w-2 rounded-full bg-orange-500"></div> <span class="text-xs font-medium text-muted-foreground">Max: <span class="text-foreground">${escape_html(maxSpeed().toFixed(1))}</span></span></div></div>`);
+            } else {
+              $$renderer4.push("<!--[!-->");
+            }
+            $$renderer4.push(`<!--]--></div>`);
           }
         });
         $$renderer3.push(`<!----> `);
@@ -993,10 +1396,12 @@ function Speed_chart($$renderer, $$props) {
           children: ($$renderer4) => {
             if (data.length === 0) {
               $$renderer4.push("<!--[-->");
-              $$renderer4.push(`<div class="text-muted-foreground flex h-[300px] items-center justify-center">Aucune donnée disponible</div>`);
+              $$renderer4.push(`<div class="flex h-[320px] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"><div class="flex h-14 w-14 items-center justify-center rounded-full bg-muted">`);
+              Waves($$renderer4, { class: "h-7 w-7 text-muted-foreground/50" });
+              $$renderer4.push(`<!----></div> <p class="text-sm font-medium text-muted-foreground">Aucune donnée disponible</p> <p class="text-xs text-muted-foreground/70">Les données apparaîtront ici</p></div>`);
             } else {
               $$renderer4.push("<!--[!-->");
-              Echart($$renderer4, { option: option(), style: "height: 300px" });
+              Echart($$renderer4, { option: option(), style: "height: 320px" });
             }
             $$renderer4.push(`<!--]-->`);
           }
@@ -1012,35 +1417,72 @@ function Lane_distribution($$renderer, $$props) {
     let processedData = derived$1(() => {
       const leftCount = data.filter((d) => d.lane === Lane.Left).length;
       const rightCount = data.filter((d) => d.lane === Lane.Right).length;
-      return { leftCount, rightCount };
+      const total = leftCount + rightCount;
+      return {
+        leftCount,
+        rightCount,
+        leftPercent: total > 0 ? Math.round(leftCount / total * 100) : 0,
+        rightPercent: total > 0 ? Math.round(rightCount / total * 100) : 0
+      };
     });
     let option = derived$1(() => ({
       tooltip: {
         trigger: "item",
         formatter: "{b}: {c} ({d}%)",
-        backgroundColor: "rgba(0, 0, 0, 0.8)",
-        borderColor: "#333",
-        textStyle: { color: "#fff" }
+        backgroundColor: "rgba(15, 23, 42, 0.95)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
+        textStyle: { color: "#f1f5f9", fontFamily: "system-ui, sans-serif" },
+        padding: [12, 16],
+        cornerRadius: 8,
+        extraCssText: "box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);"
       },
       legend: {
         orient: "vertical",
         left: "left",
-        textStyle: { color: "#666" }
+        textStyle: { color: "#94a3b8", fontFamily: "system-ui, sans-serif" },
+        itemWidth: 12,
+        itemHeight: 8,
+        itemGap: 16
       },
       series: [
         {
           name: "Voies",
           type: "pie",
-          radius: ["40%", "70%"],
+          radius: ["45%", "75%"],
+          center: ["55%", "50%"],
           avoidLabelOverlap: false,
-          itemStyle: { borderRadius: 10, borderColor: "#fff", borderWidth: 2 },
-          label: { show: true, formatter: "{b}\n{d}%", color: "#333" },
-          emphasis: { label: { show: true, fontSize: 16, fontWeight: "bold" } },
+          itemStyle: {
+            borderRadius: 8,
+            borderColor: "rgba(15, 23, 42, 0.8)",
+            borderWidth: 3
+          },
+          label: {
+            show: true,
+            position: "outside",
+            formatter: "{b}\n{d}%",
+            color: "#f1f5f9",
+            fontSize: 12,
+            fontFamily: "system-ui, sans-serif",
+            lineHeight: 18
+          },
+          emphasis: {
+            label: { show: true, fontSize: 14, fontWeight: "bold" },
+            itemStyle: {
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowColor: "rgba(0, 0, 0, 0.5)"
+            }
+          },
+          labelLine: {
+            show: true,
+            lineStyle: { color: "rgba(255, 255, 255, 0.3)" },
+            smooth: 0.2
+          },
           data: [
             {
               value: processedData().leftCount,
               name: "Voie gauche",
-              itemStyle: { color: "#3b82f6" }
+              itemStyle: { color: "#0ea5e9" }
             },
             {
               value: processedData().rightCount,
@@ -1049,21 +1491,30 @@ function Lane_distribution($$renderer, $$props) {
             }
           ]
         }
-      ]
+      ],
+      animation: true,
+      animationDuration: 1e3,
+      animationEasing: "cubicOut"
     }));
     Card($$renderer2, {
+      class: "overflow-hidden border-border/50 bg-gradient-to-b from-card to-card/50",
       children: ($$renderer3) => {
         Card_header($$renderer3, {
+          class: "pb-4",
           children: ($$renderer4) => {
             Card_title($$renderer4, {
+              class: "flex items-center gap-2 text-lg",
               children: ($$renderer5) => {
-                $$renderer5.push(`<!---->Répartition par voie`);
+                $$renderer5.push(`<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">`);
+                Route($$renderer5, { class: "h-4 w-4 text-primary" });
+                $$renderer5.push(`<!----></div> Répartition par voie`);
               }
             });
             $$renderer4.push(`<!----> `);
             Card_description($$renderer4, {
+              class: "mt-1",
               children: ($$renderer5) => {
-                $$renderer5.push(`<!---->Distribution des passages par voie`);
+                $$renderer5.push(`<!---->Distribution des passages entre les deux voies`);
               }
             });
             $$renderer4.push(`<!---->`);
@@ -1074,10 +1525,13 @@ function Lane_distribution($$renderer, $$props) {
           children: ($$renderer4) => {
             if (data.length === 0) {
               $$renderer4.push("<!--[-->");
-              $$renderer4.push(`<div class="text-muted-foreground flex h-[300px] items-center justify-center">Aucune donnée disponible</div>`);
+              $$renderer4.push(`<div class="flex h-[300px] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"><div class="flex h-14 w-14 items-center justify-center rounded-full bg-muted">`);
+              Waves($$renderer4, { class: "h-7 w-7 text-muted-foreground/50" });
+              $$renderer4.push(`<!----></div> <p class="text-sm font-medium text-muted-foreground">Aucune donnée disponible</p></div>`);
             } else {
               $$renderer4.push("<!--[!-->");
               Echart($$renderer4, { option: option(), style: "height: 300px" });
+              $$renderer4.push(`<!----> <div class="mt-4 grid grid-cols-2 gap-4"><div class="group relative overflow-hidden rounded-xl border border-sky-500/20 bg-gradient-to-br from-sky-500/10 to-transparent p-4 transition-all hover:border-sky-500/40"><div class="absolute -top-4 -right-4 h-16 w-16 rounded-full bg-sky-500/10 blur-2xl transition-all duration-500 group-hover:bg-sky-500/20"></div> <div class="relative z-10"><div class="flex items-center gap-2"><div class="h-2.5 w-2.5 rounded-full bg-sky-500"></div> <span class="text-xs font-medium text-muted-foreground">Voie gauche</span></div> <div class="mt-2 text-2xl font-bold text-sky-500">${escape_html(processedData().leftCount)}</div> <div class="text-xs text-muted-foreground/70">${escape_html(processedData().leftPercent)}% du trafic</div></div></div> <div class="group relative overflow-hidden rounded-xl border border-orange-500/20 bg-gradient-to-br from-orange-500/10 to-transparent p-4 transition-all hover:border-orange-500/40"><div class="absolute -top-4 -right-4 h-16 w-16 rounded-full bg-orange-500/10 blur-2xl transition-all duration-500 group-hover:bg-orange-500/20"></div> <div class="relative z-10"><div class="flex items-center gap-2"><div class="h-2.5 w-2.5 rounded-full bg-orange-500"></div> <span class="text-xs font-medium text-muted-foreground">Voie droite</span></div> <div class="mt-2 text-2xl font-bold text-orange-500">${escape_html(processedData().rightCount)}</div> <div class="text-xs text-muted-foreground/70">${escape_html(processedData().rightPercent)}% du trafic</div></div></div></div>`);
             }
             $$renderer4.push(`<!--]-->`);
           }
@@ -1103,41 +1557,75 @@ function Sensor_stats($$renderer, $$props) {
       );
       const sensors2 = Object.keys(sensorData);
       const avgSpeeds = sensors2.map((sensor) => Math.round(sensorData[sensor].speeds.reduce((a, b) => a + b, 0) / sensorData[sensor].speeds.length * 10) / 10);
-      return { sensorData, sensors: sensors2, avgSpeeds };
+      const sortedIndices = avgSpeeds.map((_, i) => i).sort((a, b) => avgSpeeds[b] - avgSpeeds[a]);
+      const sortedSensors = sortedIndices.map((i) => sensors2[i]);
+      const sortedAvgSpeeds = sortedIndices.map((i) => avgSpeeds[i]);
+      const sortedCounts = sortedIndices.map((i) => sensorData[sensors2[i]].count);
+      return {
+        sensors: sortedSensors,
+        avgSpeeds: sortedAvgSpeeds,
+        counts: sortedCounts
+      };
     });
     let option = derived$1(() => ({
       tooltip: {
         trigger: "axis",
         axisPointer: { type: "shadow" },
-        backgroundColor: "rgba(0, 0, 0, 0.8)",
-        borderColor: "#333",
-        textStyle: { color: "#fff" },
+        backgroundColor: "rgba(15, 23, 42, 0.95)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
+        textStyle: {
+          color: "#f1f5f9",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 12
+        },
+        padding: [12, 16],
+        cornerRadius: 8,
+        extraCssText: "box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);",
         formatter: (params) => {
           const sensor = params[0].name;
-          const avgSpeed = params[0].value;
-          const count = processedData().sensorData[sensor]?.count ?? 0;
-          return `${sensor}<br/>Vitesse moyenne: ${avgSpeed} km/h<br/>Passages: ${count}`;
+          const idx = processedData().sensors.indexOf(sensor);
+          const count = processedData().counts[idx];
+          return `<strong>${sensor}</strong><br/>Vitesse moyenne: <strong>${params[0].value} km/h</strong><br/>Passages: <strong>${count}</strong>`;
         }
       },
       grid: {
-        left: "3%",
+        left: "2%",
         right: "4%",
-        bottom: "3%",
-        top: "10%",
+        bottom: "2%",
+        top: "12%",
         containLabel: true
       },
       xAxis: {
         type: "category",
         data: processedData().sensors,
-        axisLabel: { rotate: 45, color: "#666" },
-        axisLine: { lineStyle: { color: "#999" } }
+        axisLabel: {
+          rotate: 45,
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11
+        },
+        axisLine: { lineStyle: { color: "rgba(148, 163, 184, 0.2)" } },
+        axisTick: { show: false }
       },
       yAxis: {
         type: "value",
-        name: "Vitesse moy. (km/h)",
-        nameTextStyle: { color: "#999" },
-        axisLine: { lineStyle: { color: "#999" } },
-        splitLine: { lineStyle: { color: "#333", opacity: 0.3 } }
+        name: "km/h",
+        nameTextStyle: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11,
+          padding: [0, 30, 0, 0]
+        },
+        axisLine: { show: false },
+        axisTick: { show: false },
+        axisLabel: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11
+        },
+        splitLine: {
+          lineStyle: { color: "rgba(148, 163, 184, 0.1)", type: "dashed" }
+        }
       },
       series: [
         {
@@ -1152,26 +1640,38 @@ function Sensor_stats($$renderer, $$props) {
               x2: 0,
               y2: 1,
               colorStops: [
-                { offset: 0, color: "#dc2626" },
+                { offset: 0, color: "#ef4444" },
                 { offset: 1, color: "#ea580c" }
               ]
             },
             borderRadius: [4, 4, 0, 0]
+          },
+          emphasis: {
+            itemStyle: { shadowBlur: 10, shadowColor: "rgba(239, 68, 68, 0.5)" }
           }
         }
-      ]
+      ],
+      animation: true,
+      animationDuration: 800,
+      animationEasing: "cubicOut"
     }));
     Card($$renderer2, {
+      class: "overflow-hidden border-border/50 bg-gradient-to-b from-card to-card/50",
       children: ($$renderer3) => {
         Card_header($$renderer3, {
+          class: "pb-4",
           children: ($$renderer4) => {
             Card_title($$renderer4, {
+              class: "flex items-center gap-2 text-lg",
               children: ($$renderer5) => {
-                $$renderer5.push(`<!---->Statistiques par capteur`);
+                $$renderer5.push(`<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">`);
+                Radio($$renderer5, { class: "h-4 w-4 text-primary" });
+                $$renderer5.push(`<!----></div> Statistiques par-capteur`);
               }
             });
             $$renderer4.push(`<!----> `);
             Card_description($$renderer4, {
+              class: "mt-1",
               children: ($$renderer5) => {
                 $$renderer5.push(`<!---->Vitesse moyenne par point de mesure`);
               }
@@ -1184,10 +1684,15 @@ function Sensor_stats($$renderer, $$props) {
           children: ($$renderer4) => {
             if (data.length === 0) {
               $$renderer4.push("<!--[-->");
-              $$renderer4.push(`<div class="text-muted-foreground flex h-[300px] items-center justify-center">Aucune donnée disponible</div>`);
+              $$renderer4.push(`<div class="flex h-[300px] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"><div class="flex h-14 w-14 items-center justify-center rounded-full bg-muted">`);
+              Waves($$renderer4, { class: "h-7 w-7 text-muted-foreground/50" });
+              $$renderer4.push(`<!----></div> <p class="text-sm font-medium text-muted-foreground">Aucune donnée disponible</p></div>`);
             } else {
               $$renderer4.push("<!--[!-->");
               Echart($$renderer4, { option: option(), style: "height: 300px" });
+              $$renderer4.push(`<!----> <div class="mt-4 flex items-center justify-center rounded-xl bg-muted/30 p-3"><div class="flex items-center gap-2"><div class="flex h-8 w-8 items-center justify-center rounded-lg bg-red-500/10">`);
+              Activity($$renderer4, { class: "h-4 w-4 text-red-500" });
+              $$renderer4.push(`<!----></div> <div><div class="text-xs text-muted-foreground">Total capteurs actifs</div> <div class="text-sm font-bold text-red-500">${escape_html(processedData().sensors.length)}</div></div></div></div>`);
             }
             $$renderer4.push(`<!--]-->`);
           }
@@ -1222,46 +1727,86 @@ function Hourly_trend($$renderer, $$props) {
     let option = derived$1(() => ({
       tooltip: {
         trigger: "axis",
-        axisPointer: { type: "cross" },
-        backgroundColor: "rgba(0, 0, 0, 0.8)",
-        borderColor: "#333",
-        textStyle: { color: "#fff" }
+        axisPointer: {
+          type: "cross",
+          crossStyle: { color: "#999" },
+          lineStyle: { color: "rgba(255, 255, 255, 0.3)", width: 1, type: "dashed" }
+        },
+        backgroundColor: "rgba(15, 23, 42, 0.95)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
+        textStyle: {
+          color: "#f1f5f9",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 12
+        },
+        padding: [12, 16],
+        cornerRadius: 8,
+        extraCssText: "box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);"
       },
       legend: {
         data: ["Vitesse moyenne", "Nombre de passages"],
-        textStyle: { color: "#999" },
-        top: "0%"
+        textStyle: { color: "#94a3b8", fontFamily: "system-ui, sans-serif" },
+        top: 8,
+        itemGap: 24
       },
       grid: {
-        left: "3%",
-        right: "4%",
-        bottom: "3%",
-        top: "12%",
+        left: "2%",
+        right: "2%",
+        bottom: "2%",
+        top: "18%",
         containLabel: true
       },
       xAxis: {
         type: "category",
         data: processedData().hours,
-        axisLabel: { color: "#999" },
-        axisLine: { lineStyle: { color: "#999" } }
+        axisLabel: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11,
+          interval: Math.floor(processedData().hours.length / 10)
+        },
+        axisLine: { lineStyle: { color: "rgba(148, 163, 184, 0.2)" } },
+        axisTick: { show: false }
       },
       yAxis: [
         {
           type: "value",
-          name: "Vitesse (km/h)",
+          name: "km/h",
           position: "left",
-          nameTextStyle: { color: "#999" },
-          axisLine: { lineStyle: { color: "#999" } },
-          axisLabel: { color: "#999" },
-          splitLine: { lineStyle: { color: "#333", opacity: 0.3 } }
+          nameTextStyle: {
+            color: "#64748b",
+            fontFamily: "system-ui, sans-serif",
+            fontSize: 11,
+            padding: [0, 30, 0, 0]
+          },
+          axisLine: { show: false },
+          axisTick: { show: false },
+          axisLabel: {
+            color: "#64748b",
+            fontFamily: "system-ui, sans-serif",
+            fontSize: 11
+          },
+          splitLine: {
+            lineStyle: { color: "rgba(148, 163, 184, 0.1)", type: "dashed" }
+          }
         },
         {
           type: "value",
           name: "Passages",
           position: "right",
-          nameTextStyle: { color: "#999" },
-          axisLine: { lineStyle: { color: "#999" } },
-          axisLabel: { color: "#999" },
+          nameTextStyle: {
+            color: "#64748b",
+            fontFamily: "system-ui, sans-serif",
+            fontSize: 11,
+            padding: [0, 0, 0, 30]
+          },
+          axisLine: { show: false },
+          axisTick: { show: false },
+          axisLabel: {
+            color: "#64748b",
+            fontFamily: "system-ui, sans-serif",
+            fontSize: 11
+          },
           splitLine: { show: false }
         }
       ],
@@ -1271,11 +1816,17 @@ function Hourly_trend($$renderer, $$props) {
           type: "line",
           yAxisIndex: 0,
           data: processedData().avgSpeeds,
-          smooth: true,
-          itemStyle: { color: "#ec4899" },
-          lineStyle: { width: 3 },
+          smooth: 0.35,
           symbol: "circle",
-          symbolSize: 8,
+          symbolSize: 6,
+          showSymbol: false,
+          itemStyle: { color: "#ec4899" },
+          lineStyle: {
+            width: 3,
+            shadowColor: "rgba(236, 72, 153, 0.5)",
+            shadowBlur: 8,
+            shadowOffsetY: 4
+          },
           areaStyle: {
             color: {
               type: "linear",
@@ -1284,32 +1835,58 @@ function Hourly_trend($$renderer, $$props) {
               x2: 0,
               y2: 1,
               colorStops: [
-                { offset: 0, color: "rgba(236, 72, 153, 0.3)" },
-                { offset: 1, color: "rgba(236, 72, 153, 0.05)" }
+                { offset: 0, color: "rgba(236, 72, 153, 0.25)" },
+                { offset: 0.5, color: "rgba(236, 72, 153, 0.08)" },
+                { offset: 1, color: "rgba(236, 72, 153, 0.02)" }
               ]
             }
-          }
+          },
+          emphasis: { focus: "series" }
         },
         {
           name: "Nombre de passages",
           type: "bar",
           yAxisIndex: 1,
           data: processedData().counts,
-          itemStyle: { color: "rgba(99, 102, 241, 0.6)", borderRadius: [4, 4, 0, 0] }
+          itemStyle: {
+            color: {
+              type: "linear",
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [
+                { offset: 0, color: "#6366f1" },
+                { offset: 1, color: "#4f46e5" }
+              ]
+            },
+            borderRadius: [4, 4, 0, 0]
+          },
+          barWidth: "50%",
+          emphasis: { focus: "series" }
         }
-      ]
+      ],
+      animation: true,
+      animationDuration: 800,
+      animationEasing: "cubicOut"
     }));
     Card($$renderer2, {
+      class: "overflow-hidden border-border/50 bg-gradient-to-b from-card to-card/50",
       children: ($$renderer3) => {
         Card_header($$renderer3, {
+          class: "pb-4",
           children: ($$renderer4) => {
             Card_title($$renderer4, {
+              class: "flex items-center gap-2 text-lg",
               children: ($$renderer5) => {
-                $$renderer5.push(`<!---->Tendance horaire`);
+                $$renderer5.push(`<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">`);
+                Clock($$renderer5, { class: "h-4 w-4 text-primary" });
+                $$renderer5.push(`<!----></div> Tendance horaire`);
               }
             });
             $$renderer4.push(`<!----> `);
             Card_description($$renderer4, {
+              class: "mt-1",
               children: ($$renderer5) => {
                 $$renderer5.push(`<!---->Vitesse moyenne et volume d'activité par heure`);
               }
@@ -1322,10 +1899,17 @@ function Hourly_trend($$renderer, $$props) {
           children: ($$renderer4) => {
             if (data.length === 0) {
               $$renderer4.push("<!--[-->");
-              $$renderer4.push(`<div class="text-muted-foreground flex h-[350px] items-center justify-center">Aucune donnée disponible</div>`);
+              $$renderer4.push(`<div class="flex h-[350px] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"><div class="flex h-14 w-14 items-center justify-center rounded-full bg-muted">`);
+              Waves($$renderer4, { class: "h-7 w-7 text-muted-foreground/50" });
+              $$renderer4.push(`<!----></div> <p class="text-sm font-medium text-muted-foreground">Aucune donnée disponible</p></div>`);
             } else {
               $$renderer4.push("<!--[!-->");
               Echart($$renderer4, { option: option(), style: "height: 350px" });
+              $$renderer4.push(`<!----> <div class="mt-4 flex items-center justify-between rounded-xl bg-muted/30 p-3"><div class="flex items-center gap-2"><div class="flex h-8 w-8 items-center justify-center rounded-lg bg-pink-500/10">`);
+              Trending_up($$renderer4, { class: "h-4 w-4 text-pink-500" });
+              $$renderer4.push(`<!----></div> <div><div class="text-xs text-muted-foreground">Vitesse moy.</div> <div class="text-sm font-bold">${escape_html(Math.round(processedData().avgSpeeds.reduce((a, b) => a + b, 0) / (processedData().avgSpeeds.length || 1)))} km/h</div></div></div> <div class="h-8 w-px bg-border"></div> <div class="flex items-center gap-2"><div class="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/10">`);
+              Chart_column($$renderer4, { class: "h-4 w-4 text-indigo-500" });
+              $$renderer4.push(`<!----></div> <div><div class="text-xs text-muted-foreground">Total passages</div> <div class="text-sm font-bold">${escape_html(processedData().counts.reduce((a, b) => a + b, 0))}</div></div></div></div>`);
             }
             $$renderer4.push(`<!--]-->`);
           }
@@ -1378,7 +1962,7 @@ function Speed_records($$renderer, $$props) {
             $$renderer4.push(`<!----></div> `);
             if (hasActiveFilters()) {
               $$renderer4.push("<!--[-->");
-              $$renderer4.push(`<button class="hover:bg-accent flex items-center gap-1 rounded-md border px-3 py-1.5 text-sm">`);
+              $$renderer4.push(`<button class="flex items-center gap-1 rounded-md border px-3 py-1.5 text-sm hover:bg-accent">`);
               X($$renderer4, { class: "h-4 w-4" });
               $$renderer4.push(`<!----> Effacer les filtres</button>`);
             } else {
@@ -1392,82 +1976,82 @@ function Speed_records($$renderer, $$props) {
           children: ($$renderer4) => {
             if (data.length === 0) {
               $$renderer4.push("<!--[-->");
-              $$renderer4.push(`<div class="text-muted-foreground flex h-[300px] items-center justify-center">Aucune donnée disponible</div>`);
+              $$renderer4.push(`<div class="flex h-[300px] items-center justify-center text-muted-foreground">Aucune donnée disponible</div>`);
             } else {
               $$renderer4.push("<!--[!-->");
-              $$renderer4.push(`<div class="overflow-x-auto rounded-md border"><table class="w-full text-sm"><thead><tr class="border-b"><th${attr_style(`width:${stringify(colWidthId)}px`)} class="relative p-0"><button class="hover:bg-muted flex h-9 w-full items-center justify-start gap-1 px-3 text-left text-xs font-medium">ID `);
+              $$renderer4.push(`<div class="overflow-x-auto rounded-md border"><table class="w-full text-sm"><thead><tr class="border-b"><th${attr_style(`width:${stringify(colWidthId)}px`)} class="relative p-0"><button class="flex h-9 w-full items-center justify-start gap-1 px-3 text-left text-xs font-medium hover:bg-muted">ID `);
               {
                 $$renderer4.push("<!--[-->");
                 Arrow_up_down($$renderer4, { class: "h-3 w-3" });
               }
-              $$renderer4.push(`<!--]--></button> <div class="hover:bg-primary/50 active:bg-primary group absolute top-0 right-0 flex h-full w-2 cursor-col-resize items-center justify-center">`);
+              $$renderer4.push(`<!--]--></button> <span role="separator" class="group absolute top-0 right-0 flex h-full w-2 cursor-col-resize items-center justify-center hover:bg-primary/50 active:bg-primary">`);
               Grip_vertical($$renderer4, {
-                class: "text-muted-foreground h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100"
+                class: "h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
               });
-              $$renderer4.push(`<!----></div></th><th${attr_style(`width:${stringify(colWidthSensor)}px`)} class="relative p-0"><button class="hover:bg-muted flex h-9 w-full items-center justify-start gap-1 px-3 text-left text-xs font-medium">Capteur `);
+              $$renderer4.push(`<!----></span></th><th${attr_style(`width:${stringify(colWidthSensor)}px`)} class="relative p-0"><button class="flex h-9 w-full items-center justify-start gap-1 px-3 text-left text-xs font-medium hover:bg-muted">Capteur `);
               {
                 $$renderer4.push("<!--[-->");
                 Arrow_up_down($$renderer4, { class: "h-3 w-3" });
               }
-              $$renderer4.push(`<!--]--></button> <div class="hover:bg-primary/50 active:bg-primary group absolute top-0 right-0 flex h-full w-2 cursor-col-resize items-center justify-center">`);
+              $$renderer4.push(`<!--]--></button> <span role="separator" class="group absolute top-0 right-0 flex h-full w-2 cursor-col-resize items-center justify-center hover:bg-primary/50 active:bg-primary">`);
               Grip_vertical($$renderer4, {
-                class: "text-muted-foreground h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100"
+                class: "h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
               });
-              $$renderer4.push(`<!----></div></th><th${attr_style(`width:${stringify(colWidthSpeed)}px`)} class="relative p-0"><button class="hover:bg-muted flex h-9 w-full items-center justify-start gap-1 px-3 text-left text-xs font-medium">Vitesse `);
+              $$renderer4.push(`<!----></span></th><th${attr_style(`width:${stringify(colWidthSpeed)}px`)} class="relative p-0"><button class="flex h-9 w-full items-center justify-start gap-1 px-3 text-left text-xs font-medium hover:bg-muted">Vitesse `);
               {
                 $$renderer4.push("<!--[-->");
                 Arrow_up_down($$renderer4, { class: "h-3 w-3" });
               }
-              $$renderer4.push(`<!--]--></button> <div class="hover:bg-primary/50 active:bg-primary group absolute top-0 right-0 flex h-full w-2 cursor-col-resize items-center justify-center">`);
+              $$renderer4.push(`<!--]--></button> <span role="separator" class="group absolute top-0 right-0 flex h-full w-2 cursor-col-resize items-center justify-center hover:bg-primary/50 active:bg-primary">`);
               Grip_vertical($$renderer4, {
-                class: "text-muted-foreground h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100"
+                class: "h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
               });
-              $$renderer4.push(`<!----></div></th><th${attr_style(`width:${stringify(colWidthLane)}px`)} class="relative p-0"><button class="hover:bg-muted flex h-9 w-full items-center justify-start gap-1 px-3 text-left text-xs font-medium">Voie `);
+              $$renderer4.push(`<!----></span></th><th${attr_style(`width:${stringify(colWidthLane)}px`)} class="relative p-0"><button class="flex h-9 w-full items-center justify-start gap-1 px-3 text-left text-xs font-medium hover:bg-muted">Voie `);
               {
                 $$renderer4.push("<!--[-->");
                 Arrow_up_down($$renderer4, { class: "h-3 w-3" });
               }
-              $$renderer4.push(`<!--]--></button> <div class="hover:bg-primary/50 active:bg-primary group absolute top-0 right-0 flex h-full w-2 cursor-col-resize items-center justify-center">`);
+              $$renderer4.push(`<!--]--></button> <span role="separator" class="group absolute top-0 right-0 flex h-full w-2 cursor-col-resize items-center justify-center hover:bg-primary/50 active:bg-primary">`);
               Grip_vertical($$renderer4, {
-                class: "text-muted-foreground h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100"
+                class: "h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
               });
-              $$renderer4.push(`<!----></div></th><th${attr_style(`width:${stringify(colWidthDate)}px`)} class="relative p-0"><button class="hover:bg-muted flex h-9 w-full items-center justify-start gap-1 px-3 text-left text-xs font-medium">Date &amp; Heure `);
+              $$renderer4.push(`<!----></span></th><th${attr_style(`width:${stringify(colWidthDate)}px`)} class="relative p-0"><button class="flex h-9 w-full items-center justify-start gap-1 px-3 text-left text-xs font-medium hover:bg-muted">Date &amp; Heure `);
               {
                 $$renderer4.push("<!--[-->");
                 Arrow_up_down($$renderer4, { class: "h-3 w-3" });
               }
-              $$renderer4.push(`<!--]--></button> <div class="hover:bg-primary/50 active:bg-primary group absolute top-0 right-0 flex h-full w-2 cursor-col-resize items-center justify-center">`);
+              $$renderer4.push(`<!--]--></button> <span role="separator" class="group absolute top-0 right-0 flex h-full w-2 cursor-col-resize items-center justify-center hover:bg-primary/50 active:bg-primary">`);
               Grip_vertical($$renderer4, {
-                class: "text-muted-foreground h-4 w-4 opacity-0 transition-opacity group-hover:opacity-100"
+                class: "h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
               });
-              $$renderer4.push(`<!----></div></th></tr><tr class="border-b"><th${attr_style(`width:${stringify(colWidthId)}px`)} class="p-1"><div class="relative">`);
-              Search($$renderer4, { class: "text-muted-foreground absolute top-2 left-2 h-3 w-3" });
-              $$renderer4.push(`<!----> <input class="bg-background h-7 w-full rounded border pl-7 text-xs" placeholder="ID..."${attr("value", filterIdValue)}/></div></th><th${attr_style(`width:${stringify(colWidthSensor)}px`)} class="p-1"><div class="relative">`);
-              Search($$renderer4, { class: "text-muted-foreground absolute top-2 left-2 h-3 w-3" });
-              $$renderer4.push(`<!----> <input class="bg-background h-7 w-full rounded border pl-7 text-xs" placeholder="Rechercher..."${attr("value", filterSensorValue)}/></div></th><th${attr_style(`width:${stringify(colWidthSpeed)}px`)} class="p-1"><div class="relative">`);
-              Search($$renderer4, { class: "text-muted-foreground absolute top-2 left-2 h-3 w-3" });
-              $$renderer4.push(`<!----> <input class="bg-background h-7 w-full rounded border pl-7 text-xs" placeholder="Vitesse..."${attr("value", filterSpeedValue)}/></div></th><th${attr_style(`width:${stringify(colWidthLane)}px`)} class="p-1"><div class="relative">`);
-              Search($$renderer4, { class: "text-muted-foreground absolute top-2 left-2 h-3 w-3" });
-              $$renderer4.push(`<!----> <input class="bg-background h-7 w-full rounded border pl-7 text-xs" placeholder="Voie..."${attr("value", filterLaneValue)}/></div></th><th${attr_style(`width:${stringify(colWidthDate)}px`)} class="p-1"><div class="relative">`);
-              Search($$renderer4, { class: "text-muted-foreground absolute top-2 left-2 h-3 w-3" });
-              $$renderer4.push(`<!----> <input class="bg-background h-7 w-full rounded border pl-7 text-xs" placeholder="Date..."${attr("value", filterDateValue)}/></div></th></tr></thead><tbody>`);
+              $$renderer4.push(`<!----></span></th></tr><tr class="border-b"><th${attr_style(`width:${stringify(colWidthId)}px`)} class="p-1"><div class="relative">`);
+              Search($$renderer4, { class: "absolute top-2 left-2 h-3 w-3 text-muted-foreground" });
+              $$renderer4.push(`<!----> <input class="h-7 w-full rounded border bg-background pl-7 text-xs" placeholder="ID..."${attr("value", filterIdValue)}/></div></th><th${attr_style(`width:${stringify(colWidthSensor)}px`)} class="p-1"><div class="relative">`);
+              Search($$renderer4, { class: "absolute top-2 left-2 h-3 w-3 text-muted-foreground" });
+              $$renderer4.push(`<!----> <input class="h-7 w-full rounded border bg-background pl-7 text-xs" placeholder="Rechercher..."${attr("value", filterSensorValue)}/></div></th><th${attr_style(`width:${stringify(colWidthSpeed)}px`)} class="p-1"><div class="relative">`);
+              Search($$renderer4, { class: "absolute top-2 left-2 h-3 w-3 text-muted-foreground" });
+              $$renderer4.push(`<!----> <input class="h-7 w-full rounded border bg-background pl-7 text-xs" placeholder="Vitesse..."${attr("value", filterSpeedValue)}/></div></th><th${attr_style(`width:${stringify(colWidthLane)}px`)} class="p-1"><div class="relative">`);
+              Search($$renderer4, { class: "absolute top-2 left-2 h-3 w-3 text-muted-foreground" });
+              $$renderer4.push(`<!----> <input class="h-7 w-full rounded border bg-background pl-7 text-xs" placeholder="Voie..."${attr("value", filterLaneValue)}/></div></th><th${attr_style(`width:${stringify(colWidthDate)}px`)} class="p-1"><div class="relative">`);
+              Search($$renderer4, { class: "absolute top-2 left-2 h-3 w-3 text-muted-foreground" });
+              $$renderer4.push(`<!----> <input class="h-7 w-full rounded border bg-background pl-7 text-xs" placeholder="Date..."${attr("value", filterDateValue)}/></div></th></tr></thead><tbody>`);
               if (paginatedData().length === 0) {
                 $$renderer4.push("<!--[-->");
-                $$renderer4.push(`<tr><td colspan="5" class="text-muted-foreground h-24 text-center">Aucun résultat trouvé</td></tr>`);
+                $$renderer4.push(`<tr><td colspan="5" class="h-24 text-center text-muted-foreground">Aucun résultat trouvé</td></tr>`);
               } else {
                 $$renderer4.push("<!--[!-->");
                 $$renderer4.push(`<!--[-->`);
                 const each_array = ensure_array_like(paginatedData());
                 for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
                   let record = each_array[$$index];
-                  $$renderer4.push(`<tr class="hover:bg-muted/50 border-b transition-colors"><td${attr_style(`width:${stringify(colWidthId)}px`)} class="px-3 py-2 font-mono text-sm">${escape_html(record.id)}</td><td${attr_style(`width:${stringify(colWidthSensor)}px`)} class="px-3 py-2">${escape_html(record.sensor_name || "Unknown")}</td><td${attr_style(`width:${stringify(colWidthSpeed)}px`)} class="px-3 py-2"><span class="font-semibold">${escape_html(record.speed)} km/h</span></td><td${attr_style(`width:${stringify(colWidthLane)}px`)} class="px-3 py-2"><span${attr_class(`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${stringify(record.lane === Lane.Left ? "border-transparent bg-primary text-primary-foreground" : "border-transparent bg-secondary text-secondary-foreground")}`)}>${escape_html(record.lane === Lane.Left ? "Gauche" : "Droite")}</span></td><td${attr_style(`width:${stringify(colWidthDate)}px`)} class="text-muted-foreground px-3 py-2 text-sm">${escape_html(format(new Date(record.created_at), "dd/MM/yyyy HH:mm:ss"))}</td></tr>`);
+                  $$renderer4.push(`<tr class="border-b transition-colors hover:bg-muted/50"><td${attr_style(`width:${stringify(colWidthId)}px`)} class="px-3 py-2 font-mono text-sm">${escape_html(record.id)}</td><td${attr_style(`width:${stringify(colWidthSensor)}px`)} class="px-3 py-2">${escape_html(record.sensor_name || "Unknown")}</td><td${attr_style(`width:${stringify(colWidthSpeed)}px`)} class="px-3 py-2"><span class="font-semibold">${escape_html(record.speed)} km/h</span></td><td${attr_style(`width:${stringify(colWidthLane)}px`)} class="px-3 py-2"><span${attr_class(`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${stringify(record.lane === Lane.Left ? "border-transparent bg-primary text-primary-foreground" : "border-transparent bg-secondary text-secondary-foreground")}`)}>${escape_html(record.lane === Lane.Left ? "Gauche" : "Droite")}</span></td><td${attr_style(`width:${stringify(colWidthDate)}px`)} class="px-3 py-2 text-sm text-muted-foreground">${escape_html(format(new Date(record.created_at), "dd/MM/yyyy HH:mm:ss"))}</td></tr>`);
                 }
                 $$renderer4.push(`<!--]-->`);
               }
-              $$renderer4.push(`<!--]--></tbody></table></div> <div class="mt-4 flex items-center justify-between"><div class="flex items-center gap-4"><div class="flex items-center gap-2"><span class="text-muted-foreground text-sm">Lignes par page:</span> `);
+              $$renderer4.push(`<!--]--></tbody></table></div> <div class="mt-4 flex items-center justify-between"><div class="flex items-center gap-4"><div class="flex items-center gap-2"><span class="text-sm text-muted-foreground">Lignes par page:</span> `);
               $$renderer4.select(
                 {
-                  class: "bg-background h-8 rounded border px-2 text-sm",
+                  class: "h-8 rounded border bg-background px-2 text-sm",
                   value: itemsPerPage,
                   onchange: () => currentPage = 1
                 },
@@ -1486,10 +2070,10 @@ function Speed_records($$renderer, $$props) {
                   });
                 }
               );
-              $$renderer4.push(`</div> <div class="text-muted-foreground text-sm">${escape_html(totalPages() > 0 ? `Page ${currentPage} sur ${totalPages()}` : "Aucune page")}</div></div> `);
+              $$renderer4.push(`</div> <div class="text-sm text-muted-foreground">${escape_html(totalPages() > 0 ? `Page ${currentPage} sur ${totalPages()}` : "Aucune page")}</div></div> `);
               if (totalPages() > 1) {
                 $$renderer4.push("<!--[-->");
-                $$renderer4.push(`<div class="flex gap-2"><button class="hover:bg-accent rounded-md border px-3 py-1.5 text-sm disabled:opacity-50"${attr("disabled", currentPage === 1, true)}>Précédent</button> <button class="hover:bg-accent rounded-md border px-3 py-1.5 text-sm disabled:opacity-50"${attr("disabled", currentPage === totalPages(), true)}>Suivant</button></div>`);
+                $$renderer4.push(`<div class="flex gap-2"><button class="rounded-md border px-3 py-1.5 text-sm hover:bg-accent disabled:opacity-50"${attr("disabled", currentPage === 1, true)}>Précédent</button> <button class="rounded-md border px-3 py-1.5 text-sm hover:bg-accent disabled:opacity-50"${attr("disabled", currentPage === totalPages(), true)}>Suivant</button></div>`);
               } else {
                 $$renderer4.push("<!--[!-->");
               }
@@ -1521,34 +2105,65 @@ function Speed_distribution($$renderer, $$props) {
       });
       return { labels: Object.keys(bins), values: Object.values(bins) };
     });
+    let peakRange = derived$1(() => {
+      const max = Math.max(...processedData().values);
+      const idx = processedData().values.indexOf(max);
+      return processedData().labels[idx] || "-";
+    });
     let option = derived$1(() => ({
       tooltip: {
         trigger: "axis",
         axisPointer: { type: "shadow" },
-        backgroundColor: "rgba(0, 0, 0, 0.8)",
-        borderColor: "#333",
-        textStyle: { color: "#fff" },
-        formatter: (params) => `${params[0].axisValue} km/h<br/>Nombre de passages: ${params[0].value}`
+        backgroundColor: "rgba(15, 23, 42, 0.95)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
+        textStyle: {
+          color: "#f1f5f9",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 12
+        },
+        padding: [12, 16],
+        cornerRadius: 8,
+        extraCssText: "box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);",
+        formatter: (params) => `<strong>${params[0].axisValue} km/h</strong><br/>Nombre de passages: <strong>${params[0].value}</strong>`
       },
       grid: {
-        left: "3%",
+        left: "2%",
         right: "4%",
-        bottom: "3%",
+        bottom: "2%",
         top: "3%",
         containLabel: true
       },
       xAxis: {
         type: "category",
         data: processedData().labels,
-        axisLabel: { rotate: 45, color: "#999", fontSize: 11 },
-        axisLine: { lineStyle: { color: "#999" } }
+        axisLabel: {
+          rotate: 45,
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11
+        },
+        axisLine: { lineStyle: { color: "rgba(148, 163, 184, 0.2)" } },
+        axisTick: { show: false }
       },
       yAxis: {
         type: "value",
         name: "Nombre",
-        nameTextStyle: { color: "#999" },
-        axisLine: { lineStyle: { color: "#999" } },
-        splitLine: { lineStyle: { color: "#333", opacity: 0.3 } }
+        nameTextStyle: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11,
+          padding: [0, 0, 0, 30]
+        },
+        axisLine: { show: false },
+        axisTick: { show: false },
+        axisLabel: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11
+        },
+        splitLine: {
+          lineStyle: { color: "rgba(148, 163, 184, 0.1)", type: "dashed" }
+        }
       },
       series: [
         {
@@ -1564,25 +2179,38 @@ function Speed_distribution($$renderer, $$props) {
               y2: 0,
               colorStops: [
                 { offset: 0, color: "#10b981" },
-                { offset: 1, color: "#14b8a6" }
+                { offset: 0.5, color: "#14b8a6" },
+                { offset: 1, color: "#0d9488" }
               ]
             },
             borderRadius: [4, 4, 0, 0]
+          },
+          emphasis: {
+            itemStyle: { shadowBlur: 10, shadowColor: "rgba(16, 185, 129, 0.5)" }
           }
         }
-      ]
+      ],
+      animation: true,
+      animationDuration: 800,
+      animationEasing: "cubicOut"
     }));
     Card($$renderer2, {
+      class: "overflow-hidden border-border/50 bg-gradient-to-b from-card to-card/50",
       children: ($$renderer3) => {
         Card_header($$renderer3, {
+          class: "pb-4",
           children: ($$renderer4) => {
             Card_title($$renderer4, {
+              class: "flex items-center gap-2 text-lg",
               children: ($$renderer5) => {
-                $$renderer5.push(`<!---->Distribution des vitesses`);
+                $$renderer5.push(`<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">`);
+                Chart_column($$renderer5, { class: "h-4 w-4 text-primary" });
+                $$renderer5.push(`<!----></div> Distribution des vitesses`);
               }
             });
             $$renderer4.push(`<!----> `);
             Card_description($$renderer4, {
+              class: "mt-1",
               children: ($$renderer5) => {
                 $$renderer5.push(`<!---->Répartition des vitesses par plages de 25 km/h`);
               }
@@ -1595,10 +2223,15 @@ function Speed_distribution($$renderer, $$props) {
           children: ($$renderer4) => {
             if (data.length === 0) {
               $$renderer4.push("<!--[-->");
-              $$renderer4.push(`<div class="text-muted-foreground flex h-[300px] items-center justify-center">Aucune donnée disponible</div>`);
+              $$renderer4.push(`<div class="flex h-[300px] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"><div class="flex h-14 w-14 items-center justify-center rounded-full bg-muted">`);
+              Waves($$renderer4, { class: "h-7 w-7 text-muted-foreground/50" });
+              $$renderer4.push(`<!----></div> <p class="text-sm font-medium text-muted-foreground">Aucune donnée disponible</p></div>`);
             } else {
               $$renderer4.push("<!--[!-->");
               Echart($$renderer4, { option: option(), style: "height: 300px" });
+              $$renderer4.push(`<!----> <div class="mt-4 flex items-center justify-center rounded-xl bg-muted/30 p-3"><div class="flex items-center gap-2"><div class="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-500/10">`);
+              Gauge($$renderer4, { class: "h-4 w-4 text-teal-500" });
+              $$renderer4.push(`<!----></div> <div><div class="text-xs text-muted-foreground">Plage de vitesse la plus fréquente</div> <div class="text-sm font-bold text-teal-500">${escape_html(peakRange())} km/h</div></div></div></div>`);
             }
             $$renderer4.push(`<!--]-->`);
           }
@@ -1624,36 +2257,65 @@ function Average_speed_by_sensor($$renderer, $$props) {
       );
       const sensorNames = Object.keys(sensorStats);
       const averageSpeeds = sensorNames.map((sensor) => Math.round(sensorStats[sensor].total / sensorStats[sensor].count * 10) / 10);
-      return { sensorNames, averageSpeeds };
+      const sortedIndices = averageSpeeds.map((_, i) => i).sort((a, b) => averageSpeeds[b] - averageSpeeds[a]);
+      const sortedNames = sortedIndices.map((i) => sensorNames[i]);
+      const sortedSpeeds = sortedIndices.map((i) => averageSpeeds[i]);
+      return { sensorNames: sortedNames, averageSpeeds: sortedSpeeds };
     });
     let option = derived$1(() => ({
       tooltip: {
         trigger: "axis",
         axisPointer: { type: "shadow" },
-        backgroundColor: "rgba(0, 0, 0, 0.8)",
-        borderColor: "#333",
-        textStyle: { color: "#fff" },
-        formatter: (params) => `${params[0].axisValue}<br/>Vitesse moyenne: ${params[0].value} km/h`
+        backgroundColor: "rgba(15, 23, 42, 0.95)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
+        textStyle: {
+          color: "#f1f5f9",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 12
+        },
+        padding: [12, 16],
+        cornerRadius: 8,
+        extraCssText: "box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);",
+        formatter: (params) => `<strong>${params[0].axisValue}</strong><br/>Vitesse moyenne: <strong>${params[0].value} km/h</strong>`
       },
       grid: {
-        left: "3%",
+        left: "2%",
         right: "4%",
-        bottom: "3%",
+        bottom: "2%",
         top: "3%",
         containLabel: true
       },
       xAxis: {
         type: "category",
         data: processedData().sensorNames,
-        axisLabel: { rotate: 45, color: "#999", fontSize: 11 },
-        axisLine: { lineStyle: { color: "#999" } }
+        axisLabel: {
+          rotate: 45,
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11
+        },
+        axisLine: { lineStyle: { color: "rgba(148, 163, 184, 0.2)" } },
+        axisTick: { show: false }
       },
       yAxis: {
         type: "value",
-        name: "Vitesse (km/h)",
-        nameTextStyle: { color: "#999" },
-        axisLine: { lineStyle: { color: "#999" } },
-        splitLine: { lineStyle: { color: "#333", opacity: 0.3 } }
+        name: "km/h",
+        nameTextStyle: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11,
+          padding: [0, 30, 0, 0]
+        },
+        axisLine: { show: false },
+        axisTick: { show: false },
+        axisLabel: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11
+        },
+        splitLine: {
+          lineStyle: { color: "rgba(148, 163, 184, 0.1)", type: "dashed" }
+        }
       },
       series: [
         {
@@ -1674,27 +2336,40 @@ function Average_speed_by_sensor($$renderer, $$props) {
             },
             borderRadius: [4, 4, 0, 0]
           },
+          emphasis: {
+            itemStyle: { shadowBlur: 10, shadowColor: "rgba(139, 92, 246, 0.5)" }
+          },
           label: {
             show: true,
             position: "top",
-            formatter: "{c} km/h",
-            color: "#999",
-            fontSize: 10
+            formatter: "{c}",
+            color: "#94a3b8",
+            fontSize: 10,
+            fontFamily: "system-ui, sans-serif"
           }
         }
-      ]
+      ],
+      animation: true,
+      animationDuration: 800,
+      animationEasing: "cubicOut"
     }));
     Card($$renderer2, {
+      class: "overflow-hidden border-border/50 bg-gradient-to-b from-card to-card/50",
       children: ($$renderer3) => {
         Card_header($$renderer3, {
+          class: "pb-4",
           children: ($$renderer4) => {
             Card_title($$renderer4, {
+              class: "flex items-center gap-2 text-lg",
               children: ($$renderer5) => {
-                $$renderer5.push(`<!---->Vitesse moyenne par capteur`);
+                $$renderer5.push(`<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">`);
+                Radio($$renderer5, { class: "h-4 w-4 text-primary" });
+                $$renderer5.push(`<!----></div> Vitesse moyenne par-capteur`);
               }
             });
             $$renderer4.push(`<!----> `);
             Card_description($$renderer4, {
+              class: "mt-1",
               children: ($$renderer5) => {
                 $$renderer5.push(`<!---->Comparaison des performances sur chaque secteur`);
               }
@@ -1707,10 +2382,15 @@ function Average_speed_by_sensor($$renderer, $$props) {
           children: ($$renderer4) => {
             if (data.length === 0) {
               $$renderer4.push("<!--[-->");
-              $$renderer4.push(`<div class="text-muted-foreground flex h-[350px] items-center justify-center">Aucune donnée disponible</div>`);
+              $$renderer4.push(`<div class="flex h-[350px] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"><div class="flex h-14 w-14 items-center justify-center rounded-full bg-muted">`);
+              Waves($$renderer4, { class: "h-7 w-7 text-muted-foreground/50" });
+              $$renderer4.push(`<!----></div> <p class="text-sm font-medium text-muted-foreground">Aucune donnée disponible</p></div>`);
             } else {
               $$renderer4.push("<!--[!-->");
               Echart($$renderer4, { option: option(), style: "height: 350px" });
+              $$renderer4.push(`<!----> <div class="mt-4 flex items-center justify-center rounded-xl bg-muted/30 p-3"><div class="flex items-center gap-2"><div class="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-500/10">`);
+              Gauge($$renderer4, { class: "h-4 w-4 text-violet-500" });
+              $$renderer4.push(`<!----></div> <div><div class="text-xs text-muted-foreground">Vitesse la plus élevée</div> <div class="text-sm font-bold text-violet-500">${escape_html(Math.max(...processedData().averageSpeeds))} km/h</div></div></div></div>`);
             }
             $$renderer4.push(`<!--]-->`);
           }
@@ -1750,36 +2430,53 @@ function Activity_heatmap($$renderer, $$props) {
     let option = derived$1(() => ({
       tooltip: {
         position: "top",
-        backgroundColor: "rgba(0, 0, 0, 0.8)",
-        borderColor: "#333",
-        textStyle: { color: "#fff" },
+        backgroundColor: "rgba(15, 23, 42, 0.95)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
+        textStyle: {
+          color: "#f1f5f9",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 12
+        },
+        padding: [12, 16],
+        cornerRadius: 8,
+        extraCssText: "box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);",
         formatter: (params) => {
           const hour = processedData().hours[params.data[0]];
           const sensor = processedData().sensors[params.data[1]];
           const value = params.data[2];
-          return `${sensor}<br/>${hour}<br/>Passages: ${value}`;
+          return `<strong>${sensor}</strong><br/>${hour}<br/>Passages: <strong>${value}</strong>`;
         }
       },
       grid: {
-        left: "15%",
+        left: "18%",
         right: "4%",
-        bottom: "15%",
+        bottom: "18%",
         top: "3%",
         containLabel: false
       },
       xAxis: {
         type: "category",
         data: processedData().hours,
-        splitArea: { show: true },
-        axisLabel: { color: "#999", fontSize: 11 },
-        axisLine: { lineStyle: { color: "#999" } }
+        splitArea: { show: false },
+        axisLabel: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11
+        },
+        axisLine: { lineStyle: { color: "rgba(148, 163, 184, 0.2)" } },
+        axisTick: { show: false }
       },
       yAxis: {
         type: "category",
         data: processedData().sensors,
-        splitArea: { show: true },
-        axisLabel: { color: "#999", fontSize: 11 },
-        axisLine: { lineStyle: { color: "#999" } }
+        splitArea: { show: false },
+        axisLabel: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11
+        },
+        axisLine: { lineStyle: { color: "rgba(148, 163, 184, 0.2)" } },
+        axisTick: { show: false }
       },
       visualMap: {
         min: 0,
@@ -1788,22 +2485,22 @@ function Activity_heatmap($$renderer, $$props) {
         orient: "horizontal",
         left: "center",
         bottom: "0%",
-        textStyle: { color: "#999" },
+        textStyle: { color: "#64748b", fontFamily: "system-ui, sans-serif" },
         inRange: {
           color: [
-            "#313695",
-            "#4575b4",
-            "#74add1",
-            "#abd9e9",
-            "#e0f3f8",
-            "#ffffbf",
-            "#fee090",
-            "#fdae61",
-            "#f46d43",
-            "#d73027",
-            "#a50026"
+            "#0f172a",
+            "#1e3a5f",
+            "#2563eb",
+            "#3b82f6",
+            "#60a5fa",
+            "#93c5fd",
+            "#bfdbfe",
+            "#dbeafe"
           ]
-        }
+        },
+        itemHeight: 8,
+        itemWidth: 16,
+        borderRadius: 4
       },
       series: [
         {
@@ -1811,25 +2508,44 @@ function Activity_heatmap($$renderer, $$props) {
           type: "heatmap",
           data: processedData().heatmapData,
           label: { show: false },
+          itemStyle: {
+            borderColor: "rgba(15, 23, 42, 0.6)",
+            borderWidth: 2,
+            borderRadius: 3
+          },
           emphasis: {
-            itemStyle: { shadowBlur: 10, shadowColor: "rgba(0, 0, 0, 0.5)" }
+            itemStyle: {
+              shadowBlur: 15,
+              shadowColor: "rgba(59, 130, 246, 0.6)",
+              borderColor: "#60a5fa",
+              borderWidth: 2
+            }
           }
         }
-      ]
+      ],
+      animation: true,
+      animationDuration: 800,
+      animationEasing: "cubicOut"
     }));
     Card($$renderer2, {
+      class: "overflow-hidden border-border/50 bg-gradient-to-b from-card to-card/50",
       children: ($$renderer3) => {
         Card_header($$renderer3, {
+          class: "pb-4",
           children: ($$renderer4) => {
             Card_title($$renderer4, {
+              class: "flex items-center gap-2 text-lg",
               children: ($$renderer5) => {
-                $$renderer5.push(`<!---->Heatmap d'activité`);
+                $$renderer5.push(`<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">`);
+                Activity($$renderer5, { class: "h-4 w-4 text-primary" });
+                $$renderer5.push(`<!----></div> Heatmap d'activité`);
               }
             });
             $$renderer4.push(`<!----> `);
             Card_description($$renderer4, {
+              class: "mt-1",
               children: ($$renderer5) => {
-                $$renderer5.push(`<!---->Densité de passages par capteur et par heure`);
+                $$renderer5.push(`<!---->Densité de passages par-capteur et par heure`);
               }
             });
             $$renderer4.push(`<!---->`);
@@ -1840,7 +2556,9 @@ function Activity_heatmap($$renderer, $$props) {
           children: ($$renderer4) => {
             if (data.length === 0) {
               $$renderer4.push("<!--[-->");
-              $$renderer4.push(`<div class="text-muted-foreground flex h-[400px] items-center justify-center">Aucune donnée disponible</div>`);
+              $$renderer4.push(`<div class="flex h-[400px] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"><div class="flex h-14 w-14 items-center justify-center rounded-full bg-muted">`);
+              Waves($$renderer4, { class: "h-7 w-7 text-muted-foreground/50" });
+              $$renderer4.push(`<!----></div> <p class="text-sm font-medium text-muted-foreground">Aucune donnée disponible</p></div>`);
             } else {
               $$renderer4.push("<!--[!-->");
               Echart($$renderer4, { option: option(), style: "height: 400px" });
@@ -1877,39 +2595,54 @@ function Lane_performance($$renderer, $$props) {
     let option = derived$1(() => ({
       tooltip: {
         trigger: "axis",
-        backgroundColor: "rgba(0, 0, 0, 0.8)",
-        borderColor: "#333",
-        textStyle: { color: "#fff" },
+        backgroundColor: "rgba(15, 23, 42, 0.95)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
+        textStyle: {
+          color: "#f1f5f9",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 12
+        },
+        padding: [12, 16],
+        cornerRadius: 8,
+        extraCssText: "box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);",
         axisPointer: { type: "shadow" }
       },
       legend: {
         data: ["Corridor Gauche", "Corridor Droit"],
-        textStyle: { color: "#999" },
-        top: "0%"
+        textStyle: { color: "#94a3b8", fontFamily: "system-ui, sans-serif" },
+        top: 8,
+        itemGap: 24
       },
       grid: {
-        left: "3%",
-        right: "4%",
-        bottom: "3%",
-        top: "15%",
+        left: "2%",
+        right: "2%",
+        bottom: "2%",
+        top: "18%",
         containLabel: true
       },
       xAxis: {
         type: "category",
-        data: [
-          "Vitesse Moyenne",
-          "Vitesse Max",
-          "Vitesse Min",
-          "Nombre de Passages"
-        ],
-        axisLabel: { color: "#999", interval: 0, rotate: 15 },
-        axisLine: { lineStyle: { color: "#999" } }
+        data: ["Vitesse Moyenne", "Vitesse Max", "Vitesse Min", "Passages"],
+        axisLabel: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11
+        },
+        axisLine: { lineStyle: { color: "rgba(148, 163, 184, 0.2)" } },
+        axisTick: { show: false }
       },
       yAxis: {
         type: "value",
-        axisLabel: { color: "#999" },
-        axisLine: { lineStyle: { color: "#999" } },
-        splitLine: { lineStyle: { color: "#333", opacity: 0.3 } }
+        axisLabel: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11
+        },
+        axisLine: { show: false },
+        axisTick: { show: false },
+        splitLine: {
+          lineStyle: { color: "rgba(148, 163, 184, 0.1)", type: "dashed" }
+        }
       },
       series: [
         {
@@ -1929,13 +2662,13 @@ function Lane_performance($$renderer, $$props) {
               x2: 0,
               y2: 1,
               colorStops: [
-                { offset: 0, color: "#3b82f6" },
-                { offset: 1, color: "#1d4ed8" }
+                { offset: 0, color: "#0ea5e9" },
+                { offset: 1, color: "#0284c7" }
               ]
             },
             borderRadius: [4, 4, 0, 0]
           },
-          barWidth: "40%"
+          barWidth: "35%"
         },
         {
           name: "Corridor Droit",
@@ -1955,30 +2688,37 @@ function Lane_performance($$renderer, $$props) {
               y2: 1,
               colorStops: [
                 { offset: 0, color: "#ec4899" },
-                { offset: 1, color: "#be185d" }
+                { offset: 1, color: "#db2777" }
               ]
             },
             borderRadius: [4, 4, 0, 0]
           },
-          barWidth: "40%"
+          barWidth: "35%"
         }
-      ]
+      ],
+      animation: true,
+      animationDuration: 800,
+      animationEasing: "cubicOut"
     }));
     Card($$renderer2, {
+      class: "overflow-hidden border-border/50 bg-gradient-to-b from-card to-card/50",
       children: ($$renderer3) => {
         Card_header($$renderer3, {
+          class: "pb-4",
           children: ($$renderer4) => {
             Card_title($$renderer4, {
-              class: "flex items-center gap-2",
+              class: "flex items-center gap-2 text-lg",
               children: ($$renderer5) => {
-                Arrow_left_right($$renderer5, { class: "text-primary h-5 w-5" });
-                $$renderer5.push(`<!----> Comparaison des corridors`);
+                $$renderer5.push(`<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">`);
+                Arrow_left_right($$renderer5, { class: "h-4 w-4 text-primary" });
+                $$renderer5.push(`<!----></div> Comparaison des corridors`);
               }
             });
             $$renderer4.push(`<!----> `);
             Card_description($$renderer4, {
+              class: "mt-1",
               children: ($$renderer5) => {
-                $$renderer5.push(`<!---->Performance comparative entre corridors gauche et droit`);
+                $$renderer5.push(`<!---->Performance comparative entre les deux voies`);
               }
             });
             $$renderer4.push(`<!---->`);
@@ -1989,11 +2729,17 @@ function Lane_performance($$renderer, $$props) {
           children: ($$renderer4) => {
             if (data.length === 0) {
               $$renderer4.push("<!--[-->");
-              $$renderer4.push(`<div class="text-muted-foreground flex h-[350px] items-center justify-center">Aucune donnée disponible</div>`);
+              $$renderer4.push(`<div class="flex h-[350px] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"><div class="flex h-14 w-14 items-center justify-center rounded-full bg-muted">`);
+              Waves($$renderer4, { class: "h-7 w-7 text-muted-foreground/50" });
+              $$renderer4.push(`<!----></div> <p class="text-sm font-medium text-muted-foreground">Aucune donnée disponible</p></div>`);
             } else {
               $$renderer4.push("<!--[!-->");
               Echart($$renderer4, { option: option(), style: "height: 350px" });
-              $$renderer4.push(`<!----> <div class="mt-4 grid grid-cols-2 gap-4"><div class="rounded-lg border border-blue-500/20 bg-blue-500/10 p-3"><div class="text-muted-foreground mb-1 text-sm">Corridor Gauche</div> <div class="text-2xl font-bold text-blue-500">${escape_html(processedData().leftStats.count)}</div> <div class="text-muted-foreground text-xs">passages enregistrés</div></div> <div class="rounded-lg border border-pink-500/20 bg-pink-500/10 p-3"><div class="text-muted-foreground mb-1 text-sm">Corridor Droit</div> <div class="text-2xl font-bold text-pink-500">${escape_html(processedData().rightStats.count)}</div> <div class="text-muted-foreground text-xs">passages enregistrés</div></div></div>`);
+              $$renderer4.push(`<!----> <div class="mt-4 grid grid-cols-2 gap-4"><div class="group relative overflow-hidden rounded-xl border border-sky-500/30 bg-gradient-to-br from-sky-500/10 to-transparent p-4 transition-all hover:border-sky-500/50"><div class="absolute -top-4 -right-4 h-16 w-16 rounded-full bg-sky-500/10 blur-2xl transition-all duration-500 group-hover:bg-sky-500/20"></div> <div class="relative z-10"><div class="mb-3 flex items-center gap-2"><div class="h-2.5 w-2.5 rounded-full bg-sky-500"></div> <span class="text-sm font-semibold text-sky-500">Corridor Gauche</span></div> <div class="text-3xl font-bold text-sky-500">${escape_html(processedData().leftStats.count)}</div> <div class="text-xs text-muted-foreground/70">passages enregistrés</div> <div class="mt-3 flex items-center gap-3 text-xs"><span class="flex items-center gap-1 text-muted-foreground">`);
+              Gauge($$renderer4, { class: "h-3 w-3" });
+              $$renderer4.push(`<!----> ${escape_html(processedData().leftStats.avg)} km/h moy.</span></div></div></div> <div class="group relative overflow-hidden rounded-xl border border-pink-500/30 bg-gradient-to-br from-pink-500/10 to-transparent p-4 transition-all hover:border-pink-500/50"><div class="absolute -top-4 -right-4 h-16 w-16 rounded-full bg-pink-500/10 blur-2xl transition-all duration-500 group-hover:bg-pink-500/20"></div> <div class="relative z-10"><div class="mb-3 flex items-center gap-2"><div class="h-2.5 w-2.5 rounded-full bg-pink-500"></div> <span class="text-sm font-semibold text-pink-500">Corridor Droit</span></div> <div class="text-3xl font-bold text-pink-500">${escape_html(processedData().rightStats.count)}</div> <div class="text-xs text-muted-foreground/70">passages enregistrés</div> <div class="mt-3 flex items-center gap-3 text-xs"><span class="flex items-center gap-1 text-muted-foreground">`);
+              Gauge($$renderer4, { class: "h-3 w-3" });
+              $$renderer4.push(`<!----> ${escape_html(processedData().rightStats.avg)} km/h moy.</span></div></div></div></div>`);
             }
             $$renderer4.push(`<!--]-->`);
           }
@@ -2050,56 +2796,102 @@ function Speed_consistency($$renderer, $$props) {
     });
     let consistencyLevel = derived$1(() => {
       const cv = stats2().coefficientOfVariation;
-      if (cv < 10) return { label: "Très Consistant", color: "bg-green-500" };
-      if (cv < 20) return { label: "Consistant", color: "bg-blue-500" };
-      if (cv < 30) return { label: "Modéré", color: "bg-yellow-500" };
-      return { label: "Variable", color: "bg-red-500" };
+      if (cv < 10) return {
+        label: "Très Consistant",
+        color: "bg-emerald-500",
+        text: "text-emerald-500",
+        border: "border-emerald-500/30",
+        icon: "text-emerald-400"
+      };
+      if (cv < 20) return {
+        label: "Consistant",
+        color: "bg-blue-500",
+        text: "text-blue-500",
+        border: "border-blue-500/30",
+        icon: "text-blue-400"
+      };
+      if (cv < 30) return {
+        label: "Modéré",
+        color: "bg-yellow-500",
+        text: "text-yellow-500",
+        border: "border-yellow-500/30",
+        icon: "text-yellow-400"
+      };
+      return {
+        label: "Variable",
+        color: "bg-red-500",
+        text: "text-red-500",
+        border: "border-red-500/30",
+        icon: "text-red-400"
+      };
     });
+    const rangeColors = ["#3b82f6", "#8b5cf6", "#ec4899", "#f59e0b", "#10b981"];
     let option = derived$1(() => ({
       tooltip: {
         trigger: "item",
-        backgroundColor: "rgba(0, 0, 0, 0.8)",
-        borderColor: "#333",
-        textStyle: { color: "#fff" },
+        backgroundColor: "rgba(15, 23, 42, 0.95)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
+        textStyle: { color: "#f1f5f9", fontFamily: "system-ui, sans-serif" },
+        padding: [12, 16],
+        cornerRadius: 8,
+        extraCssText: "box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);",
         formatter: (params) => `${params.name}: ${params.value} passages (${params.percent}%)`
       },
       legend: {
         orient: "vertical",
         right: "5%",
         top: "center",
-        textStyle: { color: "#999" }
+        textStyle: { color: "#94a3b8", fontFamily: "system-ui, sans-serif" },
+        itemWidth: 12,
+        itemHeight: 8,
+        itemGap: 12
       },
       series: [
         {
           name: "Distribution des vitesses",
           type: "pie",
-          radius: ["40%", "70%"],
+          radius: ["45%", "75%"],
           center: ["35%", "50%"],
           avoidLabelOverlap: false,
-          itemStyle: { borderRadius: 10, borderColor: "#1a1a1a", borderWidth: 2 },
+          itemStyle: {
+            borderRadius: 6,
+            borderColor: "rgba(15, 23, 42, 0.8)",
+            borderWidth: 2
+          },
           label: { show: false },
           emphasis: {
-            label: { show: true, fontSize: 16, fontWeight: "bold", color: "#fff" }
+            label: { show: true, fontSize: 14, fontWeight: "bold", color: "#fff" },
+            itemStyle: { shadowBlur: 20, shadowColor: "rgba(0, 0, 0, 0.5)" }
           },
           labelLine: { show: false },
-          data: Object.entries(stats2().speedRanges).map(([range, count]) => ({ value: count, name: `${range} km/h` })),
-          color: ["#3b82f6", "#8b5cf6", "#ec4899", "#f59e0b", "#10b981"]
+          data: Object.entries(stats2().speedRanges).map(([range, count], index) => ({
+            value: count,
+            name: `${range} km/h`,
+            itemStyle: { color: rangeColors[index] }
+          }))
         }
-      ]
+      ],
+      animation: true,
+      animationDuration: 1e3,
+      animationEasing: "cubicOut"
     }));
     Card($$renderer2, {
+      class: "overflow-hidden border-border/50 bg-gradient-to-b from-card to-card/50",
       children: ($$renderer3) => {
         Card_header($$renderer3, {
+          class: "pb-4",
           children: ($$renderer4) => {
             Card_title($$renderer4, {
-              class: "flex items-center gap-2",
+              class: "flex items-center gap-2 text-lg",
               children: ($$renderer5) => {
-                Target($$renderer5, { class: "text-primary h-5 w-5" });
-                $$renderer5.push(`<!----> Consistance des vitesses`);
+                $$renderer5.push(`<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">`);
+                Target($$renderer5, { class: "h-4 w-4 text-primary" });
+                $$renderer5.push(`<!----></div> Consistance des vitesses`);
               }
             });
             $$renderer4.push(`<!----> `);
             Card_description($$renderer4, {
+              class: "mt-1",
               children: ($$renderer5) => {
                 $$renderer5.push(`<!---->Analyse de la variabilité et distribution des vitesses`);
               }
@@ -2112,12 +2904,26 @@ function Speed_consistency($$renderer, $$props) {
           children: ($$renderer4) => {
             if (data.length === 0) {
               $$renderer4.push("<!--[-->");
-              $$renderer4.push(`<div class="text-muted-foreground flex h-[350px] items-center justify-center">Aucune donnée disponible</div>`);
+              $$renderer4.push(`<div class="flex h-[350px] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"><div class="flex h-14 w-14 items-center justify-center rounded-full bg-muted">`);
+              Waves($$renderer4, { class: "h-7 w-7 text-muted-foreground/50" });
+              $$renderer4.push(`<!----></div> <p class="text-sm font-medium text-muted-foreground">Aucune donnée disponible</p></div>`);
             } else {
               $$renderer4.push("<!--[!-->");
-              $$renderer4.push(`<div class="mb-4 flex items-center justify-between"><div class="flex items-center gap-2"><span class="text-muted-foreground text-sm">Niveau de consistance:</span> <span${attr_class(`rounded-full px-2.5 py-0.5 text-xs font-semibold text-white ${stringify(consistencyLevel().color)}`)}>${escape_html(consistencyLevel().label)}</span></div> <div class="text-muted-foreground text-sm">CV: ${escape_html(stats2().coefficientOfVariation)}%</div></div> `);
+              $$renderer4.push(`<div class="mb-4 flex items-center justify-between rounded-xl bg-muted/30 p-3"><div class="flex items-center gap-2"><div${attr_class(`flex h-8 w-8 items-center justify-center rounded-lg ${stringify(consistencyLevel().color)}/10`)}>`);
+              Activity($$renderer4, { class: `h-4 w-4 ${stringify(consistencyLevel().icon)}` });
+              $$renderer4.push(`<!----></div> <div><div class="text-xs text-muted-foreground">Niveau de consistance</div> <div${attr_class(`text-sm font-semibold ${stringify(consistencyLevel().text)}`)}>${escape_html(consistencyLevel().label)}</div></div></div> <div class="flex items-center gap-2 rounded-full bg-muted px-3 py-1.5">`);
+              Sigma($$renderer4, { class: "h-4 w-4 text-muted-foreground" });
+              $$renderer4.push(`<!----> <span class="text-sm font-medium">CV: <span class="text-foreground">${escape_html(stats2().coefficientOfVariation)}%</span></span></div></div> `);
               Echart($$renderer4, { option: option(), style: "height: 300px" });
-              $$renderer4.push(`<!----> <div class="mt-4 grid grid-cols-4 gap-3"><div class="bg-card rounded-lg border p-3"><div class="text-muted-foreground mb-1 text-xs">Moyenne</div> <div class="text-lg font-bold">${escape_html(stats2().mean)} km/h</div></div> <div class="bg-card rounded-lg border p-3"><div class="text-muted-foreground mb-1 text-xs">Médiane</div> <div class="text-lg font-bold">${escape_html(stats2().median)} km/h</div></div> <div class="bg-card rounded-lg border p-3"><div class="text-muted-foreground mb-1 text-xs">Écart-type</div> <div class="text-lg font-bold">${escape_html(stats2().stdDev)}</div></div> <div class="bg-card rounded-lg border p-3"><div class="text-muted-foreground mb-1 text-xs">Variance</div> <div class="text-lg font-bold">${escape_html(stats2().variance)}</div></div></div>`);
+              $$renderer4.push(`<!----> <div class="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4"><div class="group relative overflow-hidden rounded-xl border border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-transparent p-3 transition-all hover:border-blue-500/40"><div class="relative z-10"><div class="mb-1 flex items-center gap-1.5">`);
+              Gauge($$renderer4, { class: "h-3.5 w-3.5 text-blue-500" });
+              $$renderer4.push(`<!----> <span class="text-xs text-muted-foreground">Moyenne</span></div> <div class="text-xl font-bold text-blue-500">${escape_html(stats2().mean)} <span class="text-xs font-normal">km/h</span></div></div></div> <div class="group relative overflow-hidden rounded-xl border border-purple-500/20 bg-gradient-to-br from-purple-500/10 to-transparent p-3 transition-all hover:border-purple-500/40"><div class="relative z-10"><div class="mb-1 flex items-center gap-1.5">`);
+              Hash($$renderer4, { class: "h-3.5 w-3.5 text-purple-500" });
+              $$renderer4.push(`<!----> <span class="text-xs text-muted-foreground">Médiane</span></div> <div class="text-xl font-bold text-purple-500">${escape_html(stats2().median)} <span class="text-xs font-normal">km/h</span></div></div></div> <div class="group relative overflow-hidden rounded-xl border border-amber-500/20 bg-gradient-to-br from-amber-500/10 to-transparent p-3 transition-all hover:border-amber-500/40"><div class="relative z-10"><div class="mb-1 flex items-center gap-1.5">`);
+              Activity($$renderer4, { class: "h-3.5 w-3.5 text-amber-500" });
+              $$renderer4.push(`<!----> <span class="text-xs text-muted-foreground">Écart-type</span></div> <div class="text-xl font-bold text-amber-500">${escape_html(stats2().stdDev)}</div></div></div> <div class="group relative overflow-hidden rounded-xl border border-rose-500/20 bg-gradient-to-br from-rose-500/10 to-transparent p-3 transition-all hover:border-rose-500/40"><div class="relative z-10"><div class="mb-1 flex items-center gap-1.5">`);
+              Sigma($$renderer4, { class: "h-3.5 w-3.5 text-rose-500" });
+              $$renderer4.push(`<!----> <span class="text-xs text-muted-foreground">Variance</span></div> <div class="text-xl font-bold text-rose-500">${escape_html(stats2().variance)}</div></div></div></div>`);
             }
             $$renderer4.push(`<!--]-->`);
           }
@@ -2153,24 +2959,34 @@ function Top_sensors($$renderer, $$props) {
       }).sort((a, b) => b.count - a.count).slice(0, 5);
     });
     function rankClass(index) {
-      if (index === 0) return "bg-yellow-500 text-white";
-      if (index === 1) return "bg-gray-400 text-white";
-      if (index === 2) return "bg-amber-600 text-white";
+      if (index === 0) return "bg-gradient-to-br from-yellow-400 to-yellow-600 text-white shadow-lg shadow-yellow-500/30";
+      if (index === 1) return "bg-gradient-to-br from-gray-300 to-gray-500 text-white shadow-lg shadow-gray-400/30";
+      if (index === 2) return "bg-gradient-to-br from-amber-600 to-amber-800 text-white shadow-lg shadow-amber-600/30";
       return "bg-muted text-muted-foreground";
     }
+    function rankBadge(index) {
+      if (index === 0) return "🏆";
+      if (index === 1) return "🥈";
+      if (index === 2) return "🥉";
+      return `#${index + 1}`;
+    }
     Card($$renderer2, {
+      class: "overflow-hidden border-border/50 bg-gradient-to-b from-card to-card/50",
       children: ($$renderer3) => {
         Card_header($$renderer3, {
+          class: "pb-4",
           children: ($$renderer4) => {
             Card_title($$renderer4, {
-              class: "flex items-center gap-2",
+              class: "flex items-center gap-2 text-lg",
               children: ($$renderer5) => {
-                Radio($$renderer5, { class: "text-primary h-5 w-5" });
-                $$renderer5.push(`<!----> Top capteurs actifs`);
+                $$renderer5.push(`<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">`);
+                Radio($$renderer5, { class: "h-4 w-4 text-primary" });
+                $$renderer5.push(`<!----></div> Top-capteurs actifs`);
               }
             });
             $$renderer4.push(`<!----> `);
             Card_description($$renderer4, {
+              class: "mt-1",
               children: ($$renderer5) => {
                 $$renderer5.push(`<!---->Les 5 capteurs les plus actifs avec leurs statistiques`);
               }
@@ -2183,18 +2999,29 @@ function Top_sensors($$renderer, $$props) {
           children: ($$renderer4) => {
             if (data.length === 0) {
               $$renderer4.push("<!--[-->");
-              $$renderer4.push(`<div class="text-muted-foreground flex h-[300px] items-center justify-center">Aucune donnée disponible</div>`);
+              $$renderer4.push(`<div class="flex h-[300px] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"><div class="flex h-14 w-14 items-center justify-center rounded-full bg-muted">`);
+              Waves($$renderer4, { class: "h-7 w-7 text-muted-foreground/50" });
+              $$renderer4.push(`<!----></div> <p class="text-sm font-medium text-muted-foreground">Aucune donnée disponible</p></div>`);
             } else {
               $$renderer4.push("<!--[!-->");
-              $$renderer4.push(`<div class="space-y-4"><!--[-->`);
+              $$renderer4.push(`<div class="space-y-3"><!--[-->`);
               const each_array = ensure_array_like(topSensors());
               for (let index = 0, $$length = each_array.length; index < $$length; index++) {
                 let sensor = each_array[index];
-                $$renderer4.push(`<div class="bg-card hover:bg-accent/50 rounded-lg border p-4 transition-colors"><div class="mb-3 flex items-start justify-between"><div class="flex items-center gap-3"><div${attr_class(`flex h-10 w-10 items-center justify-center rounded-full font-bold ${stringify(rankClass(index))}`)}>#${escape_html(index + 1)}</div> <div><div class="flex items-center gap-2 text-lg font-semibold">${escape_html(sensor.name)} `);
-                Zap($$renderer4, { class: "h-4 w-4 text-yellow-500" });
-                $$renderer4.push(`<!----></div> <div class="text-muted-foreground text-sm">${escape_html(sensor.count)} passages enregistrés</div></div></div> <span class="bg-primary/10 rounded-full border px-2.5 py-0.5 text-xs font-semibold">Actif</span></div> <div class="grid grid-cols-3 gap-3"><div class="rounded border border-blue-500/20 bg-blue-500/10 p-2"><div class="text-muted-foreground mb-1 text-xs">Moyenne</div> <div class="text-sm font-bold text-blue-500">${escape_html(sensor.avgSpeed)} km/h</div></div> <div class="rounded border border-green-500/20 bg-green-500/10 p-2"><div class="text-muted-foreground mb-1 flex items-center gap-1 text-xs">`);
+                $$renderer4.push(`<div class="group relative overflow-hidden rounded-xl border border-border/50 bg-gradient-to-br from-muted/30 to-muted/10 p-4 transition-all hover:scale-[1.01] hover:border-primary/30 hover:shadow-md"><div class="absolute -top-4 -right-4 h-20 w-20 rounded-full bg-primary/5 blur-2xl transition-all duration-500 group-hover:bg-primary/10"></div> <div class="relative z-10"><div class="mb-3 flex items-start justify-between"><div class="flex items-center gap-3"><div${attr_class(`flex h-10 w-10 items-center justify-center rounded-xl font-bold ${stringify(rankClass(index))}`)}>${escape_html(rankBadge(index))}</div> <div><div class="flex items-center gap-2 text-base font-semibold">${escape_html(sensor.name)} `);
+                if (index === 0) {
+                  $$renderer4.push("<!--[-->");
+                  Zap($$renderer4, { class: "h-4 w-4 text-yellow-500" });
+                } else {
+                  $$renderer4.push("<!--[!-->");
+                }
+                $$renderer4.push(`<!--]--></div> <div class="text-xs text-muted-foreground">${escape_html(sensor.count)} passages enregistrés</div></div></div> <span class="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-semibold text-emerald-500">Actif</span></div> <div class="grid grid-cols-3 gap-2"><div class="rounded-lg border border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-transparent p-2.5 transition-all hover:border-blue-500/40"><div class="mb-1 flex items-center gap-1 text-xs text-muted-foreground">`);
+                Activity($$renderer4, { class: "h-3 w-3" });
+                $$renderer4.push(`<!----> Moyenne</div> <div class="text-sm font-bold text-blue-500">${escape_html(sensor.avgSpeed)} km/h</div></div> <div class="rounded-lg border border-green-500/20 bg-gradient-to-br from-green-500/10 to-transparent p-2.5 transition-all hover:border-green-500/40"><div class="mb-1 flex items-center gap-1 text-xs text-muted-foreground">`);
                 Trending_up($$renderer4, { class: "h-3 w-3" });
-                $$renderer4.push(`<!----> Max</div> <div class="text-sm font-bold text-green-500">${escape_html(sensor.maxSpeed)} km/h</div></div> <div class="rounded border border-orange-500/20 bg-orange-500/10 p-2"><div class="text-muted-foreground mb-1 text-xs">Min</div> <div class="text-sm font-bold text-orange-500">${escape_html(sensor.minSpeed)} km/h</div></div></div></div>`);
+                $$renderer4.push(`<!----> Max</div> <div class="text-sm font-bold text-green-500">${escape_html(sensor.maxSpeed)} km/h</div></div> <div class="rounded-lg border border-orange-500/20 bg-gradient-to-br from-orange-500/10 to-transparent p-2.5 transition-all hover:border-orange-500/40"><div class="mb-1 flex items-center gap-1 text-xs text-muted-foreground">`);
+                Trending_up($$renderer4, { class: "h-3 w-3 rotate-180" });
+                $$renderer4.push(`<!----> Min</div> <div class="text-sm font-bold text-orange-500">${escape_html(sensor.minSpeed)} km/h</div></div></div></div></div>`);
               }
               $$renderer4.push(`<!--]--></div>`);
             }
@@ -2215,6 +3042,38 @@ function Time_period_analysis($$renderer, $$props) {
       "Soirée (18h-22h)",
       "Nuit (22h-6h)"
     ];
+    const periodIcons = {
+      "Matin (6h-12h)": Sunrise,
+      "Après-midi (12h-18h)": Sun,
+      "Soirée (18h-22h)": Sunset,
+      "Nuit (22h-6h)": Moon
+    };
+    const periodColors = {
+      "Matin (6h-12h)": {
+        bg: "from-amber-500/20 to-amber-500/5",
+        border: "border-amber-500/30",
+        text: "text-amber-500",
+        icon: "text-amber-400"
+      },
+      "Après-midi (12h-18h)": {
+        bg: "from-orange-500/20 to-orange-500/5",
+        border: "border-orange-500/30",
+        text: "text-orange-500",
+        icon: "text-orange-400"
+      },
+      "Soirée (18h-22h)": {
+        bg: "from-purple-500/20 to-purple-500/5",
+        border: "border-purple-500/30",
+        text: "text-purple-500",
+        icon: "text-purple-400"
+      },
+      "Nuit (22h-6h)": {
+        bg: "from-indigo-500/20 to-indigo-500/5",
+        border: "border-indigo-500/30",
+        text: "text-indigo-500",
+        icon: "text-indigo-400"
+      }
+    };
     function getTimePeriod(hour) {
       if (hour >= 6 && hour < 12) return "Matin (6h-12h)";
       if (hour >= 12 && hour < 18) return "Après-midi (12h-18h)";
@@ -2250,46 +3109,82 @@ function Time_period_analysis($$renderer, $$props) {
     let option = derived$1(() => ({
       tooltip: {
         trigger: "axis",
-        backgroundColor: "rgba(0, 0, 0, 0.8)",
-        borderColor: "#333",
-        textStyle: { color: "#fff" },
+        backgroundColor: "rgba(15, 23, 42, 0.95)",
+        borderColor: "rgba(255, 255, 255, 0.1)",
+        textStyle: {
+          color: "#f1f5f9",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 12
+        },
+        padding: [12, 16],
+        cornerRadius: 8,
+        extraCssText: "box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);",
         axisPointer: { type: "shadow" }
       },
       legend: {
         data: ["Vitesse moyenne", "Vitesse max", "Nombre de passages"],
-        textStyle: { color: "#999" },
-        top: "0%"
+        textStyle: { color: "#94a3b8", fontFamily: "system-ui, sans-serif" },
+        top: 8,
+        itemGap: 24
       },
       grid: {
-        left: "3%",
-        right: "4%",
-        bottom: "3%",
-        top: "15%",
+        left: "2%",
+        right: "2%",
+        bottom: "2%",
+        top: "20%",
         containLabel: true
       },
       xAxis: {
         type: "category",
         data: processedData().periods,
-        axisLabel: { color: "#999", interval: 0, rotate: 15 },
-        axisLine: { lineStyle: { color: "#999" } }
+        axisLabel: {
+          color: "#64748b",
+          fontFamily: "system-ui, sans-serif",
+          fontSize: 11,
+          interval: 0
+        },
+        axisLine: { lineStyle: { color: "rgba(148, 163, 184, 0.2)" } },
+        axisTick: { show: false }
       },
       yAxis: [
         {
           type: "value",
-          name: "Vitesse (km/h)",
+          name: "km/h",
           position: "left",
-          nameTextStyle: { color: "#999" },
-          axisLabel: { color: "#999" },
-          axisLine: { lineStyle: { color: "#999" } },
-          splitLine: { lineStyle: { color: "#333", opacity: 0.3 } }
+          nameTextStyle: {
+            color: "#64748b",
+            fontFamily: "system-ui, sans-serif",
+            fontSize: 11,
+            padding: [0, 30, 0, 0]
+          },
+          axisLine: { show: false },
+          axisTick: { show: false },
+          axisLabel: {
+            color: "#64748b",
+            fontFamily: "system-ui, sans-serif",
+            fontSize: 11
+          },
+          splitLine: {
+            lineStyle: { color: "rgba(148, 163, 184, 0.1)", type: "dashed" }
+          }
         },
         {
           type: "value",
           name: "Passages",
           position: "right",
-          nameTextStyle: { color: "#999" },
-          axisLabel: { color: "#999" },
-          axisLine: { lineStyle: { color: "#999" } },
+          nameTextStyle: {
+            color: "#64748b",
+            fontFamily: "system-ui, sans-serif",
+            fontSize: 11,
+            padding: [0, 0, 0, 30]
+          },
+          axisLine: { show: false },
+          axisTick: { show: false },
+          axisLabel: {
+            color: "#64748b",
+            fontFamily: "system-ui, sans-serif",
+            fontSize: 11
+          },
           splitLine: { show: false }
         }
       ],
@@ -2312,7 +3207,8 @@ function Time_period_analysis($$renderer, $$props) {
               ]
             },
             borderRadius: [4, 4, 0, 0]
-          }
+          },
+          barWidth: "30%"
         },
         {
           name: "Vitesse max",
@@ -2332,18 +3228,25 @@ function Time_period_analysis($$renderer, $$props) {
               ]
             },
             borderRadius: [4, 4, 0, 0]
-          }
+          },
+          barWidth: "30%"
         },
         {
           name: "Nombre de passages",
           type: "line",
           yAxisIndex: 1,
           data: processedData().periodStats.map((s) => s.count),
-          smooth: true,
-          itemStyle: { color: "#ec4899" },
-          lineStyle: { width: 3 },
+          smooth: 0.35,
           symbol: "circle",
           symbolSize: 8,
+          showSymbol: false,
+          itemStyle: { color: "#ec4899" },
+          lineStyle: {
+            width: 3,
+            shadowColor: "rgba(236, 72, 153, 0.5)",
+            shadowBlur: 8,
+            shadowOffsetY: 4
+          },
           areaStyle: {
             color: {
               type: "linear",
@@ -2352,27 +3255,34 @@ function Time_period_analysis($$renderer, $$props) {
               x2: 0,
               y2: 1,
               colorStops: [
-                { offset: 0, color: "rgba(236, 72, 153, 0.3)" },
-                { offset: 1, color: "rgba(236, 72, 153, 0.05)" }
+                { offset: 0, color: "rgba(236, 72, 153, 0.25)" },
+                { offset: 1, color: "rgba(236, 72, 153, 0.02)" }
               ]
             }
           }
         }
-      ]
+      ],
+      animation: true,
+      animationDuration: 800,
+      animationEasing: "cubicOut"
     }));
     Card($$renderer2, {
+      class: "overflow-hidden border-border/50 bg-gradient-to-b from-card to-card/50",
       children: ($$renderer3) => {
         Card_header($$renderer3, {
+          class: "pb-4",
           children: ($$renderer4) => {
             Card_title($$renderer4, {
-              class: "flex items-center gap-2",
+              class: "flex items-center gap-2 text-lg",
               children: ($$renderer5) => {
-                Clock($$renderer5, { class: "text-primary h-5 w-5" });
-                $$renderer5.push(`<!----> Analyse par période`);
+                $$renderer5.push(`<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">`);
+                Clock($$renderer5, { class: "h-4 w-4 text-primary" });
+                $$renderer5.push(`<!----></div> Analyse par période`);
               }
             });
             $$renderer4.push(`<!----> `);
             Card_description($$renderer4, {
+              class: "mt-1",
               children: ($$renderer5) => {
                 $$renderer5.push(`<!---->Vitesses et activité selon les périodes de la journée`);
               }
@@ -2385,11 +3295,32 @@ function Time_period_analysis($$renderer, $$props) {
           children: ($$renderer4) => {
             if (data.length === 0) {
               $$renderer4.push("<!--[-->");
-              $$renderer4.push(`<div class="text-muted-foreground flex h-[350px] items-center justify-center">Aucune donnée disponible</div>`);
+              $$renderer4.push(`<div class="flex h-[350px] flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"><div class="flex h-14 w-14 items-center justify-center rounded-full bg-muted">`);
+              Activity($$renderer4, { class: "h-7 w-7 text-muted-foreground/50" });
+              $$renderer4.push(`<!----></div> <p class="text-sm font-medium text-muted-foreground">Aucune donnée disponible</p></div>`);
             } else {
               $$renderer4.push("<!--[!-->");
               Echart($$renderer4, { option: option(), style: "height: 350px" });
-              $$renderer4.push(`<!----> <div class="border-primary/20 bg-primary/10 mt-4 rounded-lg border p-3"><div class="flex items-center justify-between"><div><div class="text-muted-foreground text-sm">Période la plus active</div> <div class="text-primary text-lg font-bold">${escape_html(mostActivePeriod().period)}</div></div> <div class="text-right"><div class="text-muted-foreground text-sm">Passages</div> <div class="text-lg font-bold">${escape_html(mostActivePeriod().count)}</div></div></div></div>`);
+              $$renderer4.push(`<!----> <div class="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4"><!--[-->`);
+              const each_array = ensure_array_like(processedData().periodStats);
+              for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
+                let stat = each_array[$$index];
+                const colors = periodColors[stat.period];
+                const Icon2 = periodIcons[stat.period];
+                $$renderer4.push(`<div${attr_class(`group relative overflow-hidden rounded-xl border ${stringify(colors.border)} bg-gradient-to-br ${stringify(colors.bg)} p-3 transition-all hover:scale-[1.02]`)}><div class="relative z-10"><div class="mb-2 flex items-center gap-2">`);
+                if (Icon2) {
+                  $$renderer4.push("<!--[-->");
+                  Icon2($$renderer4, { class: `h-4 w-4 ${stringify(colors.icon)}` });
+                  $$renderer4.push("<!--]-->");
+                } else {
+                  $$renderer4.push("<!--[!-->");
+                  $$renderer4.push("<!--]-->");
+                }
+                $$renderer4.push(` <span class="text-xs font-medium text-muted-foreground">${escape_html(stat.period.split(" ")[0])}</span></div> <div${attr_class(`text-lg font-bold ${stringify(colors.text)}`)}>${escape_html(stat.count)}</div> <div class="text-xs text-muted-foreground/70">passages</div></div></div>`);
+              }
+              $$renderer4.push(`<!--]--></div> <div class="mt-4 flex items-center justify-between rounded-xl border border-primary/20 bg-primary/5 p-4"><div class="flex items-center gap-3"><div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">`);
+              Zap($$renderer4, { class: "h-5 w-5 text-primary" });
+              $$renderer4.push(`<!----></div> <div><div class="text-xs text-muted-foreground">Période la plus active</div> <div class="text-base font-bold">${escape_html(mostActivePeriod().period)}</div></div></div> <div class="text-right"><div class="text-xs text-muted-foreground">Passages</div> <div class="text-xl font-bold text-primary">${escape_html(mostActivePeriod().count)}</div></div></div>`);
             }
             $$renderer4.push(`<!--]-->`);
           }
@@ -2612,7 +3543,55 @@ function Settings_panel($$renderer, $$props) {
                   $$renderer6.push(`<!---->`);
                 }
               });
-              $$renderer5.push(`<!----> <div class="mt-6 space-y-6"><div class="space-y-4 border-t pt-4"><h3 class="text-sm font-semibold">Période de données</h3> `);
+              $$renderer5.push(`<!----> <div class="mt-6 space-y-6"><div class="space-y-3"><h3 class="text-sm font-semibold">Source des données</h3> <div class="grid grid-cols-2 gap-2"><button${attr_class(`rounded-md px-3 py-2 text-sm font-medium transition-colors ${stringify(store_get($$store_subs ??= {}, "$settings", settings).dataMode === "simulation" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground")}`)}>Simulation</button> <button${attr_class(`rounded-md px-3 py-2 text-sm font-medium transition-colors ${stringify(store_get($$store_subs ??= {}, "$settings", settings).dataMode === "api" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground")}`)}>API Live</button></div></div> `);
+              if (store_get($$store_subs ??= {}, "$settings", settings).dataMode === "api") {
+                $$renderer5.push("<!--[-->");
+                $$renderer5.push(`<div class="space-y-4 border-t pt-4"><div class="flex items-center justify-between"><h3 class="text-sm font-semibold">Configuration API</h3> <div class="flex items-center gap-1.5 text-xs">`);
+                if (store_get($$store_subs ??= {}, "$connectionError", connectionError)) {
+                  $$renderer5.push("<!--[-->");
+                  Wifi_off($$renderer5, { class: "h-3.5 w-3.5 text-destructive" });
+                  $$renderer5.push(`<!----> <span class="text-destructive">Erreur</span>`);
+                } else if (store_get($$store_subs ??= {}, "$isConnected", isConnected)) {
+                  $$renderer5.push("<!--[1-->");
+                  Wifi($$renderer5, { class: "h-3.5 w-3.5 text-green-500" });
+                  $$renderer5.push(`<!----> <span class="text-green-500">Connecté</span>`);
+                } else {
+                  $$renderer5.push("<!--[!-->");
+                  $$renderer5.push(`<div class="h-2 w-2 animate-pulse rounded-full bg-yellow-500"></div> <span class="text-muted-foreground">En attente...</span>`);
+                }
+                $$renderer5.push(`<!--]--></div></div> <div class="space-y-1">`);
+                Label($$renderer5, {
+                  class: "text-xs",
+                  children: ($$renderer6) => {
+                    $$renderer6.push(`<!---->URL de l'API`);
+                  },
+                  $$slots: { default: true }
+                });
+                $$renderer5.push(`<!----> <input type="url" class="bg-background h-8 w-full rounded border px-2 text-sm" placeholder="http://localhost:8080"${attr("value", store_get($$store_subs ??= {}, "$settings", settings).apiUrl)}/></div> <div class="space-y-1">`);
+                Label($$renderer5, {
+                  class: "text-xs",
+                  children: ($$renderer6) => {
+                    $$renderer6.push(`<!---->Token d'authentification`);
+                  },
+                  $$slots: { default: true }
+                });
+                $$renderer5.push(`<!----> <div class="relative"><input${attr("type", "password")} class="bg-background h-8 w-full rounded border px-2 pr-8 text-sm" placeholder="Bearer token..."${attr("value", store_get($$store_subs ??= {}, "$settings", settings).apiToken)}/> <button type="button" class="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">`);
+                {
+                  $$renderer5.push("<!--[!-->");
+                  Eye($$renderer5, { class: "h-3.5 w-3.5" });
+                }
+                $$renderer5.push(`<!--]--></button></div></div> `);
+                if (store_get($$store_subs ??= {}, "$connectionError", connectionError)) {
+                  $$renderer5.push("<!--[-->");
+                  $$renderer5.push(`<p class="rounded-md bg-destructive/10 px-3 py-2 text-xs text-destructive">${escape_html(store_get($$store_subs ??= {}, "$connectionError", connectionError))}</p>`);
+                } else {
+                  $$renderer5.push("<!--[!-->");
+                }
+                $$renderer5.push(`<!--]--></div>`);
+              } else {
+                $$renderer5.push("<!--[!-->");
+              }
+              $$renderer5.push(`<!--]--> <div class="space-y-4 border-t pt-4"><h3 class="text-sm font-semibold">Période de données</h3> `);
               Select($$renderer5, {
                 value: store_get($$store_subs ??= {}, "$settings", settings).dateRangeMode,
                 options: dateRangeModes,
@@ -2972,11 +3951,24 @@ function _page($$renderer, $$props) {
     let hasNewRecord = false;
     onDestroy(() => {
     });
-    $$renderer2.push(`<div class="min-h-screen bg-background"><header class="border-border bg-card border-b"><div class="mx-auto px-6 py-6"><div class="flex items-center justify-between"><div><h1 class="text-foreground flex items-center gap-3 text-4xl font-bold">`);
+    const isSimulation = derived$1(() => store_get($$store_subs ??= {}, "$settings", settings).dataMode === "simulation");
+    $$renderer2.push(`<div class="flex min-h-screen flex-col"><header class="border-border bg-card border-b"><div class="mx-auto px-6 py-6"><div class="flex items-center justify-between"><div><h1 class="text-foreground flex items-center gap-3 text-4xl font-bold">`);
     Zap($$renderer2, { class: "text-primary h-8 w-8" });
-    $$renderer2.push(`<!----> RaceTrack Analytics</h1> <p class="text-muted-foreground mt-1">Racing Speed Analytics Dashboard</p></div> <div class="flex items-center gap-4"><div class="flex items-center gap-2"><span${attr_class(`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors ${stringify(
-      "border-transparent bg-primary text-primary-foreground"
-    )}`)}>🎮 SIMULATION</span> <div${attr_class(`h-2 w-2 rounded-full ${stringify(store_get($$store_subs ??= {}, "$isConnected", isConnected) ? "animate-pulse bg-green-500" : "bg-yellow-500")}`)}></div> <span class="text-muted-foreground text-sm">Données simulées</span></div> `);
+    $$renderer2.push(`<!----> RaceTrack Analytics</h1> <p class="text-muted-foreground mt-1">Racing Speed Analytics Dashboard</p></div> <div class="flex items-center gap-4"><div class="flex items-center gap-2"><span${attr_class(`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors ${stringify(isSimulation() ? "border-transparent bg-primary text-primary-foreground" : "border-transparent bg-secondary text-secondary-foreground")}`)}>${escape_html(isSimulation() ? "SIMULATION" : "API LIVE")}</span> <div${attr_class(`h-2 w-2 rounded-full ${stringify(store_get($$store_subs ??= {}, "$connectionError", connectionError) ? "bg-destructive" : store_get($$store_subs ??= {}, "$isConnected", isConnected) ? "animate-pulse bg-green-500" : "bg-yellow-500")}`)}></div> <span class="text-muted-foreground text-sm">`);
+    if (isSimulation()) {
+      $$renderer2.push("<!--[-->");
+      $$renderer2.push(`Données simulées`);
+    } else if (store_get($$store_subs ??= {}, "$connectionError", connectionError)) {
+      $$renderer2.push("<!--[1-->");
+      $$renderer2.push(`Erreur de connexion`);
+    } else if (store_get($$store_subs ??= {}, "$isConnected", isConnected)) {
+      $$renderer2.push("<!--[2-->");
+      $$renderer2.push(`SSE connecté`);
+    } else {
+      $$renderer2.push("<!--[!-->");
+      $$renderer2.push(`Connexion en cours...`);
+    }
+    $$renderer2.push(`<!--]--></span></div> `);
     Settings_panel($$renderer2, {
       availableSensors: store_get($$store_subs ??= {}, "$availableSensors", availableSensors)
     });
