@@ -164,7 +164,10 @@
 				</CardTitle>
 				<CardDescription class="mt-1">
 					<span class="font-medium text-foreground">{filteredAndSortedData.length}</span>
-					enregistrement{filteredAndSortedData.length > 1 ? 's' : ''} trouvé{filteredAndSortedData.length > 1 ? 's' : ''}
+					enregistrement{filteredAndSortedData.length > 1 ? 's' : ''} trouvé{filteredAndSortedData.length >
+					1
+						? 's'
+						: ''}
 					sur <span class="font-medium text-foreground">{data.length}</span> au total
 				</CardDescription>
 			</div>

@@ -176,7 +176,9 @@
 			</div>
 			Tendance horaire
 		</CardTitle>
-		<CardDescription class="mt-1">Évolution de la vitesse et du volume de trafic heure par heure</CardDescription>
+		<CardDescription class="mt-1"
+			>Évolution de la vitesse et du volume de trafic heure par heure</CardDescription
+		>
 	</CardHeader>
 	<CardContent>
 		{#if data.length === 0}

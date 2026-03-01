@@ -36,7 +36,7 @@
 
 <button
 	class={className +
-		' ring-offset-background focus-visible:ring-ring inline-flex items-center justify-center rounded-xl text-sm font-medium whitespace-nowrap transition-all duration-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 hover:scale-[1.02] active:scale-[0.98] shadow-sm hover:shadow-md ' +
+		' inline-flex items-center justify-center rounded-xl text-sm font-medium whitespace-nowrap shadow-sm ring-offset-background transition-all duration-300 hover:scale-[1.02] hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 ' +
 		variantClasses[variant] +
 		' ' +
 		sizeClasses[size]}

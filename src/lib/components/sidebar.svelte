@@ -69,7 +69,7 @@
 			</div>
 		{:else}
 			<ChevronRight
-				class="absolute right-1.5 top-1/2 h-3 w-3 -translate-y-1/2 text-muted-foreground/40"
+				class="absolute top-1/2 right-1.5 h-3 w-3 -translate-y-1/2 text-muted-foreground/40"
 			/>
 		{/if}
 	</button>
@@ -125,12 +125,16 @@
 								{#each $availableSensors as sensor}
 									<button
 										onclick={() => toggleSensor(sensor)}
-										class="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-left transition-colors hover:bg-muted/60 {isSensorSelected(sensor)
+										class="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-left transition-colors hover:bg-muted/60 {isSensorSelected(
+											sensor
+										)
 											? 'text-foreground'
 											: 'text-muted-foreground'}"
 									>
 										<div
-											class="flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-all {isSensorSelected(sensor)
+											class="flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-all {isSensorSelected(
+												sensor
+											)
 												? 'border-primary bg-primary'
 												: 'border-border/70 bg-transparent'}"
 										>
@@ -163,12 +167,12 @@
 					<Sun class="h-3.5 w-3.5" />
 					Apparence
 				</p>
-				<div class="flex rounded-xl border border-border/40 bg-muted/20 p-1 gap-1">
+				<div class="flex gap-1 rounded-xl border border-border/40 bg-muted/20 p-1">
 					<button
 						onclick={() => theme.set('light')}
 						class="flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm transition-all duration-200 {$theme ===
 						'light'
-							? 'bg-card shadow-sm text-foreground font-medium ring-1 ring-border/50'
+							? 'bg-card font-medium text-foreground shadow-sm ring-1 ring-border/50'
 							: 'text-muted-foreground hover:text-foreground'}"
 					>
 						<Sun class="h-4 w-4 shrink-0" />
@@ -178,7 +182,7 @@
 						onclick={() => theme.set('dark')}
 						class="flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm transition-all duration-200 {$theme ===
 						'dark'
-							? 'bg-card shadow-sm text-foreground font-medium ring-1 ring-border/50'
+							? 'bg-card font-medium text-foreground shadow-sm ring-1 ring-border/50'
 							: 'text-muted-foreground hover:text-foreground'}"
 					>
 						<Moon class="h-4 w-4 shrink-0" />
@@ -221,16 +225,14 @@
 	{/if}
 
 	<!-- Footer -->
-	<div
-		class="border-t border-border/40 py-3 {open ? 'px-4' : 'flex items-center justify-center'}"
-	>
+	<div class="border-t border-border/40 py-3 {open ? 'px-4' : 'flex items-center justify-center'}">
 		{#if open}
 			<div class="flex items-center justify-between text-xs text-muted-foreground">
 				<span>Version</span>
 				<span class="font-mono font-medium text-foreground">v{pkg.version}</span>
 			</div>
 		{:else}
-			<span class="text-[10px] font-mono text-muted-foreground/60">v{pkg.version}</span>
+			<span class="font-mono text-[10px] text-muted-foreground/60">v{pkg.version}</span>
 		{/if}
 	</div>
 </aside>

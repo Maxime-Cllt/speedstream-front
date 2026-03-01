@@ -130,7 +130,9 @@
 			</div>
 			Statistiques par capteur
 		</CardTitle>
-		<CardDescription class="mt-1">Volume de détections et vitesse moyenne par point de mesure</CardDescription>
+		<CardDescription class="mt-1"
+			>Volume de détections et vitesse moyenne par point de mesure</CardDescription
+		>
 	</CardHeader>
 	<CardContent>
 		{#if data.length === 0}

@@ -36,11 +36,11 @@
 	});
 
 	let minSpeed = $derived(
-			Math.min(...data.map((d) => d.speed).filter((s) => s !== null && !isNaN(s)))
+		Math.min(...data.map((d) => d.speed).filter((s) => s !== null && !isNaN(s)))
 	);
 
 	let maxSpeed = $derived(
-			Math.max(...data.map((d) => d.speed).filter((s) => s !== null && !isNaN(s)))
+		Math.max(...data.map((d) => d.speed).filter((s) => s !== null && !isNaN(s)))
 	);
 
 	// Style Télémétrie : Couleurs néon contrastées
@@ -56,7 +56,7 @@
 				type: 'cross', // Réticule en croix typique des logiciels d'analyse
 				label: {
 					backgroundColor: '#1e293b',
-					fontFamily: fontMono,
+					fontFamily: fontMono
 				},
 				lineStyle: { color: 'rgba(255, 255, 255, 0.4)', type: 'solid' }
 			},
@@ -64,7 +64,7 @@
 			borderColor: 'rgba(255, 255, 255, 0.1)',
 			textStyle: { color: '#f1f5f9', fontFamily: fontMono, fontSize: 12 },
 			padding: [12, 16],
-			cornerRadius: 4, // Bords plus francs
+			cornerRadius: 4 // Bords plus francs
 		},
 		legend: {
 			data: [
@@ -73,10 +73,14 @@
 			],
 			textStyle: { color: '#94a3b8', fontFamily: fontMono, fontSize: 11 },
 			top: 0,
-			right: 10,
+			right: 10
 		},
 		grid: {
-			left: '2%', right: '2%', bottom: '2%', top: '15%', containLabel: true
+			left: '2%',
+			right: '2%',
+			bottom: '2%',
+			top: '15%',
+			containLabel: true
 		},
 		xAxis: {
 			type: 'category',
@@ -95,7 +99,12 @@
 		yAxis: {
 			type: 'value',
 			name: 'VITESSE (KPH)',
-			nameTextStyle: { color: '#64748b', fontFamily: fontMono, fontSize: 10, padding: [0, 20, 0, 0] },
+			nameTextStyle: {
+				color: '#64748b',
+				fontFamily: fontMono,
+				fontSize: 10,
+				padding: [0, 20, 0, 0]
+			},
 			axisLine: { show: true, lineStyle: { color: '#334155' } },
 			axisTick: { show: true },
 			axisLabel: { color: '#94a3b8', fontFamily: fontMono, fontSize: 11 },
@@ -114,7 +123,11 @@
 				lineStyle: { width: 1.5 }, // Ligne plus fine pour la précision
 				areaStyle: {
 					color: {
-						type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
+						type: 'linear',
+						x: 0,
+						y: 0,
+						x2: 0,
+						y2: 1,
 						colorStops: [
 							{ offset: 0, color: 'rgba(0, 242, 254, 0.15)' },
 							{ offset: 1, color: 'rgba(0, 242, 254, 0)' }
@@ -134,7 +147,11 @@
 				lineStyle: { width: 1.5 },
 				areaStyle: {
 					color: {
-						type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
+						type: 'linear',
+						x: 0,
+						y: 0,
+						x2: 0,
+						y2: 1,
 						colorStops: [
 							{ offset: 0, color: 'rgba(255, 0, 85, 0.15)' },
 							{ offset: 1, color: 'rgba(255, 0, 85, 0)' }
@@ -148,61 +165,78 @@
 	});
 </script>
 
-<Card class="overflow-hidden border-border/40 bg-card rounded-lg shadow-xl">
-	<CardHeader class="pb-2 border-b border-border/20 bg-muted/10">
+<Card class="overflow-hidden rounded-lg border-border/40 bg-card shadow-xl">
+	<CardHeader class="border-b border-border/20 bg-muted/10 pb-2">
 		<div class="flex items-center justify-between">
 			<div class="flex items-center gap-3">
-				<div class="flex h-9 w-9 items-center justify-center rounded bg-primary/10 border border-primary/20">
+				<div
+					class="flex h-9 w-9 items-center justify-center rounded border border-primary/20 bg-primary/10"
+				>
 					<Activity class="h-4 w-4 text-primary" />
 				</div>
 				<div>
-					<CardTitle class="flex items-center gap-3 text-sm font-bold uppercase tracking-wider">
+					<CardTitle class="flex items-center gap-3 text-sm font-bold tracking-wider uppercase">
 						{title}
-						<span class="flex items-center gap-1.5 rounded-sm bg-red-500/10 px-1.5 py-0.5 text-[10px] font-bold uppercase text-red-500 border border-red-500/20">
-                      <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500"></span>
-                      Live
-                   </span>
+						<span
+							class="flex items-center gap-1.5 rounded-sm border border-red-500/20 bg-red-500/10 px-1.5 py-0.5 text-[10px] font-bold text-red-500 uppercase"
+						>
+							<span class="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500"></span>
+							Live
+						</span>
 					</CardTitle>
 					{#if description}
-						<CardDescription class="mt-0.5 text-xs font-mono">{description}</CardDescription>
+						<CardDescription class="mt-0.5 font-mono text-xs">{description}</CardDescription>
 					{/if}
 				</div>
 			</div>
 
 			{#if data.length > 0}
-				<div class="flex items-center gap-4 rounded-md bg-black/40 border border-border/30 px-3 py-1.5 font-mono">
+				<div
+					class="flex items-center gap-4 rounded-md border border-border/30 bg-black/40 px-3 py-1.5 font-mono"
+				>
 					<div class="flex flex-col">
-						<span class="text-[9px] text-muted-foreground uppercase tracking-widest">Min Spd</span>
+						<span class="text-[9px] tracking-widest text-muted-foreground uppercase">Min Spd</span>
 						<div class="flex items-center gap-1">
-							<span class="text-sm font-bold text-foreground tabular-nums leading-none">{minSpeed.toFixed(1)}</span>
+							<span class="text-sm leading-none font-bold text-foreground tabular-nums"
+								>{minSpeed.toFixed(1)}</span
+							>
 						</div>
 					</div>
 					<div class="h-6 w-px bg-border/50"></div>
 					<div class="flex flex-col">
-						<span class="text-[9px] text-muted-foreground uppercase tracking-widest">Max Spd</span>
+						<span class="text-[9px] tracking-widest text-muted-foreground uppercase">Max Spd</span>
 						<div class="flex items-center gap-1">
-							<span class="text-sm font-bold text-foreground tabular-nums leading-none">{maxSpeed.toFixed(1)}</span>
+							<span class="text-sm leading-none font-bold text-foreground tabular-nums"
+								>{maxSpeed.toFixed(1)}</span
+							>
 						</div>
 					</div>
 				</div>
 			{/if}
 		</div>
 	</CardHeader>
-	<CardContent class="p-4 bg-[#0a0f18]"> {#if data.length === 0}
-		<div
+	<CardContent class="bg-[#0a0f18] p-4">
+		{#if data.length === 0}
+			<div
 				class="flex h-80 flex-col items-center justify-center gap-4 rounded-md border border-dashed border-muted-foreground/20 bg-black/20"
-		>
-			<div class="relative flex h-16 w-16 items-center justify-center rounded-full bg-muted/20">
-				<Radio class="h-6 w-6 text-muted-foreground/60 animate-pulse" />
-				<div class="absolute inset-0 rounded-full border-2 border-muted-foreground/10 animate-ping"></div>
+			>
+				<div class="relative flex h-16 w-16 items-center justify-center rounded-full bg-muted/20">
+					<Radio class="h-6 w-6 animate-pulse text-muted-foreground/60" />
+					<div
+						class="absolute inset-0 animate-ping rounded-full border-2 border-muted-foreground/10"
+					></div>
+				</div>
+				<div class="text-center font-mono">
+					<p class="text-sm font-bold tracking-widest text-muted-foreground uppercase">
+						En attente de connexion radio
+					</p>
+					<p class="mt-1 text-xs text-muted-foreground/50">
+						Acquisition des données télémétriques en cours...
+					</p>
+				</div>
 			</div>
-			<div class="text-center font-mono">
-				<p class="text-sm font-bold text-muted-foreground uppercase tracking-widest">En attente de connexion radio</p>
-				<p class="mt-1 text-xs text-muted-foreground/50">Acquisition des données télémétriques en cours...</p>
-			</div>
-		</div>
-	{:else}
-		<EChart {option} style="height: 320px; width: 100%;" />
-	{/if}
+		{:else}
+			<EChart {option} style="height: 320px; width: 100%;" />
+		{/if}
 	</CardContent>
 </Card>

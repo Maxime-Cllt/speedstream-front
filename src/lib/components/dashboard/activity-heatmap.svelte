@@ -140,7 +140,9 @@
 			</div>
 			Carte d'activité
 		</CardTitle>
-		<CardDescription class="mt-1">Intensité des passages par capteur et par heure de la journée</CardDescription>
+		<CardDescription class="mt-1"
+			>Intensité des passages par capteur et par heure de la journée</CardDescription
+		>
 	</CardHeader>
 	<CardContent>
 		{#if data.length === 0}

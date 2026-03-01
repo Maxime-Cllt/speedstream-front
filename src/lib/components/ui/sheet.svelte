@@ -27,7 +27,7 @@
 		tabindex="0"
 	></div>
 	<div
-		class="bg-background fixed inset-y-0 right-0 z-50 h-full w-full border-l p-6 shadow-lg transition-transform duration-300 sm:w-3/4 sm:max-w-md"
+		class="fixed inset-y-0 right-0 z-50 h-full w-full border-l bg-background p-6 shadow-lg transition-transform duration-300 sm:w-3/4 sm:max-w-md"
 		style="transform: translateX(0%);"
 	>
 		{@render children()}

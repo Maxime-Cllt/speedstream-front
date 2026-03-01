@@ -132,7 +132,9 @@
 			</div>
 			Vitesse moyenne par capteur
 		</CardTitle>
-		<CardDescription class="mt-1">Vitesses moyennes comparées entre les capteurs actifs</CardDescription>
+		<CardDescription class="mt-1"
+			>Vitesses moyennes comparées entre les capteurs actifs</CardDescription
+		>
 	</CardHeader>
 	<CardContent>
 		{#if data.length === 0}

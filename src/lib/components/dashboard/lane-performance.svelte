@@ -135,7 +135,9 @@
 			</div>
 			Performance par corridor
 		</CardTitle>
-		<CardDescription class="mt-1">Vitesse, max, min et volume comparés entre voie gauche et voie droite</CardDescription>
+		<CardDescription class="mt-1"
+			>Vitesse, max, min et volume comparés entre voie gauche et voie droite</CardDescription
+		>
 	</CardHeader>
 	<CardContent>
 		{#if data.length === 0}

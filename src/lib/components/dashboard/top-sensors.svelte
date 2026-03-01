@@ -66,9 +66,7 @@
 			</div>
 			Top 5 capteurs
 		</CardTitle>
-		<CardDescription class="mt-1"
-			>Capteurs les plus actifs — passages et vitesses</CardDescription
-		>
+		<CardDescription class="mt-1">Capteurs les plus actifs — passages et vitesses</CardDescription>
 	</CardHeader>
 	<CardContent>
 		{#if data.length === 0}
