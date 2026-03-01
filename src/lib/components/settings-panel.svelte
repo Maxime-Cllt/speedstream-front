@@ -24,11 +24,6 @@
 
 	let { availableSensors }: Props = $props();
 
-	$effect(() => {
-		console.log('SettingsPanelavailableSensors:', availableSensors);
-		console.log('SettingsPanel selectedSensors:', $settings.selectedSensors);
-	});
-
 	let open = $state(false);
 
 	const updateIntervals = [

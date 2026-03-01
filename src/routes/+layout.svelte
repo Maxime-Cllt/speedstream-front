@@ -14,10 +14,15 @@
 	// que le onMount de la page ne se déclenche (onMount enfant > onMount parent)
 	if (browser) {
 		settings.init();
+		// Utilise le token et URL de l'env uniquement si ils sont définis
+		// sinon garde les settings localStorage
 		settings.update((s) => ({
 			...s,
 			dataMode: data.envConfig.dataMode,
-			apiUrl: data.envConfig.apiUrl || s.apiUrl,
+			apiUrl:
+				data.envConfig.apiUrl && data.envConfig.apiUrl !== 'http://localhost:8080'
+					? data.envConfig.apiUrl
+					: s.apiUrl,
 			apiToken: data.envConfig.apiToken || s.apiToken
 		}));
 	}
