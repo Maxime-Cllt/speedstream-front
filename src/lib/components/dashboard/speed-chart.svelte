@@ -8,7 +8,7 @@
 	import EChart from '../ui/echart.svelte';
 	import { Lane } from '../../types/speed-data';
 	import { format } from 'date-fns';
-	import { Activity, Waves } from 'lucide-svelte';
+	import { Activity, Radio } from 'lucide-svelte';
 
 	interface Props {
 		data: SpeedData[];
@@ -16,7 +16,7 @@
 		description?: string;
 	}
 
-	let { data, title = 'Vitesses en temps réel', description }: Props = $props();
+	let { data, title = 'Télémétrie : Vitesse (kph)', description }: Props = $props();
 
 	let processedData = $derived.by(() => {
 		const leftLaneData = data.filter((d) => d.lane === Lane.Left);
@@ -29,277 +29,180 @@
 
 		const leftSpeeds = allTimestamps.map((ts) => leftLaneMap.get(ts) ?? null);
 		const rightSpeeds = allTimestamps.map((ts) => rightLaneMap.get(ts) ?? null);
-		const timestamps = allTimestamps.map((ts) => format(new Date(ts), 'HH:mm'));
+		// Affichage précis avec secondes et millisecondes si applicable en course
+		const timestamps = allTimestamps.map((ts) => format(new Date(ts), 'HH:mm:ss'));
 
 		return { leftSpeeds, rightSpeeds, timestamps };
 	});
 
 	let minSpeed = $derived(
-		Math.min(...data.map((d) => d.speed).filter((s) => s !== null && !isNaN(s)))
+			Math.min(...data.map((d) => d.speed).filter((s) => s !== null && !isNaN(s)))
 	);
 
 	let maxSpeed = $derived(
-		Math.max(...data.map((d) => d.speed).filter((s) => s !== null && !isNaN(s)))
+			Math.max(...data.map((d) => d.speed).filter((s) => s !== null && !isNaN(s)))
 	);
 
+	// Style Télémétrie : Couleurs néon contrastées
+	const colorCar1 = '#00f2fe'; // Cyan tech
+	const colorCar2 = '#ff0055'; // Magenta/Rouge racing
+	const fontMono = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+
 	let option = $derived({
+		backgroundColor: 'transparent',
 		tooltip: {
 			trigger: 'axis',
 			axisPointer: {
-				type: 'line',
-				lineStyle: {
-					color: 'rgba(255, 255, 255, 0.3)',
-					width: 1,
-					type: 'dashed'
-				}
+				type: 'cross', // Réticule en croix typique des logiciels d'analyse
+				label: {
+					backgroundColor: '#1e293b',
+					fontFamily: fontMono,
+				},
+				lineStyle: { color: 'rgba(255, 255, 255, 0.4)', type: 'solid' }
 			},
 			backgroundColor: 'rgba(15, 23, 42, 0.95)',
 			borderColor: 'rgba(255, 255, 255, 0.1)',
-			textStyle: {
-				color: '#f1f5f9',
-				fontFamily: 'system-ui, sans-serif',
-				fontSize: 12
-			},
+			textStyle: { color: '#f1f5f9', fontFamily: fontMono, fontSize: 12 },
 			padding: [12, 16],
-			cornerRadius: 8,
-			extraCssText: 'box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);'
+			cornerRadius: 4, // Bords plus francs
 		},
 		legend: {
 			data: [
-				{
-					name: 'Voie gauche',
-					icon: 'roundRect',
-					itemWidth: 12,
-					itemHeight: 4
-				},
-				{
-					name: 'Voie droite',
-					icon: 'roundRect',
-					itemWidth: 12,
-					itemHeight: 4
-				}
+				{ name: 'Voie Gauche', icon: 'rect', itemWidth: 16, itemHeight: 4 },
+				{ name: 'Voie Droite', icon: 'rect', itemWidth: 16, itemHeight: 4 }
 			],
-			textStyle: {
-				color: '#94a3b8',
-				fontFamily: 'system-ui, sans-serif'
-			},
-			top: 8,
-			itemGap: 24
+			textStyle: { color: '#94a3b8', fontFamily: fontMono, fontSize: 11 },
+			top: 0,
+			right: 10,
 		},
 		grid: {
-			left: '2%',
-			right: '2%',
-			bottom: '2%',
-			top: '18%',
-			containLabel: true
+			left: '2%', right: '2%', bottom: '2%', top: '15%', containLabel: true
 		},
 		xAxis: {
 			type: 'category',
 			boundaryGap: false,
 			data: processedData.timestamps,
-			axisLine: {
-				lineStyle: {
-					color: 'rgba(148, 163, 184, 0.2)'
-				}
-			},
-			axisTick: {
-				show: false
-			},
+			axisLine: { lineStyle: { color: '#334155' } },
+			axisTick: { show: true, lineStyle: { color: '#334155' } },
 			axisLabel: {
 				color: '#64748b',
-				fontFamily: 'system-ui, sans-serif',
-				fontSize: 11,
-				interval: Math.floor(processedData.timestamps.length / 8)
-			}
+				fontFamily: fontMono,
+				fontSize: 10,
+				interval: 'auto'
+			},
+			splitLine: { show: true, lineStyle: { color: 'rgba(51, 65, 85, 0.3)', type: 'dashed' } }
 		},
 		yAxis: {
 			type: 'value',
-			name: 'km/h',
-			nameTextStyle: {
-				color: '#64748b',
-				fontFamily: 'system-ui, sans-serif',
-				fontSize: 11,
-				padding: [0, 30, 0, 0]
-			},
-			axisLine: {
-				show: false
-			},
-			axisTick: {
-				show: false
-			},
-			axisLabel: {
-				color: '#64748b',
-				fontFamily: 'system-ui, sans-serif',
-				fontSize: 11
-			},
-			splitLine: {
-				lineStyle: {
-					color: 'rgba(148, 163, 184, 0.1)',
-					type: 'dashed'
-				}
-			}
+			name: 'VITESSE (KPH)',
+			nameTextStyle: { color: '#64748b', fontFamily: fontMono, fontSize: 10, padding: [0, 20, 0, 0] },
+			axisLine: { show: true, lineStyle: { color: '#334155' } },
+			axisTick: { show: true },
+			axisLabel: { color: '#94a3b8', fontFamily: fontMono, fontSize: 11 },
+			splitLine: { lineStyle: { color: 'rgba(51, 65, 85, 0.5)', type: 'solid' } } // Grille solide typique
 		},
 		series: [
 			{
-				name: 'Voie gauche',
+				name: 'Voie Gauche',
 				type: 'line',
-				smooth: 0.35,
-				symbol: 'circle',
-				symbolSize: 6,
-				showSymbol: false,
+				smooth: 0, // IMPORTANT : Pas de lissage en course auto, on veut la donnée pure
+				symbol: 'none',
+				step: false,
 				sampling: 'lttb',
 				connectNulls: true,
-				triggerLineEvent: true,
-				itemStyle: {
-					color: '#0ea5e9'
-				},
-				lineStyle: {
-					width: 3,
-					shadowColor: 'rgba(14, 165, 233, 0.5)',
-					shadowBlur: 8,
-					shadowOffsetY: 4
-				},
+				itemStyle: { color: colorCar1 },
+				lineStyle: { width: 1.5 }, // Ligne plus fine pour la précision
 				areaStyle: {
 					color: {
-						type: 'linear',
-						x: 0,
-						y: 0,
-						x2: 0,
-						y2: 1,
+						type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
 						colorStops: [
-							{
-								offset: 0,
-								color: 'rgba(14, 165, 233, 0.25)'
-							},
-							{
-								offset: 0.5,
-								color: 'rgba(14, 165, 233, 0.08)'
-							},
-							{
-								offset: 1,
-								color: 'rgba(14, 165, 233, 0.02)'
-							}
+							{ offset: 0, color: 'rgba(0, 242, 254, 0.15)' },
+							{ offset: 1, color: 'rgba(0, 242, 254, 0)' }
 						]
-					}
-				},
-				emphasis: {
-					focus: 'series',
-					itemStyle: {
-						borderColor: '#fff',
-						borderWidth: 2
 					}
 				},
 				data: processedData.leftSpeeds
 			},
 			{
-				name: 'Voie droite',
+				name: 'Voie Droite',
 				type: 'line',
-				smooth: 0.35,
-				symbol: 'circle',
-				symbolSize: 6,
-				showSymbol: false,
+				smooth: 0, // Donnée pure
+				symbol: 'none',
 				sampling: 'lttb',
 				connectNulls: true,
-				triggerLineEvent: true,
-				itemStyle: {
-					color: '#f97316'
-				},
-				lineStyle: {
-					width: 3,
-					shadowColor: 'rgba(249, 115, 22, 0.5)',
-					shadowBlur: 8,
-					shadowOffsetY: 4
-				},
+				itemStyle: { color: colorCar2 },
+				lineStyle: { width: 1.5 },
 				areaStyle: {
 					color: {
-						type: 'linear',
-						x: 0,
-						y: 0,
-						x2: 0,
-						y2: 1,
+						type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
 						colorStops: [
-							{
-								offset: 0,
-								color: 'rgba(249, 115, 22, 0.25)'
-							},
-							{
-								offset: 0.5,
-								color: 'rgba(249, 115, 22, 0.08)'
-							},
-							{
-								offset: 1,
-								color: 'rgba(249, 115, 22, 0.02)'
-							}
+							{ offset: 0, color: 'rgba(255, 0, 85, 0.15)' },
+							{ offset: 1, color: 'rgba(255, 0, 85, 0)' }
 						]
-					}
-				},
-				emphasis: {
-					focus: 'series',
-					itemStyle: {
-						borderColor: '#fff',
-						borderWidth: 2
 					}
 				},
 				data: processedData.rightSpeeds
 			}
 		],
-		animation: true,
-		animationDuration: 800,
-		animationEasing: 'cubicOut'
+		animation: false // On désactive l'animation pour un rendu "Live Data" immédiat
 	});
 </script>
 
-<Card class="overflow-hidden border-border/50 bg-linear-to-b from-card to-card/50">
-	<CardHeader class="pb-4">
+<Card class="overflow-hidden border-border/40 bg-card rounded-lg shadow-xl">
+	<CardHeader class="pb-2 border-b border-border/20 bg-muted/10">
 		<div class="flex items-center justify-between">
-			<div>
-				<CardTitle class="flex items-center gap-2 text-lg">
-					<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-						<Activity class="h-4 w-4 text-primary" />
-					</div>
-					{title}
-					<span class="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-500">
-						<span class="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500"></span>
-						En direct
-					</span>
-				</CardTitle>
-				{#if description}
-					<CardDescription class="mt-1">{description}</CardDescription>
-				{/if}
+			<div class="flex items-center gap-3">
+				<div class="flex h-9 w-9 items-center justify-center rounded bg-primary/10 border border-primary/20">
+					<Activity class="h-4 w-4 text-primary" />
+				</div>
+				<div>
+					<CardTitle class="flex items-center gap-3 text-sm font-bold uppercase tracking-wider">
+						{title}
+						<span class="flex items-center gap-1.5 rounded-sm bg-red-500/10 px-1.5 py-0.5 text-[10px] font-bold uppercase text-red-500 border border-red-500/20">
+                      <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500"></span>
+                      Live
+                   </span>
+					</CardTitle>
+					{#if description}
+						<CardDescription class="mt-0.5 text-xs font-mono">{description}</CardDescription>
+					{/if}
+				</div>
 			</div>
 
 			{#if data.length > 0}
-				<div class="flex items-center gap-3 rounded-xl bg-muted/50 p-2 pr-3">
-					<div class="flex items-center gap-1.5">
-						<div class="h-2 w-2 rounded-full bg-sky-500"></div>
-						<span class="text-xs font-medium text-muted-foreground">
-							Min: <span class="text-foreground">{minSpeed.toFixed(1)}</span>
-						</span>
+				<div class="flex items-center gap-4 rounded-md bg-black/40 border border-border/30 px-3 py-1.5 font-mono">
+					<div class="flex flex-col">
+						<span class="text-[9px] text-muted-foreground uppercase tracking-widest">Min Spd</span>
+						<div class="flex items-center gap-1">
+							<span class="text-sm font-bold text-foreground tabular-nums leading-none">{minSpeed.toFixed(1)}</span>
+						</div>
 					</div>
-					<div class="h-4 w-px bg-border"></div>
-					<div class="flex items-center gap-1.5">
-						<div class="h-2 w-2 rounded-full bg-orange-500"></div>
-						<span class="text-xs font-medium text-muted-foreground">
-							Max: <span class="text-foreground">{maxSpeed.toFixed(1)}</span>
-						</span>
+					<div class="h-6 w-px bg-border/50"></div>
+					<div class="flex flex-col">
+						<span class="text-[9px] text-muted-foreground uppercase tracking-widest">Max Spd</span>
+						<div class="flex items-center gap-1">
+							<span class="text-sm font-bold text-foreground tabular-nums leading-none">{maxSpeed.toFixed(1)}</span>
+						</div>
 					</div>
 				</div>
 			{/if}
 		</div>
 	</CardHeader>
-	<CardContent>
-		{#if data.length === 0}
-			<div
-				class="flex h-80 flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/5"
-			>
-				<div class="flex h-14 w-14 items-center justify-center rounded-full bg-muted">
-					<Waves class="h-7 w-7 text-muted-foreground/50" />
-				</div>
-				<p class="text-sm font-medium text-muted-foreground">Aucune donnée disponible</p>
-				<p class="text-xs text-muted-foreground/70">Les données apparaîtront ici</p>
+	<CardContent class="p-4 bg-[#0a0f18]"> {#if data.length === 0}
+		<div
+				class="flex h-80 flex-col items-center justify-center gap-4 rounded-md border border-dashed border-muted-foreground/20 bg-black/20"
+		>
+			<div class="relative flex h-16 w-16 items-center justify-center rounded-full bg-muted/20">
+				<Radio class="h-6 w-6 text-muted-foreground/60 animate-pulse" />
+				<div class="absolute inset-0 rounded-full border-2 border-muted-foreground/10 animate-ping"></div>
 			</div>
-		{:else}
-			<EChart {option} style="height: 320px" />
-		{/if}
+			<div class="text-center font-mono">
+				<p class="text-sm font-bold text-muted-foreground uppercase tracking-widest">En attente de connexion radio</p>
+				<p class="mt-1 text-xs text-muted-foreground/50">Acquisition des données télémétriques en cours...</p>
+			</div>
+		</div>
+	{:else}
+		<EChart {option} style="height: 320px; width: 100%;" />
+	{/if}
 	</CardContent>
 </Card>

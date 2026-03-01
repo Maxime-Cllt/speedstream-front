@@ -1,5 +1,6 @@
 <div align="center">
     <h1>Race Board</h1>
+    <em>A real-time racetrack monitoring application built with Svelte and Bun.</em>
 </div>
 
 <div align="center">
@@ -96,7 +97,8 @@ bun run dev
 
 The application will be available at `http://localhost:3001`.
 
-> **Note**: In DEV or PROD mode, make sure your [SpeedStream](https://github.com/Maxime-Cllt/SpeedStream) backend is running. See the [ENDPOINTS.md](../race-board/ENDPOINTS.md) file for API documentation.
+> **Note**: In DEV or PROD mode, make sure your [SpeedStream](https://github.com/Maxime-Cllt/SpeedStream) backend is
+> running. See the [ENDPOINTS.md](../race-board/ENDPOINTS.md) file for API documentation.
 
 ## 🔗 See Also
 
