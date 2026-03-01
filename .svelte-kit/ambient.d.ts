@@ -42,6 +42,8 @@ declare module '$env/static/private' {
 	export const API_TOKEN: string;
 	export const API_URL: string;
 	export const APP_PORT: string;
+	export const NoDefaultCurrentDirectoryInExePath: string;
+	export const CLAUDE_CODE_ENTRYPOINT: string;
 	export const NODE: string;
 	export const TERM: string;
 	export const SHELL: string;
@@ -49,6 +51,7 @@ declare module '$env/static/private' {
 	export const TMPDIR: string;
 	export const TERM_SESSION_ID: string;
 	export const npm_config_local_prefix: string;
+	export const GIT_EDITOR: string;
 	export const USER: string;
 	export const COMMAND_MODE: string;
 	export const SSH_AUTH_SOCK: string;
@@ -62,6 +65,7 @@ declare module '$env/static/private' {
 	export const npm_command: string;
 	export const PWD: string;
 	export const npm_lifecycle_event: string;
+	export const OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE: string;
 	export const npm_package_name: string;
 	export const LANG: string;
 	export const XPC_FLAGS: string;
@@ -74,12 +78,14 @@ declare module '$env/static/private' {
 	export const LOGNAME: string;
 	export const npm_lifecycle_script: string;
 	export const LC_CTYPE: string;
+	export const COREPACK_ENABLE_AUTO_PIN: string;
 	export const BUN_INSTALL: string;
 	export const npm_config_user_agent: string;
 	export const INFOPATH: string;
 	export const HOMEBREW_CELLAR: string;
 	export const OSLogRateLimit: string;
 	export const TOOLBOX_VERSION: string;
+	export const CLAUDECODE: string;
 	export const npm_node_execpath: string;
 	export const NODE_ENV: string;
 	export const PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS: string;
@@ -173,6 +179,8 @@ declare module '$env/dynamic/private' {
 		API_TOKEN: string;
 		API_URL: string;
 		APP_PORT: string;
+		NoDefaultCurrentDirectoryInExePath: string;
+		CLAUDE_CODE_ENTRYPOINT: string;
 		NODE: string;
 		TERM: string;
 		SHELL: string;
@@ -180,6 +188,7 @@ declare module '$env/dynamic/private' {
 		TMPDIR: string;
 		TERM_SESSION_ID: string;
 		npm_config_local_prefix: string;
+		GIT_EDITOR: string;
 		USER: string;
 		COMMAND_MODE: string;
 		SSH_AUTH_SOCK: string;
@@ -193,6 +202,7 @@ declare module '$env/dynamic/private' {
 		npm_command: string;
 		PWD: string;
 		npm_lifecycle_event: string;
+		OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE: string;
 		npm_package_name: string;
 		LANG: string;
 		XPC_FLAGS: string;
@@ -205,12 +215,14 @@ declare module '$env/dynamic/private' {
 		LOGNAME: string;
 		npm_lifecycle_script: string;
 		LC_CTYPE: string;
+		COREPACK_ENABLE_AUTO_PIN: string;
 		BUN_INSTALL: string;
 		npm_config_user_agent: string;
 		INFOPATH: string;
 		HOMEBREW_CELLAR: string;
 		OSLogRateLimit: string;
 		TOOLBOX_VERSION: string;
+		CLAUDECODE: string;
 		npm_node_execpath: string;
 		NODE_ENV: string;
 		PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS: string;
