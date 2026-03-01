@@ -23,6 +23,10 @@ function createThemeStore() {
 				applyTheme(t);
 			}
 		},
+		set(t: Theme) {
+			set(t);
+			applyTheme(t);
+		},
 		toggle() {
 			update((current) => {
 				const next: Theme = current === 'dark' ? 'light' : 'dark';
