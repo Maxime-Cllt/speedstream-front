@@ -19,12 +19,12 @@ racing activities.
 
 <table style="border-collapse: collapse; border: none;">
   <tr>
-    <td><img src="../race-board/assets/sc1.png" alt="Screenshot 1" width="350"></td>
-    <td><img src="../race-board/assets/sc2.png" alt="Screenshot 2" width="350"></td>
+    <td><img src="assets/1.png" alt="Screenshot 1" width="350"></td>
+    <td><img src="assets/2.png" alt="Screenshot 2" width="350"></td>
   </tr>
   <tr>
-    <td><img src="../race-board/assets/sc3.png" alt="Screenshot 3" width="350"></td>
-    <td><img src="../race-board/assets/sc4.png" alt="Screenshot 4" width="350"></td>
+    <td><img src="/assets/3.png" alt="Screenshot 3" width="350"></td>
+    <td><img src="assets/4.png" alt="Screenshot 4" width="350"></td>
   </tr>
 </table>
 
@@ -94,11 +94,6 @@ bun install
 ```bash
 bun run dev
 ```
-
-The application will be available at `http://localhost:3001`.
-
-> **Note**: In DEV or PROD mode, make sure your [SpeedStream](https://github.com/Maxime-Cllt/SpeedStream) backend is
-> running. See the [ENDPOINTS.md](../race-board/ENDPOINTS.md) file for API documentation.
 
 ## 🔗 See Also
 
