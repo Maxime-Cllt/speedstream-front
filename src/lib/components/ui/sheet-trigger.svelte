@@ -2,13 +2,15 @@
 	import type { Snippet } from 'svelte';
 
 	interface Props {
-		class?: string;
+		asChild?: boolean;
 		children: Snippet;
 	}
 
-	let { class: className = '', children }: Props = $props();
+	let { asChild = false, children }: Props = $props();
 </script>
 
-<div class={'p-6 pt-0 ' + className}>
+{#if asChild}
 	{@render children()}
-</div>
+{:else}
+	{@render children()}
+{/if}
