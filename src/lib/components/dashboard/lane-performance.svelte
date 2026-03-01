@@ -128,7 +128,7 @@
 </script>
 
 <Card class="overflow-hidden border-border/50 bg-gradient-to-b from-card to-card/50">
-	<CardHeader class="pb-4">
+	<CardHeader>
 		<CardTitle class="flex items-center gap-2 text-lg">
 			<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
 				<ArrowLeftRight class="h-4 w-4 text-primary" />

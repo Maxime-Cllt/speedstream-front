@@ -153,7 +153,7 @@
 </script>
 
 <Card class="overflow-hidden border-border/50 bg-gradient-to-b from-card to-card/50">
-	<CardHeader class="pb-4">
+	<CardHeader>
 		<div class="flex items-center justify-between">
 			<div>
 				<CardTitle class="flex items-center gap-2 text-lg">
