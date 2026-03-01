@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-
 	interface Option {
 		value: string;
 		label: string;
@@ -95,7 +93,7 @@
 		<div
 			class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-popover p-1 shadow-md"
 		>
-			{#each options as option}
+			{#each options as option (option.value)}
 				<button
 					type="button"
 					class="relative flex w-full cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none select-none hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"

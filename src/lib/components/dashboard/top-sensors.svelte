@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { SpeedData } from '../../types/speed-data';
-	import { Radio, TrendingUp, Zap, Activity, Waves } from 'lucide-svelte';
+	import { TrendingUp, Zap, Activity, Waves } from 'lucide-svelte';
 	import Card from '../ui/card.svelte';
 	import CardHeader from '../ui/card-header.svelte';
 	import CardTitle from '../ui/card-title.svelte';
@@ -80,7 +80,7 @@
 			</div>
 		{:else}
 			<div class="space-y-3">
-				{#each topSensors as sensor, index}
+				{#each topSensors as sensor, index (sensor.name)}
 					<div
 						class="group relative overflow-hidden rounded-xl border border-border/50 bg-gradient-to-br from-muted/30 to-muted/10 p-4 transition-all hover:scale-[1.01] hover:border-primary/30 hover:shadow-md"
 					>

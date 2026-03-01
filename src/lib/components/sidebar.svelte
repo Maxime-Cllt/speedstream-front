@@ -122,7 +122,7 @@
 
 							<!-- Liste des capteurs -->
 							<div class="max-h-48 space-y-0.5 overflow-y-auto">
-								{#each $availableSensors as sensor}
+								{#each $availableSensors as sensor (sensor)}
 									<button
 										onclick={() => toggleSensor(sensor)}
 										class="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-left transition-colors hover:bg-muted/60 {isSensorSelected(

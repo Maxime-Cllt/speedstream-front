@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { SpeedData } from '../../types/speed-data';
 	import { format } from 'date-fns';
-	import { Clock, TrendingUp, BarChart3, Waves } from 'lucide-svelte';
+	import { TrendingUp, BarChart3, Waves } from 'lucide-svelte';
 	import Card from '../ui/card.svelte';
 	import CardHeader from '../ui/card-header.svelte';
 	import CardTitle from '../ui/card-title.svelte';
@@ -37,8 +37,6 @@
 
 		return { hours, avgSpeeds, counts };
 	});
-
-	let maxCount = $derived(Math.max(...processedData.counts, 1));
 
 	let option = $derived({
 		tooltip: {

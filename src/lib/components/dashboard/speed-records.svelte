@@ -39,7 +39,6 @@
 
 	// Resizing
 	let isResizing = $state(false);
-	let resizingColumn = $state<string | null>(null);
 	let startX = $state(0);
 	let startWidth = $state(0);
 
@@ -47,7 +46,6 @@
 		e.preventDefault();
 		e.stopPropagation();
 		isResizing = true;
-		resizingColumn = column;
 		startX = e.clientX;
 		startWidth = currentWidth;
 
@@ -64,7 +62,6 @@
 
 		const handleUp = () => {
 			isResizing = false;
-			resizingColumn = null;
 			document.removeEventListener('mousemove', handleMove);
 			document.removeEventListener('mouseup', handleUp);
 		};

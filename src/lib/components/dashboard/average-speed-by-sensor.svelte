@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { SpeedData } from '../../types/speed-data';
-	import { Radio, Gauge, Waves } from 'lucide-svelte';
+	import { Gauge, Waves } from 'lucide-svelte';
 	import Card from '../ui/card.svelte';
 	import CardHeader from '../ui/card-header.svelte';
 	import CardTitle from '../ui/card-title.svelte';
@@ -40,8 +40,6 @@
 
 		return { sensorNames: sortedNames, averageSpeeds: sortedSpeeds };
 	});
-
-	let maxSpeed = $derived(Math.max(...processedData.averageSpeeds, 1));
 
 	let option = $derived({
 		tooltip: {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { SpeedData } from '../../types/speed-data';
-	import { Clock, Sunrise, Sun, Sunset, Moon, Activity, Zap } from 'lucide-svelte';
+	import { Sunrise, Sun, Sunset, Moon, Activity, Zap } from 'lucide-svelte';
 	import Card from '../ui/card.svelte';
 	import CardHeader from '../ui/card-header.svelte';
 	import CardTitle from '../ui/card-title.svelte';
@@ -94,8 +94,6 @@
 			count: 0
 		})
 	);
-
-	let maxCount = $derived(Math.max(...processedData.periodStats.map((p) => p.count), 1));
 
 	let option = $derived({
 		tooltip: {
@@ -264,7 +262,7 @@
 		{:else}
 			<EChart {option} style="height: 350px" />
 			<div class="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
-				{#each processedData.periodStats as stat}
+				{#each processedData.periodStats as stat (stat.period)}
 					{@const colors = periodColors[stat.period as keyof typeof periodColors]}
 					{@const Icon = periodIcons[stat.period as keyof typeof periodIcons]}
 					<div

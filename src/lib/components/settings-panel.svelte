@@ -255,7 +255,7 @@
 							{sensorSearch ? 'Aucun capteur ne correspond' : 'Aucun capteur détecté'}
 						</p>
 					{:else}
-						{#each filteredSensorsList as sensor}
+						{#each filteredSensorsList as sensor (sensor)}
 							<button
 								onclick={() => toggleSensor(sensor)}
 								class="group flex items-center justify-between rounded-lg border px-3 py-2.5 transition-all {isSensorSelected(

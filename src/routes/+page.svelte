@@ -25,7 +25,6 @@
 	import TopSensors from '$lib/components/dashboard/top-sensors.svelte';
 	import TimePeriodAnalysis from '$lib/components/dashboard/time-period-analysis.svelte';
 	import SettingsPanel from '$lib/components/settings-panel.svelte';
-	import Select from '$lib/components/ui/select.svelte';
 
 	let hasNewRecord = $state(false);
 	let previousMaxSpeed = $state(0);

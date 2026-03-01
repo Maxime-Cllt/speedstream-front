@@ -3,7 +3,7 @@
 	import Card from '../ui/card.svelte';
 	import CardHeader from '../ui/card-header.svelte';
 	import CardContent from '../ui/card-content.svelte';
-	import { Timer, TrendingUp, TrendingDown, Minus } from 'lucide-svelte';
+	import { Timer } from 'lucide-svelte';
 
 	interface Props {
 		class?: string;
@@ -58,8 +58,6 @@
 			? 'bg-purple-500/10 text-purple-500'
 			: 'bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary'
 	);
-
-	const TrendIcon = $derived(trend === 'up' ? TrendingUp : trend === 'down' ? TrendingDown : Minus);
 
 	// Les couleurs de delta en course : Vert = plus rapide/meilleur, Rouge = plus lent/pire
 	// (Attention : selon le KPI, "down" peut être positif, ex: temps au tour)

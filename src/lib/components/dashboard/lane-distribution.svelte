@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { SpeedData } from '../../types/speed-data';
 	import { Lane } from '../../types/speed-data';
-	import { Route, Gauge, Waves } from 'lucide-svelte';
+	import { Route, Waves } from 'lucide-svelte';
 	import Card from '../ui/card.svelte';
 	import CardHeader from '../ui/card-header.svelte';
 	import CardTitle from '../ui/card-title.svelte';
