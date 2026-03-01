@@ -2,7 +2,6 @@
 	import type { ComponentType } from 'svelte';
 	import Card from '../ui/card.svelte';
 	import CardHeader from '../ui/card-header.svelte';
-	import CardTitle from '../ui/card-title.svelte';
 	import CardContent from '../ui/card-content.svelte';
 	import { Trophy, TrendingUp, TrendingDown, Minus } from 'lucide-svelte';
 
@@ -86,9 +85,9 @@
 	{/if}
 
 	<CardHeader class="relative z-10 flex flex-row items-center justify-between space-y-0 pb-3">
-		<CardTitle class="text-sm tracking-wide {titleClasses}">
+		<p class="text-sm tracking-wide {titleClasses}">
 			{title}
-		</CardTitle>
+		</p>
 
 		<div
 			class="flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 {iconBgClasses}"

@@ -114,7 +114,7 @@
 		</div>
 	</header>
 
-	<main class="mx-auto px-6 py-8">
+	<main class="w-full px-6 py-8">
 		{#if $isLoading}
 			<div class="flex h-64 items-center justify-center">
 				<div class="text-muted-foreground">Chargement des données...</div>
