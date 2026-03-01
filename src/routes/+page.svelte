@@ -25,6 +25,7 @@
 	import TopSensors from '$lib/components/dashboard/top-sensors.svelte';
 	import TimePeriodAnalysis from '$lib/components/dashboard/time-period-analysis.svelte';
 	import SettingsPanel from '$lib/components/settings-panel.svelte';
+	import Select from '$lib/components/ui/select.svelte';
 
 	let hasNewRecord = $state(false);
 	let previousMaxSpeed = $state(0);
@@ -70,45 +71,47 @@
 </script>
 
 <div class="flex min-h-screen flex-col">
-	<header class="border-border bg-card border-b">
+	<header class="border-b border-border bg-card">
 		<div class="mx-auto px-6 py-6">
 			<div class="flex items-center justify-between">
 				<div>
-					<h1 class="text-foreground flex items-center gap-3 text-4xl font-bold">
-						<Zap class="text-primary h-8 w-8" />
+					<h1 class="flex items-center gap-3 text-4xl font-bold text-foreground">
+						<Zap class="h-8 w-8 text-primary" />
 						RaceTrack Analytics
 					</h1>
-					<p class="text-muted-foreground mt-1">Racing Speed Analytics Dashboard</p>
+					<p class="mt-1 text-muted-foreground">Racing Speed Analytics Dashboard</p>
 				</div>
 				<div class="flex items-center gap-4">
 					<div class="flex items-center gap-2">
-						<span
-							class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors {isSimulation
-								? 'border-transparent bg-primary text-primary-foreground'
-								: 'border-transparent bg-secondary text-secondary-foreground'}"
-						>
-							{isSimulation ? 'SIMULATION' : 'API LIVE'}
-						</span>
-						<div
-							class="h-2 w-2 rounded-full {$connectionError
-								? 'bg-destructive'
-								: $isConnected
-									? 'animate-pulse bg-green-500'
-									: 'bg-yellow-500'}"
-						></div>
-						<span class="text-muted-foreground text-sm">
-							{#if isSimulation}
-								Données simulées
-							{:else if $connectionError}
-								Erreur de connexion
-							{:else if $isConnected}
-								SSE connecté
-							{:else}
-								Connexion en cours...
-							{/if}
-						</span>
+						<div class="flex items-center gap-2">
+							<span
+								class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors {isSimulation
+									? 'border-transparent bg-primary text-primary-foreground'
+									: 'border-transparent bg-secondary text-secondary-foreground'}"
+							>
+								{isSimulation ? 'SIMULATION' : 'API LIVE'}
+							</span>
+							<div
+								class="h-2 w-2 rounded-full {$connectionError
+									? 'bg-destructive'
+									: $isConnected
+										? 'animate-pulse bg-green-500'
+										: 'bg-yellow-500'}"
+							></div>
+							<span class="text-sm text-muted-foreground">
+								{#if isSimulation}
+									Données simulées
+								{:else if $connectionError}
+									Erreur de connexion
+								{:else if $isConnected}
+									SSE connecté
+								{:else}
+									Connexion en cours...
+								{/if}
+							</span>
+						</div>
+						<SettingsPanel availableSensors={$availableSensors} />
 					</div>
-					<SettingsPanel availableSensors={$availableSensors} />
 				</div>
 			</div>
 		</div>
@@ -155,7 +158,8 @@
 					<SpeedChart
 						data={$filteredData}
 						title="Évolution des vitesses"
-						description="Vitesses enregistrées (simulation - mise à jour toutes les {$settings.updateInterval / 1000}s)"
+						description="Vitesses enregistrées (simulation - mise à jour toutes les {$settings.updateInterval /
+							1000}s)"
 					/>
 				</div>
 			{/if}
@@ -174,7 +178,7 @@
 
 			<!-- Advanced Analytics -->
 			{#if $displaySettings.showHourlyTrend || $displaySettings.showSpeedRecords || $displaySettings.showSpeedDistribution || $displaySettings.showAverageSpeedBySensor || $displaySettings.showActivityHeatmap || $displaySettings.showLanePerformance || $displaySettings.showSpeedConsistency || $displaySettings.showTopSensors || $displaySettings.showTimePeriodAnalysis}
-				<h2 class="text-foreground mb-6 text-2xl font-bold">Analyses avancées</h2>
+				<h2 class="mb-6 text-2xl font-bold text-foreground">Analyses avancées</h2>
 
 				{#if $displaySettings.showHourlyTrend}
 					<div class="mb-8">
@@ -229,14 +233,14 @@
 			{/if}
 
 			<!-- Footer -->
-			<div class="border-border bg-card mt-8 rounded-lg border p-6">
+			<div class="mt-8 rounded-lg border border-border bg-card p-6">
 				<div class="flex items-start gap-4">
-					<div class="bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full">
-						<Activity class="text-primary h-5 w-5" />
+					<div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+						<Activity class="h-5 w-5 text-primary" />
 					</div>
 					<div>
 						<h3 class="mb-1 text-lg font-semibold">À propos de RaceTrack Analytics</h3>
-						<p class="text-muted-foreground text-sm">
+						<p class="text-sm text-muted-foreground">
 							Système de Business Intelligence pour l'analyse des données de vitesse collectées par
 							capteurs sur circuit. Mode SIMULATION : Les données affichées sont générées
 							aléatoirement pour la démonstration de l'interface.

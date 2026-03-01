@@ -13,15 +13,21 @@
 	import SheetHeader from './ui/sheet-header.svelte';
 	import SheetTitle from './ui/sheet-title.svelte';
 	import SheetDescription from './ui/sheet-description.svelte';
-	import { Settings, RotateCcw, Wifi, WifiOff, Eye, EyeOff } from 'lucide-svelte';
+	import { Settings, RotateCcw, Wifi, WifiOff, Eye, EyeOff, Activity } from 'lucide-svelte';
 
 	let showToken = $state(false);
+	let sensorSearch = $state('');
 
 	interface Props {
 		availableSensors: string[];
 	}
 
 	let { availableSensors }: Props = $props();
+
+	$effect(() => {
+		console.log('SettingsPanelavailableSensors:', availableSensors);
+		console.log('SettingsPanel selectedSensors:', $settings.selectedSensors);
+	});
 
 	let open = $state(false);
 
@@ -68,6 +74,10 @@
 	function toggleChart(key: string, value: boolean) {
 		settings.update((s) => ({ ...s, [key]: value }));
 	}
+
+	const filteredSensorsList = $derived(
+		availableSensors.filter((s) => s.toLowerCase().includes(sensorSearch.toLowerCase()))
+	);
 </script>
 
 <Sheet bind:open onOpenChange={(o) => (open = o)}>
@@ -136,7 +146,7 @@
 						<Label class="text-xs">URL de l'API</Label>
 						<input
 							type="url"
-							class="bg-background h-8 w-full rounded border px-2 text-sm"
+							class="h-8 w-full rounded border bg-background px-2 text-sm"
 							placeholder="http://localhost:8080"
 							value={$settings.apiUrl}
 							oninput={(e) =>
@@ -152,7 +162,7 @@
 						<div class="relative">
 							<input
 								type={showToken ? 'text' : 'password'}
-								class="bg-background h-8 w-full rounded border px-2 pr-8 text-sm"
+								class="h-8 w-full rounded border bg-background px-2 pr-8 text-sm"
 								placeholder="Bearer token..."
 								value={$settings.apiToken}
 								oninput={(e) =>
@@ -164,7 +174,7 @@
 							<button
 								type="button"
 								onclick={() => (showToken = !showToken)}
-								class="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+								class="absolute top-1/2 right-2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
 							>
 								{#if showToken}
 									<EyeOff class="h-3.5 w-3.5" />
@@ -197,35 +207,106 @@
 			<!-- Sensors -->
 			<div class="space-y-4 border-t pt-4">
 				<div class="flex items-center justify-between">
-					<h3 class="text-sm font-semibold">Capteurs</h3>
-					{#if $settings.selectedSensors.length > 0}
+					<div class="flex items-center gap-2">
+						<Activity class="h-4 w-4 text-primary" />
+						<h3 class="text-sm font-semibold">Flux des Capteurs</h3>
+					</div>
+					<div class="flex gap-1">
 						<Button
 							variant="ghost"
-							size="sm"
+							class="h-7 px-2 text-[10px] tracking-wider uppercase"
 							onclick={() => settings.update((s) => ({ ...s, selectedSensors: [] }))}
 						>
-							Tout afficher
+							Tous
 						</Button>
-					{/if}
+						{#if availableSensors.length > 0}
+							<Button
+								variant="ghost"
+								class="h-7 px-2 text-[10px] tracking-wider text-muted-foreground uppercase"
+								onclick={() => {
+									const current = $settings.selectedSensors;
+									const next = availableSensors.filter((s) => !current.includes(s));
+									settings.update((s) => ({ ...s, selectedSensors: next }));
+								}}
+							>
+								Inverser
+							</Button>
+						{/if}
+					</div>
 				</div>
-				<div class="space-y-2">
-					{#if availableSensors.length === 0}
-						<p class="text-muted-foreground py-4 text-center text-sm">Aucun capteur détecté</p>
+
+				{#if availableSensors.length > 5}
+					<div class="relative">
+						<input
+							type="text"
+							placeholder="Rechercher un capteur..."
+							bind:value={sensorSearch}
+							class="h-8 w-full rounded-md border border-border bg-background px-3 py-1 text-xs focus:ring-1 focus:ring-primary focus:outline-none"
+						/>
+						{#if sensorSearch}
+							<button
+								onclick={() => (sensorSearch = '')}
+								class="absolute top-1/2 right-2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+							>
+								<RotateCcw class="h-3 w-3" />
+							</button>
+						{/if}
+					</div>
+				{/if}
+
+				<div class="grid grid-cols-2 gap-2">
+					{#if filteredSensorsList.length === 0}
+						<p class="col-span-2 py-4 text-center text-sm text-muted-foreground italic">
+							{sensorSearch ? 'Aucun capteur ne correspond' : 'Aucun capteur détecté'}
+						</p>
 					{:else}
-						{#each availableSensors as sensor}
-							<div class="flex items-center justify-between">
-								<Label for={`sensor-${sensor}`} class="cursor-pointer text-sm">
-									{sensor}
-								</Label>
-								<Switch
-									id={`sensor-${sensor}`}
-									checked={isSensorSelected(sensor)}
-									onchange={() => toggleSensor(sensor)}
-								/>
-							</div>
+						{#each filteredSensorsList as sensor}
+							<button
+								onclick={() => toggleSensor(sensor)}
+								class="group flex items-center justify-between rounded-lg border px-3 py-2.5 transition-all {isSensorSelected(
+									sensor
+								)
+									? 'border-primary/50 bg-primary/5 ring-1 ring-primary/20'
+									: 'border-border bg-card hover:border-border/80'}"
+							>
+								<div class="flex flex-col items-start gap-0.5">
+									<span
+										class="text-[10px] font-bold tracking-tighter text-muted-foreground uppercase transition-colors group-hover:text-primary/70"
+										>Sensor</span
+									>
+									<span
+										class="text-sm font-semibold {isSensorSelected(sensor)
+											? 'text-foreground'
+											: 'text-muted-foreground'}">{sensor}</span
+									>
+								</div>
+								<div
+									class="flex h-5 w-5 items-center justify-center rounded-full border transition-all {isSensorSelected(
+										sensor
+									)
+										? 'border-primary bg-primary text-primary-foreground'
+										: 'border-muted-foreground/30 bg-transparent'}"
+								>
+									{#if isSensorSelected(sensor)}
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="4"
+											class="h-3 w-3"><path d="M20 6 9 17l-5-5" /></svg
+										>
+									{/if}
+								</div>
+							</button>
 						{/each}
 					{/if}
 				</div>
+				{#if $settings.selectedSensors.length > 0}
+					<p class="text-[10px] text-muted-foreground italic">
+						* {$settings.selectedSensors.length} capteur(s) filtré(s) activement
+					</p>
+				{/if}
 			</div>
 
 			<!-- Lanes -->
@@ -270,7 +351,7 @@
 								<Label class="w-16 shrink-0 text-xs">Min (km/h)</Label>
 								<input
 									type="number"
-									class="bg-background h-8 w-full rounded border px-2 text-sm"
+									class="h-8 w-full rounded border bg-background px-2 text-sm"
 									min="0"
 									max="500"
 									value={$settings.speedThresholdMin}
@@ -285,7 +366,7 @@
 								<Label class="w-16 shrink-0 text-xs">Max (km/h)</Label>
 								<input
 									type="number"
-									class="bg-background h-8 w-full rounded border px-2 text-sm"
+									class="h-8 w-full rounded border bg-background px-2 text-sm"
 									min="0"
 									max="500"
 									value={$settings.speedThresholdMax}
@@ -345,7 +426,8 @@
 						/>
 					</div>
 					<div class="flex items-center justify-between">
-						<Label for="show-sensor" class="cursor-pointer text-sm">Statistiques des capteurs</Label>
+						<Label for="show-sensor" class="cursor-pointer text-sm">Statistiques des capteurs</Label
+						>
 						<Switch
 							id="show-sensor"
 							checked={$settings.showSensorStats}
@@ -384,7 +466,9 @@
 						/>
 					</div>
 					<div class="flex items-center justify-between">
-						<Label for="show-avg-sensor" class="cursor-pointer text-sm">Vitesse moy. par capteur</Label>
+						<Label for="show-avg-sensor" class="cursor-pointer text-sm"
+							>Vitesse moy. par capteur</Label
+						>
 						<Switch
 							id="show-avg-sensor"
 							checked={$settings.showAverageSpeedBySensor}
@@ -400,7 +484,9 @@
 						/>
 					</div>
 					<div class="flex items-center justify-between">
-						<Label for="show-lane-perf" class="cursor-pointer text-sm">Performance des corridors</Label>
+						<Label for="show-lane-perf" class="cursor-pointer text-sm"
+							>Performance des corridors</Label
+						>
 						<Switch
 							id="show-lane-perf"
 							checked={$settings.showLanePerformance}
@@ -408,7 +494,9 @@
 						/>
 					</div>
 					<div class="flex items-center justify-between">
-						<Label for="show-consistency" class="cursor-pointer text-sm">Consistance des vitesses</Label>
+						<Label for="show-consistency" class="cursor-pointer text-sm"
+							>Consistance des vitesses</Label
+						>
 						<Switch
 							id="show-consistency"
 							checked={$settings.showSpeedConsistency}

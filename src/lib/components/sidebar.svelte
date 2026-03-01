@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { Zap, Sun, Moon, ChevronRight, ChevronLeft } from 'lucide-svelte';
 	import { theme } from '$lib/stores/theme';
+	import { settings } from '$lib/stores/settings';
+	import { availableSensors } from '$lib/stores/data';
 	import pkg from '../../../package.json';
 
 	let open = $state(false);
@@ -31,9 +33,53 @@
 	<div class="flex-1 overflow-hidden">
 		{#if open}
 			<div class="space-y-4 p-4">
+				<!-- Capteurs -->
+				{#if $availableSensors.length > 0}
+					<div>
+						<p class="mb-2 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+							Capteurs
+						</p>
+						<div class="mb-2 flex gap-1">
+							<button
+								onclick={() =>
+									settings.update((s) => ({ ...s, selectedSensors: [...$availableSensors] }))}
+								class="flex-1 rounded px-2 py-1 text-xs text-muted-foreground hover:bg-muted hover:text-foreground"
+							>
+								Tout cocher
+							</button>
+							<button
+								onclick={() => settings.update((s) => ({ ...s, selectedSensors: [] }))}
+								class="flex-1 rounded px-2 py-1 text-xs text-muted-foreground hover:bg-muted hover:text-foreground"
+							>
+								Tout décocher
+							</button>
+						</div>
+						<div class="max-h-48 space-y-1 overflow-y-auto">
+							{#each $availableSensors as sensor}
+								<label class="flex cursor-pointer items-center gap-2 text-sm">
+									<input
+										type="checkbox"
+										checked={$settings.selectedSensors.length === 0 ||
+											$settings.selectedSensors.includes(sensor)}
+										onchange={() => {
+											const current = $settings.selectedSensors;
+											const newSensors = current.includes(sensor)
+												? current.filter((s) => s !== sensor)
+												: [...current, sensor];
+											settings.update((s) => ({ ...s, selectedSensors: newSensors }));
+										}}
+										class="h-4 w-4 rounded border-input"
+									/>
+									<span class="truncate">{sensor}</span>
+								</label>
+							{/each}
+						</div>
+					</div>
+				{/if}
+
 				<!-- Apparence -->
 				<div>
-					<p class="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+					<p class="mb-2 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
 						Apparence
 					</p>
 					<div class="space-y-1">
