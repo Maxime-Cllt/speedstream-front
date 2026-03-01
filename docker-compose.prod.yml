@@ -10,8 +10,11 @@ services:
       - NODE_ENV=production
       - PORT=3000
       - APP_MODE=PROD
-      - API_URL=${API_URL:-http://api:8080}
-      - API_TOKEN=${API_TOKEN}
+      - API_URL=${API_URL:-http://host.docker.internal:8080}
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    env_file:
+      - .env
     restart: unless-stopped
     healthcheck:
       test: ['CMD', 'wget', '--spider', '-q', 'http://localhost:3000']

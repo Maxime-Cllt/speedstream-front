@@ -1,15 +1,16 @@
-import { APP_MODE, API_URL, API_TOKEN } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import type { LayoutServerLoad } from './$types';
 import type { DataMode } from '$lib/types/settings';
 
-export const load: LayoutServerLoad = () => {
-	const dataMode: DataMode = APP_MODE === 'SIMULATION' ? 'simulation' : 'api';
+export const load: LayoutServerLoad = async () => {
+	const appMode = env.APP_MODE || 'SIMULATION';
+	const dataMode: DataMode = appMode === 'SIMULATION' ? 'simulation' : 'api';
 
 	return {
 		envConfig: {
 			dataMode,
-			apiUrl: API_URL ?? 'http://localhost:8080',
-			apiToken: API_TOKEN ?? ''
+			apiUrl: env.API_URL || 'http://localhost:8080',
+			apiToken: env.API_TOKEN || ''
 		}
 	};
 };
